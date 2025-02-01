@@ -1,35 +1,30 @@
-#!/bin/zsh
+#!/bin/bash
 
 # URL编码函数
 encode_url() {
     cat "$1" | tr -d '\r' | python -c "import sys, urllib.parse; print(urllib.parse.quote(sys.stdin.read().strip()), end='')"
 }
 
-# 检查源文件
-if [ ! -f "0.txt" ]; then
-    echo "错误：找不到源文件 0.txt"
-    exit 1
-fi
+# 检查参数
+[ $# -ne 1 ] && { echo "用法: ./encode.sh <mitce|bajie>"; exit 1; }
 
-# 生成 singbox URL (使用LF)
+# 选择源文件
+case "$1" in
+    "mitce") SOURCE_FILE="mitce.txt" ;;
+    "bajie") SOURCE_FILE="bajie.txt" ;;
+    *) echo "参数错误: 请使用 mitce 或 bajie"; exit 1; ;;
+esac
+
+[ ! -f "$SOURCE_FILE" ] && { echo "错误: 找不到 $SOURCE_FILE"; exit 1; }
+
+# 生成 URLs
 printf "http://nas:5000/" > singbox.txt
-encode_url "0.txt" >> singbox.txt
+encode_url "$SOURCE_FILE" >> singbox.txt
 printf "\n" >> singbox.txt
 
-# 生成 clash URL (使用LF) 
 printf "http://nas:5002/" > clash.txt
-encode_url "0.txt" >> clash.txt
+encode_url "$SOURCE_FILE" >> clash.txt
 printf "\n" >> clash.txt
-
-# 验证文件格式
-echo "=== 文件格式检查 ==="
-for file in singbox.txt clash.txt; do
-    format=$(file "$file" | grep -o "with \(CRLF\|LF\)" | awk '{print $2}')
-    if [ -z "$format" ]; then
-        format="LF"  # 如果没检测到特定格式，默认为LF
-    fi
-    echo "$file: $format"
-done
 
 # 显示结果
 printf "\n=== Singbox URL ===\n"
