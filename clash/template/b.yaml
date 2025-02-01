@@ -115,18 +115,17 @@ dns:
 proxies: []
 
 proxy-groups:
-  - {name: Proxy, type: select, include-all-proxies: true, proxies: [Singapore, Korea, Hong Kong, TaiWan, United States, Japan, DIRECT]}
-  - {name: Google, type: select, proxies: [Singapore, Proxy, Hong Kong, TaiWan, Korea, United States, Japan]}
-  - {name: OpenAi, type: select, proxies: [Singapore, Proxy, United States, TaiWan, Korea, Hong Kong, Japan]}
-  - {name: Telegram, type: select, proxies: [Singapore, Proxy, United States, TaiWan, Korea, Hong Kong, Japan]}
-  - {name: TikTok, type: select, proxies: [Japan, Proxy, Singapore, Hong Kong, TaiWan, Korea, United States]}
-  - {name: Steam, type: select, proxies: [Hong Kong, Proxy, Singapore, TaiWan, United States, Korea, Japan, DIRECT]}
-  - {name: Netflix, type: select, proxies: [Singapore, Proxy, Hong Kong, TaiWan, United States, Korea, Japan]}
-  - {name: PikPak, type: select, proxies: [Singapore, Proxy, Hong Kong, TaiWan, United States, Korea, Japan]}
-  - {name: PikPak-Download, type: select, proxies: [DIRECT, Proxy, Singapore, TaiWan, Hong Kong, Korea, United States, Japan]}
-  - {name: SpeedTest, type: select, proxies: [Proxy, Hong Kong, Singapore, TaiWan, United States, Korea, Japan, DIRECT]}
-  - {name: Final, type: select, proxies: [DIRECT, Proxy, Hong Kong, Singapore, TaiWan, United States, Korea, Japan]}
-  - {name: Korea, filter: '(?i)(韩国|kr|korea)', include-all-proxies: true, type: load-balance, url: https://cp.cloudflare.com/generate_204, interval: 60, lazy: true, strategy: consistent-hashing}
+  - {name: Proxy, type: select, filter: '(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|tw|kr)).*$', include-all-proxies: true, proxies: [Singapore, Hong Kong, TaiWan, United States, Japan, DIRECT]}
+  - {name: Google, type: select, proxies: [Singapore, Proxy, Hong Kong, TaiWan, United States, Japan]}
+  - {name: OpenAi, type: select, proxies: [Singapore, Proxy, United States, TaiWan, Hong Kong, Japan]}
+  - {name: Telegram, type: select, proxies: [Singapore, Proxy, United States, TaiWan, Hong Kong, Japan]}
+  - {name: TikTok, type: select, proxies: [Japan, Proxy, Singapore, Hong Kong, TaiWan, United States]}
+  - {name: Steam, type: select, proxies: [Hong Kong, Proxy, Singapore, TaiWan, United States, Japan, DIRECT]}
+  - {name: Netflix, type: select, proxies: [Singapore, Proxy, Hong Kong, TaiWan, United States, Japan]}
+  - {name: PikPak, type: select, proxies: [Singapore, Proxy, Hong Kong, TaiWan, United States, Japan]}
+  - {name: PikPak-Download, type: select, proxies: [DIRECT, Proxy, Singapore, TaiWan, Hong Kong, United States, Japan]}
+  - {name: SpeedTest, type: select, proxies: [Proxy, Hong Kong, Singapore, TaiWan, United States, Japan, DIRECT]}
+  - {name: Final, type: select, proxies: [DIRECT, Proxy, Hong Kong, Singapore, TaiWan, United States, Japan]}
   - {name: TaiWan, filter: '(?i)(台湾|tw|taiwan|tai wan)', include-all-proxies: true, type: load-balance, url: https://cp.cloudflare.com/generate_204, interval: 60, lazy: true, strategy: consistent-hashing}
   - {name: Hong Kong, filter: '(?i)(香港|hk|hong)', include-all-proxies: true, type: load-balance, url: https://cp.cloudflare.com/generate_204, interval: 60, lazy: true, strategy: consistent-hashing}
   - {name: Japan, filter: '(?i)(日本|jp|japan)', include-all-proxies: true, type: load-balance, url: https://cp.cloudflare.com/generate_204, interval: 60, lazy: true, strategy: consistent-hashing}
