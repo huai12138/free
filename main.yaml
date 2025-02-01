@@ -1,3 +1,4 @@
+#已经弃用
 mixed-port: 12138
 allow-lan: true
 mode: rule
