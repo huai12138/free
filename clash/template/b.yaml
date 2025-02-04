@@ -108,7 +108,6 @@ dns:
   use-hosts: true
   use-system-hosts: false
   default-nameserver: [1.1.1.1, 223.5.5.5]
-  direct-nameserver: ['https://dns.alidns.com/dns-query#DIRECT']
   proxy-server-nameserver: ['https://dns.alidns.com/dns-query']
   nameserver: [https://cloudflare-dns.com/dns-query#Proxy]
   nameserver-policy:
