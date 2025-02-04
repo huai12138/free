@@ -54,6 +54,7 @@ skip-auth-prefixes: # 设置跳过验证的 IP 段
   - 10.0.0.0/24 # 仅允许 10.0.0.1-10.0.0.255
   - 127.0.0.1/8 # 仅允许 127.0.0.0-127.255.255.255 (本地回环地址)
   - 192.168.0.0/16 # 仅允许 192.168.0.0-192.168.255.255
+external-ui: ui  
 #external-ui-name: yacd
 global-client-fingerprint: chrome
 external-ui-url: 'https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip'
