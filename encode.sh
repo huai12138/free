@@ -6,13 +6,14 @@ encode_url() {
 }
 
 # 检查参数
-[ $# -ne 1 ] && { echo "用法: ./encode.sh <mitce|bajie>"; exit 1; }
+[ $# -ne 1 ] && { echo "用法: ./encode.sh <mitce|bajie|milkcloud>"; exit 1; }
 
 # 选择源文件
 case "$1" in
     "mitce") SOURCE_FILE="mitce.txt" ;;
     "bajie") SOURCE_FILE="bajie.txt" ;;
-    *) echo "参数错误: 请使用 mitce 或 bajie"; exit 1; ;;
+    "milkcloud") SOURCE_FILE="milkcloud.txt" ;;
+    *) echo "参数错误: 请使用 mitce、bajie 或 milkcloud"; exit 1; ;;
 esac
 
 [ ! -f "$SOURCE_FILE" ] && { echo "错误: 找不到 $SOURCE_FILE"; exit 1; }
