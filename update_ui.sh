@@ -44,8 +44,13 @@ if command -v unzip >/dev/null 2>&1; then
     fi
 else
     echo "未找到unzip命令"
-    rm -rf "$TEMP_DIR" 2>/dev/null
-    exit 1
+    echo "正在安装unzip..."
+    sudo pacman -S --noconfirm unzip || {
+        echo "unzip安装失败"
+        rm -rf "$TEMP_DIR" 2>/dev/null
+        exit 1
+    }
+    echo "unzip安装成功，继续执行..."
 fi
 
 # 检查解压后的目录结构并移动文件
