@@ -113,6 +113,7 @@ dns:
   nameserver: [https://cloudflare-dns.com/dns-query#Proxy]
   nameserver-policy:
     'rule-set:proxy': 'https://cloudflare-dns.com/dns-query#Proxy'
+    'rule-set:firefox': 'https://cloudflare-dns.com/dns-query#Proxy'
     'rule-set:bilibili': 'https://dns.alidns.com/dns-query#DIRECT'
     'rule-set:xiaomi': 'https://dns.alidns.com/dns-query#DIRECT'
     'rule-set:onedrive': 'https://cloudflare-dns.com/dns-query#Proxy'
@@ -247,6 +248,10 @@ rule-providers:
     <<: *domain-defaults
     path: ./rules/docker.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/docker.mrs
+  firefox:
+    <<: *domain-defaults
+    path: ./rules/firefox.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/firefox.mrs
   github:
     <<: *domain-defaults
     path: ./rules/github.mrs
@@ -383,6 +388,7 @@ rules:
   # 代理服务
   - RULE-SET,proxy,Proxy # 代理列表
   - RULE-SET,pikpak,Singapore # PikPak服务
+  - RULE-SET,firefox,Proxy # Firefox服务
   # 国内应用直连
   - RULE-SET,xiaomi,DIRECT # 小米服务
   - RULE-SET,bilibili,DIRECT # B站
