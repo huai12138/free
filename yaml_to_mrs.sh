@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 # 询问用户选择规则集类型
 echo "请选择规则集类型（输入 1 选择 domain，输入 2 选择 ipcidr）："
