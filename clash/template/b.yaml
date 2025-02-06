@@ -149,7 +149,7 @@ proxies: []
 proxy-groups:
   - name: Proxy
     type: select
-    filter: '(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire)).*$'
+    filter: '(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|x0.5)).*$'
     include-all-proxies: true
     proxies: [Singapore, United States, Japan, Hong Kong, Taiwan, DIRECT]
   - name: Google
@@ -182,15 +182,15 @@ proxy-groups:
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
     interval: 60
-    lazy: true
+    # lazy: true
     strategy: consistent-hashing
   - name: Hong Kong
-    filter: '(?i)(香港|hk|hong)(?!.*(家宽|isp))'
+    filter: '(?i)(香港|hk|hong)(?!.*(家宽|isp|x0.5))'
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
     interval: 60
-    lazy: true
+    #  lazy: true
     strategy: consistent-hashing
   - name: Japan
     filter: '(?i)(日本|jp|japan)'
@@ -198,7 +198,7 @@ proxy-groups:
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
     interval: 60
-    lazy: true
+    #  lazy: true
     strategy: consistent-hashing
   - name: United States
     filter: '(?i)(美国|us|united|america)'
@@ -206,7 +206,7 @@ proxy-groups:
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
     interval: 60
-    lazy: true
+    # lazy: true
     strategy: consistent-hashing
   - name: Singapore
     filter: '(?i)(新加坡|sg|singapore)'
@@ -214,7 +214,7 @@ proxy-groups:
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
     interval: 60
-    lazy: true
+    # lazy: true
     strategy: consistent-hashing
   - name: Final
     type: select
