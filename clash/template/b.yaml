@@ -180,7 +180,7 @@ proxy-groups:
     filter: '(?i)(台湾|tw|taiwan)(?!.*(家宽|isp))'
     include-all-proxies: true
     type: load-balance
-    url: https://cp.cloudflare.com/generate_204
+    url: http://www.gstatic.com/generate_204
     interval: 60
     # lazy: true
     strategy: consistent-hashing
@@ -188,7 +188,7 @@ proxy-groups:
     filter: '(?i)(香港|hk|hong)(?!.*(家宽|isp|x0.5))'
     include-all-proxies: true
     type: load-balance
-    url: https://cp.cloudflare.com/generate_204
+    url: http://www.gstatic.com/generate_204
     interval: 60
     #  lazy: true
     strategy: consistent-hashing
@@ -196,7 +196,7 @@ proxy-groups:
     filter: '(?i)(日本|jp|japan)'
     include-all-proxies: true
     type: load-balance
-    url: https://cp.cloudflare.com/generate_204
+    url: http://www.gstatic.com/generate_204
     interval: 60
     #  lazy: true
     strategy: consistent-hashing
@@ -204,7 +204,7 @@ proxy-groups:
     filter: '(?i)(美国|us|united|america)'
     include-all-proxies: true
     type: load-balance
-    url: https://cp.cloudflare.com/generate_204
+    url: http://www.gstatic.com/generate_204
     interval: 60
     # lazy: true
     strategy: consistent-hashing
@@ -212,7 +212,7 @@ proxy-groups:
     filter: '(?i)(新加坡|sg|singapore)'
     include-all-proxies: true
     type: load-balance
-    url: https://cp.cloudflare.com/generate_204
+    url: http://www.gstatic.com/generate_204
     interval: 60
     # lazy: true
     strategy: consistent-hashing
