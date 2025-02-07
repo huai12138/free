@@ -112,6 +112,83 @@
       "default": "Singapore"
     },
     {
+      "tag": "Google",
+      "type": "selector",
+      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "default": "Proxy"
+    },
+    {
+      "tag": "OpenAi",
+      "type": "selector",
+      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "default": "Proxy"
+    },
+    {
+      "tag": "Steam",
+      "type": "selector",
+      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "default": "HongKong"
+    },
+    {
+      "tag": "Telegram",
+      "type": "selector",
+      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "default": "Proxy"
+    },
+    {
+      "tag": "Twitter",
+      "type": "selector",
+      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "default": "Proxy"
+    },
+    {
+      "tag": "FaceBook",
+      "type": "selector",
+      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "default": "Proxy"
+    },
+    {
+      "tag": "TikTok",
+      "type": "selector",
+      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "default": "Proxy"
+    },
+    {
+      "tag": "Netflix",
+      "type": "selector",
+      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "default": "Proxy"
+    },
+    {
+      "tag": "PikPak",
+      "type": "selector",
+      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "default": "Proxy"
+    },
+    {
+      "tag": "PikPak-Download",
+      "type": "selector",
+      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America", "direct"],
+      "default": "direct"
+    },
+    {
+      "tag": "Final",
+      "type": "selector",
+      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America", "direct"],
+      "default": "direct"
+    },
+    {
+      "tag": "Download",
+      "type": "selector",
+      "outbounds": ["{all}"],
+      "filter": [
+        {
+          "action": "include",
+          "keywords": ["🇸🇬|SG|新加坡|Singapore"]
+        }
+      ]
+    },
+    {
       "tag": "HongKong",
       "type": "urltest",
       "outbounds": ["{all}"],
@@ -198,101 +275,10 @@
           "keywords": ["🇺🇸|US|美国|United States"]
         }
       ]
-    },
-    {
-      "tag": "GLOBAL",
-      "type": "selector",
-      "outbounds": ["Proxy", "TaiWan", "Korea", "HongKong", "Singapore", "Japan", "America", "direct"],
-      "default": "Singapore"
-    },
-    {
-      "tag": "Google",
-      "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
-      "default": "Singapore"
-    },
-    {
-      "tag": "OpenAi",
-      "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
-      "default": "Singapore"
-    },
-    {
-      "tag": "Steam",
-      "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
-      "default": "HongKong"
-    },
-    {
-      "tag": "Telegram",
-      "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
-      "default": "Singapore"
-    },
-    {
-      "tag": "Twitter",
-      "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
-      "default": "America"
-    },
-    {
-      "tag": "FaceBook",
-      "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
-      "default": "America"
-    },
-    {
-      "tag": "TikTok",
-      "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
-      "default": "Japan"
-    },
-    {
-      "tag": "Netflix",
-      "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
-      "default": "Singapore"
-    },
-    {
-      "tag": "PikPak",
-      "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
-      "default": "Singapore"
-    },
-    {
-      "tag": "PikPak-Download",
-      "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America", "direct"],
-      "default": "direct"
-    },
-    {
-      "tag": "Download",
-      "type": "selector",
-      "outbounds": ["{all}"],
-      "filter": [
-        {
-          "action": "include",
-          "keywords": ["🇸🇬|SG|新加坡|Singapore"]
-        }
-      ]
-    },
-    {
-      "tag": "Final",
-      "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America", "direct"],
-      "default": "direct"
     }
   ],
   "route": {
     "rules": [
-      {
-        "clash_mode": "direct",
-        "outbound": "direct"
-      },
-      {
-        "clash_mode": "global",
-        "outbound": "GLOBAL"
-      },
       {
         "rule_set": "pass-ip",
         "outbound": "direct"
