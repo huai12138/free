@@ -174,8 +174,14 @@
     {
       "tag": "Final",
       "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America", "direct"],
-      "default": "direct"
+      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America", "direct", "{all}"],
+      "default": "direct",
+      "filter": [
+        {
+          "action": "exclude",
+          "keywords": ["剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|x0.5"]
+        }
+      ]
     },
     {
       "tag": "Download",
