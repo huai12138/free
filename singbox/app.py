@@ -73,8 +73,8 @@ def process_subscription(sub_path):
                 item.get('tag', '') and 
                 item.get('tag') not in seen_tags):
                 if item.get('type') == 'hysteria2':
-                    item['up_mbps'] = 50
-                    item['down_mbps'] = 300
+                    item['up_mbps'] = 100
+                    item['down_mbps'] = 500
                     
                 # 检查并更新 server_ports
                 node_key = (item.get('type'), item.get('tag'))
