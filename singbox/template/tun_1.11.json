@@ -178,8 +178,8 @@
       "default": "direct",
       "filter": [
         {
-          "action": "exclude",
-          "keywords": ["剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|x0.5"]
+          "action": "match",
+          "regex": ["(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|x0.5)).*$"]
         }
       ]
     },
@@ -189,8 +189,8 @@
       "outbounds": ["{all}"],
       "filter": [
         {
-          "action": "include",
-          "keywords": ["🇸🇬|SG|新加坡|Singapore"]
+          "action": "match",
+          "regex": ["(?i)^(?=.*(🇸🇬|SG|新加坡|Singapore)).*$"]
         }
       ]
     },
@@ -203,8 +203,8 @@
       "tolerance": 20,
       "filter": [
         {
-          "action": "include",
-          "keywords": ["🇭🇰|HK|HK|hk|香港|HongKong"]
+          "action": "match",
+          "regex": ["(?i)^(?=.*(🇭🇰|HK|HK|hk|香港|HongKong)).*$"]
         }
       ]
     },
@@ -217,8 +217,8 @@
       "tolerance": 20,
       "filter": [
         {
-          "action": "include",
-          "keywords": ["🇹🇼|TW|tw|台湾|TaiWan"]
+          "action": "match",
+          "regex": ["(?i)^(?=.*(🇹🇼|TW|tw|台湾|TaiWan)).*$"]
         }
       ]
     },
@@ -231,8 +231,8 @@
       "tolerance": 20,
       "filter": [
         {
-          "action": "include",
-          "keywords": ["🇰🇷|KR|kr|韩国|Korea"]
+          "action": "match",
+          "regex": ["(?i)^(?=.*(🇰🇷|KR|kr|韩国|Korea)).*$"]
         }
       ]
     },
@@ -245,12 +245,8 @@
       "tolerance": 20,
       "filter": [
         {
-          "action": "include",
-          "keywords": ["🇸🇬|SG|sg|新加坡|狮|Singapore"]
-        },
-        {
-          "action": "include",
-          "keywords": ["🇸🇬|SG|新加坡|Singapore"]
+          "action": "match",
+          "regex": ["(?i)^(?=.*(新加坡|sg|singapore))(?!.*(台|日|美|韩)).*$"]
         }
       ]
     },
@@ -263,8 +259,8 @@
       "tolerance": 20,
       "filter": [
         {
-          "action": "include",
-          "keywords": ["🇯🇵|JP|jp|日本|Japan"]
+          "action": "match",
+          "regex": ["(?i)^(?=.*(🇯🇵|JP|jp|日本|Japan)).*$"]
         }
       ]
     },
@@ -277,8 +273,8 @@
       "tolerance": 20,
       "filter": [
         {
-          "action": "include",
-          "keywords": ["🇺🇸|US|美国|United States"]
+          "action": "match",
+          "regex": ["(?i)^(?=.*(🇺🇸|US|美国|United States)).*$"]
         }
       ]
     }

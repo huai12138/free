@@ -5,6 +5,7 @@ import json
 import logging
 import uuid
 from config import USER_AGENT, BASE_DIR, OUTPUT_FOLDER, TEMPLATE_PATH
+import re  # 添加在文件开头
 
 app = Flask(__name__)
 
@@ -108,32 +109,21 @@ def process_subscription(sub_path):
                 
                 if 'filter' in outbound:
                     filtered_tags = set()
+                    group_name = outbound.get('tag', '未知分组')
                     logger.info(f"分组 [{group_name}] 过滤规则: {json.dumps(outbound['filter'], ensure_ascii=False)}")
                     
                     for f in outbound['filter']:
-                        keywords = []
-                        raw_keywords = f.get('keywords', '')
-                        if isinstance(raw_keywords, str):
-                            keywords = raw_keywords.split('|')
-                        elif isinstance(raw_keywords, list):
-                            for k in raw_keywords:
-                                keywords.extend(k.split('|'))
-                                
-                        if f.get('action') == 'exclude':
-                            if not filtered_tags:
-                                filtered_tags = set(node_tags)
-                            excluded = {tag for tag in filtered_tags 
-                                      if any(k.lower() in tag.lower() for k in keywords)}
-                            filtered_tags -= excluded
-                            if excluded:
-                                logger.info(f"分组 [{group_name}] 排除节点: {excluded}")
-                                
-                        elif f.get('action') == 'include':
-                            matched = {tag for tag in node_tags 
-                                     if any(k.lower() in tag.lower() for k in keywords)}
-                            filtered_tags.update(matched)
-                            if matched:
-                                logger.info(f"分组 [{group_name}] 包含节点: {matched}")
+                        if f.get('action') == 'match' and 'regex' in f:
+                            patterns = f['regex']
+                            if isinstance(patterns, str):
+                                patterns = [patterns]
+                            
+                            for pattern in patterns:
+                                regex = re.compile(pattern)
+                                matched = {tag for tag in node_tags if regex.search(tag)}
+                                filtered_tags.update(matched)
+                                if matched:
+                                    logger.info(f"分组 [{group_name}] 正则 '{pattern}' 匹配到节点: {matched}")
                     
                     outbound['outbounds'] = fixed_outbounds + sorted(list(filtered_tags))
                     logger.info(f"分组 [{group_name}] 过滤后节点数: {len(filtered_tags)}")
