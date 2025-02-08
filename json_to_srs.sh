@@ -1,3 +1,4 @@
+#!/bin/bash
 ./sing-box rule-set compile proxy.json
 ./sing-box rule-set compile direct.json
 ./sing-box rule-set compile pass-ip.json
