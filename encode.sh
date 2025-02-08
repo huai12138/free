@@ -6,7 +6,7 @@ encode_url() {
 }
 
 # 检查参数
-[ $# -ne 1 ] && { echo "用法: ./encode.sh <mitce|bajie|milkcloud|aifun>"; exit 1; }
+[ $# -ne 2 ] && { echo "用法: ./encode.sh <mitce|bajie|milkcloud|aifun> <password>"; exit 1; }
 
 # 检查0.zip是否存在
 [ ! -f "0.zip" ] && { echo "错误: 找不到 0.zip"; exit 1; }
@@ -15,8 +15,8 @@ encode_url() {
 TEMP_DIR=$(mktemp -d)
 trap 'rm -rf "$TEMP_DIR"' EXIT
 
-# 使用7z解压0.zip到临时目录
-7z x -p1107530255 0.zip -o"$TEMP_DIR" >/dev/null 2>&1 || { echo "错误: 解压失败"; exit 1; }
+# 使用7z解压0.zip到临时目录，使用第二个参数作为密码
+7z x -p"$2" 0.zip -o"$TEMP_DIR" >/dev/null 2>&1 || { echo "错误: 解压失败，请检查密码是否正确"; exit 1; }
 
 # 根据参数获取对应的URL
 case "$1" in
