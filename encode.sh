@@ -18,8 +18,8 @@ CURRENT_DIR=$(pwd)
 TEMP_DIR=$(mktemp -d)
 trap 'rm -rf "$TEMP_DIR"' EXIT
 
-# 使用7z解压0.zip到临时目录，使用第二个参数作为密码
-7z x -p"$2" 0.zip -o"$TEMP_DIR" >/dev/null 2>&1 || { echo "错误: 解压失败，请检查密码是否正确"; exit 1; }
+# 使用unzip解压0.zip到临时目录，使用第二个参数作为密码
+unzip -P "$2" -q 0.zip -d "$TEMP_DIR" || { echo "错误: 解压失败，请检查密码是否正确"; exit 1; }
 
 # 根据参数获取对应的URL
 case "$1" in
@@ -70,11 +70,11 @@ compress_file() {
     # 在临时目录中压缩文件
     cd "$TEMP_DIR" || return 1
     
-    # 使用绝对路径创建压缩文件
-    if ! 7z a -p"$password" -tzip "$TEMP_DIR/$output" "$(basename $input)" >/dev/null 2>&1; then
+    # 使用zip命令创建加密压缩文件
+    if ! zip -j -P "$password" "$TEMP_DIR/$output" "$(basename $input)" >/dev/null 2>&1; then
         echo "错误: 压缩 $output 失败"
         echo "详细错误信息:"
-        7z a -p"$password" -tzip "$TEMP_DIR/$output" "$(basename $input)" 2>&1
+        zip -j -P "$password" "$TEMP_DIR/$output" "$(basename $input)" 2>&1
         return 1
     fi
     
