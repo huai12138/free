@@ -81,7 +81,9 @@
       "tag": "tun-in",
       "interface_name": "sing-box",
       "mtu": 9000,
-      "address": ["172.19.0.1/30"],
+      "address": [
+        "172.19.0.1/30"
+      ],
       "auto_route": true,
       "strict_route": true,
       "stack": "system",
@@ -108,173 +110,302 @@
     {
       "tag": "Proxy",
       "type": "selector",
-      "outbounds": ["HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America", "direct"],
+      "outbounds": [
+        "HongKong",
+        "TaiWan",
+        "Korea",
+        "Singapore",
+        "Japan",
+        "America",
+        "direct"
+      ],
       "default": "Singapore"
     },
     {
       "tag": "Google",
       "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "outbounds": [
+        "Proxy",
+        "HongKong",
+        "TaiWan",
+        "Korea",
+        "Singapore",
+        "Japan",
+        "America"
+      ],
       "default": "Proxy"
     },
     {
       "tag": "OpenAi",
       "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "outbounds": [
+        "Proxy",
+        "HongKong",
+        "TaiWan",
+        "Korea",
+        "Singapore",
+        "Japan",
+        "America"
+      ],
       "default": "Proxy"
     },
     {
       "tag": "Steam",
       "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "outbounds": [
+        "Proxy",
+        "HongKong",
+        "TaiWan",
+        "Korea",
+        "Singapore",
+        "Japan",
+        "America"
+      ],
       "default": "HongKong"
     },
     {
       "tag": "Telegram",
       "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "outbounds": [
+        "Proxy",
+        "HongKong",
+        "TaiWan",
+        "Korea",
+        "Singapore",
+        "Japan",
+        "America"
+      ],
       "default": "Proxy"
     },
     {
       "tag": "Twitter",
       "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "outbounds": [
+        "Proxy",
+        "HongKong",
+        "TaiWan",
+        "Korea",
+        "Singapore",
+        "Japan",
+        "America"
+      ],
       "default": "Proxy"
     },
     {
       "tag": "FaceBook",
       "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "outbounds": [
+        "Proxy",
+        "HongKong",
+        "TaiWan",
+        "Korea",
+        "Singapore",
+        "Japan",
+        "America"
+      ],
       "default": "Proxy"
     },
     {
       "tag": "TikTok",
       "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "outbounds": [
+        "Proxy",
+        "HongKong",
+        "TaiWan",
+        "Korea",
+        "Singapore",
+        "Japan",
+        "America"
+      ],
       "default": "Proxy"
     },
     {
       "tag": "Netflix",
       "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "outbounds": [
+        "Proxy",
+        "HongKong",
+        "TaiWan",
+        "Korea",
+        "Singapore",
+        "Japan",
+        "America"
+      ],
       "default": "Proxy"
     },
     {
       "tag": "PikPak",
       "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America"],
+      "outbounds": [
+        "Proxy",
+        "HongKong",
+        "TaiWan",
+        "Korea",
+        "Singapore",
+        "Japan",
+        "America"
+      ],
       "default": "Proxy"
     },
     {
       "tag": "PikPak-Download",
       "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America", "direct"],
+      "outbounds": [
+        "Proxy",
+        "HongKong",
+        "TaiWan",
+        "Korea",
+        "Singapore",
+        "Japan",
+        "America",
+        "direct"
+      ],
       "default": "direct"
     },
     {
       "tag": "Final",
       "type": "selector",
-      "outbounds": ["Proxy", "HongKong", "TaiWan", "Korea", "Singapore", "Japan", "America", "direct", "{all}"],
+      "outbounds": [
+        "Proxy",
+        "HongKong",
+        "TaiWan",
+        "Korea",
+        "Singapore",
+        "Japan",
+        "America",
+        "direct",
+        "{all}"
+      ],
       "default": "direct",
       "filter": [
         {
           "action": "match",
-          "regex": ["(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|x0.5)).*$"]
+          "regex": [
+            "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|x0.5)).*$"
+          ]
         }
       ]
     },
     {
       "tag": "Download",
       "type": "selector",
-      "outbounds": ["{all}"],
+      "outbounds": [
+        "{all}"
+      ],
       "filter": [
         {
           "action": "match",
-          "regex": ["(?i)^(?=.*(🇸🇬|SG|新加坡|Singapore)).*$"]
+          "regex": [
+            "(?i)^(?=.*(🇸🇬|SG|新加坡|Singapore)).*$"
+          ]
         }
       ]
     },
     {
       "tag": "HongKong",
       "type": "urltest",
-      "outbounds": ["{all}"],
+      "outbounds": [
+        "{all}"
+      ],
       "url": "http://www.gstatic.com/generate_204",
       "interval": "60s",
       "tolerance": 20,
       "filter": [
         {
           "action": "match",
-          "regex": ["(?i)^(?=.*(🇭🇰|HK|HK|hk|香港|HongKong)).*$"]
+          "regex": [
+            "(?i)^(?=.*(🇭🇰|HK|HK|hk|香港|HongKong)).*$"
+          ]
         }
       ]
     },
     {
       "tag": "TaiWan",
       "type": "urltest",
-      "outbounds": ["{all}"],
+      "outbounds": [
+        "{all}"
+      ],
       "url": "http://www.gstatic.com/generate_204",
       "interval": "60s",
       "tolerance": 20,
       "filter": [
         {
           "action": "match",
-          "regex": ["(?i)^(?=.*(🇹🇼|TW|tw|台湾|TaiWan)).*$"]
+          "regex": [
+            "(?i)^(?=.*(🇹🇼|TW|tw|台湾|TaiWan)).*$"
+          ]
         }
       ]
     },
     {
       "tag": "Korea",
       "type": "urltest",
-      "outbounds": ["{all}"],
+      "outbounds": [
+        "{all}"
+      ],
       "url": "http://www.gstatic.com/generate_204",
       "interval": "60s",
       "tolerance": 20,
       "filter": [
         {
           "action": "match",
-          "regex": ["(?i)^(?=.*(🇰🇷|KR|kr|韩国|Korea)).*$"]
+          "regex": [
+            "(?i)^(?=.*(🇰🇷|KR|kr|韩国|Korea)).*$"
+          ]
         }
       ]
     },
     {
       "tag": "Singapore",
       "type": "urltest",
-      "outbounds": ["{all}"],
+      "outbounds": [
+        "{all}"
+      ],
       "url": "http://www.gstatic.com/generate_204",
       "interval": "60s",
       "tolerance": 20,
       "filter": [
         {
           "action": "match",
-          "regex": ["(?i)^(?=.*(新加坡|sg|singapore))(?!.*(台|日|美|韩)).*$"]
+          "regex": [
+            "(?i)^(?=.*(新加坡|sg|singapore))(?!.*(台|日|美|韩)).*$"
+          ]
         }
       ]
     },
     {
       "tag": "Japan",
       "type": "urltest",
-      "outbounds": ["{all}"],
+      "outbounds": [
+        "{all}"
+      ],
       "url": "http://www.gstatic.com/generate_204",
       "interval": "60s",
       "tolerance": 20,
       "filter": [
         {
           "action": "match",
-          "regex": ["(?i)^(?=.*(🇯🇵|JP|jp|日本|Japan)).*$"]
+          "regex": [
+            "(?i)^(?=.*(🇯🇵|JP|jp|日本|Japan)).*$"
+          ]
         }
       ]
     },
     {
       "tag": "America",
       "type": "urltest",
-      "outbounds": ["{all}"],
+      "outbounds": [
+        "{all}"
+      ],
       "url": "http://www.gstatic.com/generate_204",
       "interval": "60s",
       "tolerance": 20,
       "filter": [
         {
           "action": "match",
-          "regex": ["(?i)^(?=.*(🇺🇸|US|美国|United States)).*$"]
+          "regex": [
+            "(?i)^(?=.*(🇺🇸|US|美国|United States)).*$"
+          ]
         }
       ]
     }
@@ -286,16 +417,25 @@
         "outbound": "direct"
       },
       {
-        "inbound": ["mixed-in", "tun-in"],
+        "inbound": [
+          "mixed-in",
+          "tun-in"
+        ],
         "action": "sniff"
       },
       {
-        "inbound": ["mixed-in", "tun-in"],
+        "inbound": [
+          "mixed-in",
+          "tun-in"
+        ],
         "action": "resolve",
         "strategy": "ipv4_only"
       },
       {
-        "rule_set": ["direct", "direct-ip"],
+        "rule_set": [
+          "direct",
+          "direct-ip"
+        ],
         "outbound": "direct"
       },
       {
@@ -395,23 +535,39 @@
         "outbound": "Proxy"
       },
       {
+        "rule_set": "geosite-googlefcm",
+        "outbound": "Google"
+      },
+      {
         "rule_set": "geosite-youtube",
         "outbound": "Google"
       },
       {
-        "rule_set": ["geoip-google", "geosite-google"],
+        "rule_set": [
+          "geoip-google",
+          "geosite-google"
+        ],
         "outbound": "Google"
       },
       {
-        "rule_set": ["geoip-telegram", "geosite-telegram"],
+        "rule_set": [
+          "geoip-telegram",
+          "geosite-telegram"
+        ],
         "outbound": "Telegram"
       },
       {
-        "rule_set": ["geoip-twitter", "geosite-twitter"],
+        "rule_set": [
+          "geoip-twitter",
+          "geosite-twitter"
+        ],
         "outbound": "Twitter"
       },
       {
-        "rule_set": ["geoip-facebook", "geosite-facebook"],
+        "rule_set": [
+          "geoip-facebook",
+          "geosite-facebook"
+        ],
         "outbound": "FaceBook"
       },
       {
@@ -423,15 +579,25 @@
         "outbound": "TikTok"
       },
       {
-        "rule_set": ["geoip-netflix", "geosite-netflix"],
+        "rule_set": [
+          "geoip-netflix",
+          "geosite-netflix"
+        ],
         "outbound": "Netflix"
+      },
+      {
+        "rule_set": "geosite-gfw",
+        "outbound": "Proxy"
       },
       {
         "rule_set": "geosite-microsoft",
         "outbound": "direct"
       },
       {
-        "rule_set": ["geoip-cn", "geosite-cn"],
+        "rule_set": [
+          "geoip-cn",
+          "geosite-cn"
+        ],
         "outbound": "direct"
       }
     ],
@@ -742,6 +908,20 @@
         "type": "remote",
         "format": "binary",
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/steam.srs",
+        "download_detour": "Download"
+      },
+      {
+        "tag": "geosite-googlefcm",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/googlefcm.srs",
+        "download_detour": "Download"
+      },
+      {
+        "tag": "geosite-gfw",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/gfw.srs",
         "download_detour": "Download"
       }
     ],
