@@ -452,7 +452,7 @@ rules:
   - RULE-SET,netflix-ip,Netflix # Netflix IP
 
   # 科技公司服务
-  - RULE-SET,googlefcm,Google # Google FCM服务
+  - RULE-SET,googlefcm,DIRECT # Google FCM服务
   - RULE-SET,google,Google # Google服务
   - RULE-SET,google-ip,Google # Google IP
   - RULE-SET,microsoft,DIRECT # 微软服务

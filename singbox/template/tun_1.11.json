@@ -536,7 +536,7 @@
       },
       {
         "rule_set": "geosite-googlefcm",
-        "outbound": "Google"
+        "outbound": "direct"
       },
       {
         "rule_set": "geosite-youtube",
