@@ -412,7 +412,6 @@ rules:
   #######################
   # 代理服务
   - RULE-SET,proxy,Proxy # 代理列表
-  - RULE-SET,gfw,Proxy # GFW封锁列表
   - RULE-SET,pikpak,Singapore # PikPak服务
   - RULE-SET,firefox,Proxy # Firefox服务
   # 国内应用直连
@@ -461,7 +460,7 @@ rules:
   - RULE-SET,google,Google # Google服务
   - RULE-SET,google-ip,Google # Google IP
   - RULE-SET,microsoft,DIRECT # 微软服务
-
+  - RULE-SET,gfw,Proxy # GFW封锁列表
   # 中国大陆直连
   - RULE-SET,cn,DIRECT # 中国大陆域名
   - RULE-SET,cn-ip,DIRECT # 中国大陆IP
