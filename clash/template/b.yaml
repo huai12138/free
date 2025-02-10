@@ -393,7 +393,12 @@ rules:
   - DOMAIN-SUFFIX,lan,DIRECT
   - IP-CIDR,127.0.0.0/8,DIRECT
   - IP-CIDR,10.0.0.0/24,DIRECT
-
+  #######################
+  # 直连规则
+  #######################
+  - DOMAIN-SUFFIX,suckless.top,DIRECT
+  - DOMAIN-SUFFIX,huai.ink,DIRECT
+  - DOMAIN-SUFFIX,huaihuaidehuaihuai.top,DIRECT
   #######################
   # 智能家居设备直连规则
   #######################
