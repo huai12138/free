@@ -159,7 +159,7 @@ proxies: []
 proxy-groups:
   - name: Proxy
     type: select
-    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|x0.5)).*$"
+    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|x)).*$"
     include-all-proxies: true
     proxies: [Singapore, United States, Japan, Hong Kong, Taiwan, DIRECT]
   - name: Google
@@ -190,46 +190,56 @@ proxy-groups:
     filter: "(?i)(台湾|tw|taiwan)(?!.*(家宽|isp))"
     include-all-proxies: true
     type: load-balance
-    url: http://www.gstatic.com/generate_204
+    url: https://cp.cloudflare.com/generate_204
     interval: 60
+    timeout: 3000
+    max-failed-times: 3
     # lazy: true
     strategy: consistent-hashing
   - name: Hong Kong
     filter: "(?i)(香港|hk|hong)(?!.*(家宽|isp|x0.5))"
     include-all-proxies: true
     type: load-balance
-    url: http://www.gstatic.com/generate_204
+    url: https://cp.cloudflare.com/generate_204
     interval: 60
+    timeout: 3000
+    max-failed-times: 3
     #  lazy: true
     strategy: consistent-hashing
   - name: Japan
     filter: "(?i)(日本|jp|japan)"
     include-all-proxies: true
     type: load-balance
-    url: http://www.gstatic.com/generate_204
+    url: https://cp.cloudflare.com/generate_204
     interval: 60
+    timeout: 3000
+    max-failed-times: 3
     #  lazy: true
     strategy: consistent-hashing
   - name: United States
     filter: "(?i)(美国|us|united|america)"
     include-all-proxies: true
     type: load-balance
-    url: http://www.gstatic.com/generate_204
+    url: https://cp.cloudflare.com/generate_204
     interval: 60
+    timeout: 3000
+    max-failed-times: 3
     # lazy: true
     strategy: consistent-hashing
   - name: Singapore
     filter: "(?i)(新加坡|sg|singapore)"
     include-all-proxies: true
     type: load-balance
-    url: http://www.gstatic.com/generate_204
+    url: https://cp.cloudflare.com/generate_204
     interval: 60
+    timeout: 3000
+    max-failed-times: 3
     # lazy: true
     strategy: consistent-hashing
   - name: Final
     type: select
     proxies: [DIRECT, Proxy, Singapore, United States, Japan, Hong Kong, Taiwan]
-    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|x0.5)).*$"
+    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|x)).*$"
     include-all-proxies: true
 rule-providers:
   adguard:
