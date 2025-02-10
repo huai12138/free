@@ -123,7 +123,7 @@ dns:
     "rule-set:proxy": "https://cloudflare-dns.com/dns-query#Proxy"
     "rule-set:gfw": "https://cloudflare-dns.com/dns-query#Proxy"
     "rule-set:googlefcm": "https://cloudflare-dns.com/dns-query#Google"
-    "rule-set:firefox": "https://cloudflare-dns.com/dns-query#Proxy"
+    "rule-set:mozilla": "https://cloudflare-dns.com/dns-query#Proxy"
     "rule-set:bilibili": "https://dns.alidns.com/dns-query#DIRECT"
     "rule-set:xiaomi": "https://dns.alidns.com/dns-query#DIRECT"
     "rule-set:onedrive": "https://cloudflare-dns.com/dns-query#Proxy"
@@ -270,10 +270,10 @@ rule-providers:
     <<: *domain-defaults
     path: ./rules/docker.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/docker.mrs
-  firefox:
+  mozilla:
     <<: *domain-defaults
-    path: ./rules/firefox.mrs
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/firefox.mrs
+    path: ./rules/mozilla.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/mozilla.mrs
   gfw:
     <<: *domain-defaults
     path: ./rules/gfw.mrs
@@ -423,7 +423,7 @@ rules:
   # 代理服务
   - RULE-SET,proxy,Proxy # 代理列表
   - RULE-SET,pikpak,Singapore # PikPak服务
-  - RULE-SET,firefox,Proxy # Firefox服务
+  - RULE-SET,mozilla,Proxy # Firefox服务
   # 国内应用直连
   - RULE-SET,xiaomi,DIRECT # 小米服务
   - RULE-SET,bilibili,DIRECT # B站
