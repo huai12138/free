@@ -9,6 +9,9 @@ fi
 SUBSCRIPTION=$1
 PASSWORD=$2
 
+(/etc/init.d/sing-box stop && /etc/init.d/mihomo stop) > /dev/null 2>&1
+(/etc/init.d/sing-box disable && /etc/init.d/mihomo disable) > /dev/null 2>&1
+
 # 创建临时目录
 TEMP_DIR=$(mktemp -d)
 cd "$TEMP_DIR" || exit 1
@@ -54,7 +57,7 @@ rm -rf "$TEMP_DIR"
 # 删除 ui 目录（如果存在），并忽略错误
 rm -rf /etc/mihomo/ui && rm -rf /etc/mihomo/cache.db && rm -rf /etc/mihomo/rules
 
-(/etc/init.d/mihomo stop && /etc/init.d/mihomo start) > /dev/null 2>&1 
-
+(/etc/init.d/mihomo enable && /etc/init.d/mihomo start) > /dev/null 2>&1 
+echo "mihomo 已启动"
 echo "mihomo 配置已更新 (订阅: $SUBSCRIPTION)"
 
