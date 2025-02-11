@@ -52,7 +52,7 @@ rm -rf "$TEMP_DIR"
 # 删除 ui 目录（如果存在），并忽略错误
 rm -rf /etc/mihomo/ui && rm -rf /etc/mihomo/cache.db && rm -rf /etc/mihomo/rules
 
-/etc/init.d/mihomo stop && /etc/init.d/mihomo start
+/etc/init.d/mihomo stop && /etc/init.d/mihomo start > /dev/null 2>&1 
 
 echo "mihomo 配置已更新"
 
