@@ -218,7 +218,7 @@ proxy-groups:
     #  lazy: true
     strategy: consistent-hashing
   - name: United States
-    filter: "(?i)(美国|us|united|america)"
+    filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|x))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
