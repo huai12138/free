@@ -6,7 +6,7 @@ encode_url() {
 }
 
 # 检查参数
-[ $# -ne 3 ] && { echo "用法: ./encode.sh <mitce|bajie|milkcloud|aifun> <input_password> <output_password>"; exit 1; }
+[ $# -ne 2 ] && { echo "用法: <解压密码> <压缩密码>"; exit 1; }
 
 # 保存当前工作目录
 CURRENT_DIR=$(pwd)
@@ -18,35 +18,29 @@ CURRENT_DIR=$(pwd)
 TEMP_DIR=$(mktemp -d)
 trap 'rm -rf "$TEMP_DIR"' EXIT
 
-# 使用unzip解压0.zip到临时目录，使用第二个参数作为密码
-unzip -P "$2" -q 0.zip -d "$TEMP_DIR" || { echo "错误: 解压失败，请检查密码是否正确"; exit 1; }
+# 使用unzip解压0.zip到临时目录，使用第一个参数作为密码
+unzip -P "$1" -q 0.zip -d "$TEMP_DIR" || { echo "错误: 解压失败，请检查密码是否正确"; exit 1; }
 
-# 根据参数获取对应的URL
-case "$1" in
-    "mitce") 
-        URL=$(grep "mitce:" "$TEMP_DIR/0.txt" | cut -d' ' -f2) ;;
-    "bajie") 
-        URL=$(grep "bajie:" "$TEMP_DIR/0.txt" | cut -d' ' -f2) ;;
-    "milkcloud") 
-        URL=$(grep "milkcloud:" "$TEMP_DIR/0.txt" | cut -d' ' -f2) ;;   
-    "aifun") 
-        URL=$(grep "aifun:" "$TEMP_DIR/0.txt" | cut -d' ' -f2) ;;
-    *) 
-        echo "参数错误: 请使用 mitce、bajie、milkcloud 或 aifun"
-        exit 1
-        ;;
-esac
+# 读取所有URL并合并
+URLS=$(grep -o '[^:]*:.*' "$TEMP_DIR/0.txt" | cut -d' ' -f2)
+[ -z "$URLS" ] && { echo "错误: 在解压的文件中找不到URL"; exit 1; }
 
-[ -z "$URL" ] && { echo "错误: 在解压的文件中找不到对应的URL"; exit 1; }
+# 合并所有URL
+MERGED_URL=$(echo "$URLS" | tr '\n' '|')
 
-# 生成 Singbox URL
-printf "http://nas:5000/" > "$TEMP_DIR/singbox.txt"
-encode_url "$URL" >> "$TEMP_DIR/singbox.txt"
+# 读取URL并逐行处理
+while IFS=': ' read -r name url || [[ -n "$url" ]]; do
+    if [[ -n "$name" && -n "$url" ]]; then
+        # 生成 Singbox URL
+        echo "$name: http://nas:5000/$(encode_url "$url")" >> "$TEMP_DIR/singbox.txt"
+        
+        # 生成 Clash URL
+        echo "$name: http://nas:5002/$(encode_url "$url")" >> "$TEMP_DIR/clash.txt"
+    fi
+done < "$TEMP_DIR/0.txt"
+
+# 确保文件末尾有换行
 printf "\n" >> "$TEMP_DIR/singbox.txt"
-
-# 生成 Clash URL
-printf "http://nas:5002/" > "$TEMP_DIR/clash.txt"
-encode_url "$URL" >> "$TEMP_DIR/clash.txt"
 printf "\n" >> "$TEMP_DIR/clash.txt"
 
 # 显示结果
@@ -85,15 +79,15 @@ compress_file() {
 }
 
 # 压缩 Singbox 文件
-if ! compress_file "$TEMP_DIR/singbox.txt" "singbox.zip" "$3"; then
+if ! compress_file "$TEMP_DIR/singbox.txt" "singbox.zip" "$2"; then
     exit 1
 fi
 
 # 压缩 Clash 文件
-if ! compress_file "$TEMP_DIR/clash.txt" "clash.zip" "$3"; then
+if ! compress_file "$TEMP_DIR/clash.txt" "clash.zip" "$2"; then
     exit 1
 fi
 
 # 显示结果
 echo "文件已加密保存为 singbox.zip 和 clash.zip"
-echo "使用密码 '$3' 可以解压文件"
+echo "使用密码 '$2' 可以解压文件"
