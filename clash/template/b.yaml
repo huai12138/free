@@ -128,6 +128,8 @@ dns:
     "rule-set:meituan": "https://dns.alidns.com/dns-query#DIRECT"
     "rule-set:jd": "https://dns.alidns.com/dns-query#DIRECT"
     "rule-set:microsoft": "https://dns.alidns.com/dns-query#DIRECT"
+    # 广告拦截服务
+    "rule-set:  category-ads-all": "rcode://refused"
     # 特定应用服务
     "rule-set:openai": "https://cloudflare-dns.com/dns-query#OpenAi"
     "rule-set:pikpak": "https://cloudflare-dns.com/dns-query#Singapore"
@@ -259,6 +261,10 @@ rule-providers:
     <<: *domain-defaults
     path: ./rules/bilibili.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/bilibili.mrs
+  category-ads-all:
+    <<: *domain-defaults
+    path: ./rules/category-ads-all.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ads-all.mrs
   cn:
     <<: *domain-defaults
     path: ./rules/cn.mrs
@@ -471,5 +477,7 @@ rules:
   # 中国大陆直连
   - RULE-SET,cn,DIRECT # 中国大陆域名
   - RULE-SET,cn-ip,DIRECT # 中国大陆IP
+  # 广告拦截服务
+  - RULE-SET,category-ads-all,REJECT" # 广告拦截
   # 未匹配规则
   - MATCH,Final # 最终规则
