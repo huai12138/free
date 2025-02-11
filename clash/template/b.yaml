@@ -121,6 +121,7 @@ dns:
   nameserver: [https://cloudflare-dns.com/dns-query#Proxy]
   nameserver-policy:
     "rule-set:proxy": "https://cloudflare-dns.com/dns-query#Proxy"
+    "rule-set:openwrt": "https://cloudflare-dns.com/dns-query#Proxy"
     "rule-set:gfw": "https://cloudflare-dns.com/dns-query#Proxy"
     "rule-set:googlefcm": "https://cloudflare-dns.com/dns-query#Google"
     "rule-set:mozilla": "https://cloudflare-dns.com/dns-query#Proxy"
@@ -187,7 +188,7 @@ proxy-groups:
     type: select
     proxies: [Proxy, Singapore, United States, Japan, Hong Kong, Taiwan]
   - name: Taiwan
-    filter: "(?i)(台湾|tw|taiwan)(?!.*(家宽|isp))"
+    filter: "(?i)(台湾|tw|taiwan)(?!.*(家宽|isp|x))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -197,7 +198,7 @@ proxy-groups:
     # lazy: true
     strategy: consistent-hashing
   - name: Hong Kong
-    filter: "(?i)(香港|hk|hong)(?!.*(家宽|isp|x0.5))"
+    filter: "(?i)(香港|hk|hong)(?!.*(家宽|isp|x))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -207,7 +208,7 @@ proxy-groups:
     #  lazy: true
     strategy: consistent-hashing
   - name: Japan
-    filter: "(?i)(日本|jp|japan)"
+    filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|x))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -227,7 +228,7 @@ proxy-groups:
     # lazy: true
     strategy: consistent-hashing
   - name: Singapore
-    filter: "(?i)(新加坡|sg|singapore)"
+    filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|x))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -326,6 +327,10 @@ rule-providers:
     <<: *domain-defaults
     path: ./rules/openai.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openai.mrs
+  openwrt:
+    <<: *domain-defaults
+    path: ./rules/openwrt.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openwrt.mrs
   pikpak:
     <<: *domain-defaults
     path: ./rules/pikpak.mrs
@@ -424,6 +429,7 @@ rules:
   - RULE-SET,proxy,Proxy # 代理列表
   - RULE-SET,pikpak,Singapore # PikPak服务
   - RULE-SET,mozilla,Proxy # Firefox服务
+  - RULE-SET,openwrt,Proxy # OpenWRT服务
   # 国内应用直连
   - RULE-SET,xiaomi,DIRECT # 小米服务
   - RULE-SET,bilibili,DIRECT # B站
