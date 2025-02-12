@@ -59,6 +59,10 @@ hosts:
   "nas": "10.0.0.21" # 替换为实际的NAS IP地址
   "ax6s": "10.0.0.2" # 替换为实际的路由器IP地址
   "homeassistant.local": "10.0.0.21" # 替换为实际的HomeAssistant IP地址
+  "access.mypikpak.com": "0.0.0.0"
+  "access.mypikpak.net": "0.0.0.0"
+  "access.pikpak.me": "0.0.0.0" 
+  "access.pikpakdrive.com": "0.0.0.0"
 dns:
   enable: true
   prefer-h3: true
