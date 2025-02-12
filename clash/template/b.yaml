@@ -1,22 +1,3 @@
-# 锚点定义
-defaults: &defaults
-  type: http
-  interval: 86400
-  proxy: Singapore
-  behavior: classical
-  format: yaml
-domain-defaults: &domain-defaults
-  <<: *defaults
-  behavior: domain
-  format: mrs
-ipcidr-defaults: &ipcidr-defaults
-  <<: *defaults
-  behavior: ipcidr
-  format: mrs
-classical-defaults: &classical-defaults
-  <<: *defaults
-  behavior: classical
-  format: yaml
 # port: 7890 # HTTP(S) 代理服务器端口
 # socks-port: 7891 # SOCKS5 代理端口
 mixed-port: 12138 # HTTP(S) 和 SOCKS 代理混合端口
@@ -29,7 +10,8 @@ bind-address: "*"
 #  - always, 开启，强制匹配所有进程
 #  - strict, 默认，由 mihomo 判断是否开启
 #  - off, 不匹配进程，推荐在路由器上使用此模式
-find-process-mode: off # always, strict, off
+# openclash不支持find-process-mode
+# find-process-mode: off # always, strict, off
 mode: rule # global, rule, direct
 log-level: warning # info, warning, error, debug
 ipv6: false
@@ -162,7 +144,7 @@ proxies: []
 proxy-groups:
   - name: Proxy
     type: select
-    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|x)).*$"
+    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|0\\.[0-9])).*$"
     include-all-proxies: true
     proxies: [Singapore, United States, Japan, Hong Kong, Taiwan, DIRECT]
   - name: Google
@@ -190,7 +172,7 @@ proxy-groups:
     type: select
     proxies: [Proxy, Singapore, United States, Japan, Hong Kong, Taiwan]
   - name: Taiwan
-    filter: "(?i)(台湾|tw|taiwan)(?!.*(家宽|isp|x))"
+    filter: "(?i)(台湾|tw|taiwan)(?!.*(家宽|isp|0\\.[0-9]))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -200,7 +182,7 @@ proxy-groups:
     # lazy: true
     strategy: consistent-hashing
   - name: Hong Kong
-    filter: "(?i)(香港|hk|hong)(?!.*(家宽|isp|x))"
+    filter: "(?i)(香港|hk|hong)(?!.*(家宽|isp|0\\.[0-9]))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -210,7 +192,7 @@ proxy-groups:
     #  lazy: true
     strategy: consistent-hashing
   - name: Japan
-    filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|x))"
+    filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|0\\.[0-9]))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -220,7 +202,7 @@ proxy-groups:
     #  lazy: true
     strategy: consistent-hashing
   - name: United States
-    filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|x))"
+    filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|0\\.[0-9]))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -230,7 +212,7 @@ proxy-groups:
     # lazy: true
     strategy: consistent-hashing
   - name: Singapore
-    filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|x))"
+    filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|0\\.[0-9]))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -246,163 +228,323 @@ proxy-groups:
     include-all-proxies: true
 rule-providers:
   adguard:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/adguard.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/adguard.mrs
   alibaba:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/alibaba.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/alibaba.mrs
   apkpure:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/apkpure.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/apkpure.mrs
   bilibili:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/bilibili.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/bilibili.mrs
   category-ads-all:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/category-ads-all.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ads-all.mrs
   cn:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/cn.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/cn.mrs
   cn-ip:
-    <<: *ipcidr-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: ipcidr
+    format: mrs
     path: ./rules/cn-ip.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/cn.mrs
   docker:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/docker.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/docker.mrs
   mozilla:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/mozilla.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/mozilla.mrs
   gfw:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/gfw.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/gfw.mrs
   github:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/github.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/github.mrs
   google:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/google.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google.mrs
   google-ip:
-    <<: *ipcidr-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: ipcidr
+    format: mrs
     path: ./rules/google-ip.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/google.mrs
   googlefcm:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/googlefcm.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/googlefcm.mrs
   javdb:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/javdb.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/javdb.mrs
   jd:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/jd.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/jd.mrs
   meituan:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/meituan.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/meituan.mrs
   microsoft:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/microsoft.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/microsoft.mrs
   netflix:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/netflix.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/netflix.mrs
   netflix-ip:
-    <<: *ipcidr-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: ipcidr
+    format: mrs
     path: ./rules/netflix-ip.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/netflix.mrs
   onedrive:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/onedrive.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/onedrive.mrs
   openai:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/openai.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openai.mrs
   openwrt:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/openwrt.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openwrt.mrs
   pikpak:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/pikpak.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/pikpak.mrs
   pikpak-download:
-    <<: *classical-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: classical
+    format: yaml
     path: ./rules/pikpak-download.yaml
     url: https://raw.githubusercontent.com/huai12138/free/refs/heads/main/pikpak-download.yaml
   proxy:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/proxy.mrs
     url: https://raw.githubusercontent.com/huai12138/free/refs/heads/main/proxy.mrs
   reddit:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/reddit.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/reddit.mrs
   speedtest:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/speedtest.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/speedtest.mrs
   spotify:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/spotify.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/spotify.mrs
   steam:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/steam.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/steam.mrs
   telegram:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/telegram.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/telegram.mrs
   telegram-ip:
-    <<: *ipcidr-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: ipcidr
+    format: mrs
     path: ./rules/telegram-ip.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/telegram.mrs
   tiktok:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/tiktok.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/tiktok.mrs
   tmdb:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/tmdb.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/tmdb.mrs
   twitter:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/twitter.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/twitter.mrs
   twitter-ip:
-    <<: *ipcidr-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: ipcidr
+    format: mrs
     path: ./rules/twitter-ip.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/twitter.mrs
   unionpay:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/unionpay.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/unionpay.mrs
   wikimedia:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/wikimedia.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/wikimedia.mrs
   xiaomi:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/xiaomi.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/xiaomi.mrs
   youtube:
-    <<: *domain-defaults
+    type: http
+    interval: 86400
+    proxy: Singapore
+    behavior: domain
+    format: mrs
     path: ./rules/youtube.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/youtube.mrs
 rules:
