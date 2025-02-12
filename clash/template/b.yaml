@@ -10,8 +10,7 @@ bind-address: "*"
 #  - always, 开启，强制匹配所有进程
 #  - strict, 默认，由 mihomo 判断是否开启
 #  - off, 不匹配进程，推荐在路由器上使用此模式
-# openclash不支持find-process-mode
-# find-process-mode: off # always, strict, off
+find-process-mode: strict # always, strict, off
 mode: rule # global, rule, direct
 log-level: warning # info, warning, error, debug
 ipv6: false
@@ -62,6 +61,7 @@ hosts:
   "homeassistant.local": "10.0.0.21" # 替换为实际的HomeAssistant IP地址
 dns:
   enable: true
+  prefer-h3: true
   listen: "127.0.0.1:1053"
   ipv6: false
   enhanced-mode: fake-ip # fake-ip, redir-host
