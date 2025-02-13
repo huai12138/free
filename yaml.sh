@@ -55,7 +55,7 @@ cd - > /dev/null
 rm -rf "$TEMP_DIR"
 
 # 删除 ui 目录（如果存在），并忽略错误
-rm -rf /etc/mihomo/ui && rm -rf /etc/mihomo/cache.db && rm -rf /etc/mihomo/rules
+rm -rf /etc/mihomo/cache.db && rm -rf /etc/mihomo/rules
 
 (/etc/init.d/mihomo enable && /etc/init.d/mihomo start) > /dev/null 2>&1 
 echo "mihomo 已启动"
