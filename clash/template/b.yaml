@@ -16,7 +16,7 @@ log-level: warning # info, warning, error, debug
 ipv6: false
 udp: true
 geodata-mode: false
-unified-delay: false
+unified-delay: true
 tcp-concurrent: true
 enable-process: true
 # global-ua: "Mozilla/5.0 (X11; CrOS x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -145,7 +145,7 @@ proxies: []
 proxy-groups:
   - name: Proxy
     type: select
-    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|0\\.[0-9])).*$"
+    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9])).*$"
     include-all-proxies: true
     proxies: [Singapore, United States, Japan, Hong Kong, Taiwan, DIRECT]
   - name: Google
@@ -173,7 +173,7 @@ proxy-groups:
     type: select
     proxies: [Proxy, Singapore, United States, Japan, Hong Kong, Taiwan]
   - name: Taiwan
-    filter: "(?i)(台湾|tw|taiwan)(?!.*(家宽|isp|0\\.[0-9]))"
+    filter: "(?i)(台湾|tw|taiwan)(?!.*(家宽|isp|小众|0\\.[0-9]))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -183,7 +183,7 @@ proxy-groups:
     # lazy: true
     strategy: consistent-hashing
   - name: Hong Kong
-    filter: "(?i)(香港|hk|hong)(?!.*(家宽|isp|0\\.[0-9]))"
+    filter: "(?i)(香港|hk|hong)(?!.*(家宽|isp|小众|0\\.[0-9]))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -193,7 +193,7 @@ proxy-groups:
     #  lazy: true
     strategy: consistent-hashing
   - name: Japan
-    filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|0\\.[0-9]))"
+    filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|小众|0\\.[0-9]))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -203,7 +203,7 @@ proxy-groups:
     #  lazy: true
     strategy: consistent-hashing
   - name: United States
-    filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|0\\.[0-9]))"
+    filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|小众|0\\.[0-9]))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -213,7 +213,7 @@ proxy-groups:
     # lazy: true
     strategy: consistent-hashing
   - name: Singapore
-    filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|0\\.[0-9]))"
+    filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|小众|0\\.[0-9]))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -225,7 +225,7 @@ proxy-groups:
   - name: Final
     type: select
     proxies: [DIRECT, Proxy, Singapore, United States, Japan, Hong Kong, Taiwan]
-    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|0\\.[0-9])).*$"
+    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9])).*$"
     include-all-proxies: true
 rule-providers:
   adguard:
