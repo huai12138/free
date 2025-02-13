@@ -134,7 +134,7 @@ def process_yaml_content(yaml_path):
         yaml.width = 4096  # 避免自动换行
         
         # 保存处理后的YAML
-        output_path = config.OUTPUT_FOLDER / 'Mitce.yaml'
+        output_path = config.OUTPUT_FOLDER / 'config.yaml'
         with open(output_path, 'w', encoding='utf-8') as f:
             yaml.dump(template_data, f)
             
@@ -152,6 +152,11 @@ def cleanup_files(*paths):
                 Path(path).unlink()
         except Exception as e:
             logger.error(f"清理文件失败 {path}: {str(e)}")
+
+def cleanup_response(response, temp_yaml_path, output_path):
+    """处理响应后的清理函数"""
+    cleanup_files(temp_yaml_path, output_path, config.HEADERS_CACHE_PATH)
+    return response
 
 @app.route('/<path:yaml_url>')
 def process_yaml(yaml_url):
@@ -186,11 +191,13 @@ def process_yaml(yaml_url):
                 if header.lower() in {h.lower() for h in config.INCLUDED_HEADERS}:
                     response.headers[header] = value
         
-        # 注册清理回调
+        # 修复：将清理函数定义在外部，通过闭包捕获必要的变量
+        temp_path = temp_yaml_path  # 创建闭包变量
+        out_path = output_path      # 创建闭包变量
+        
         @after_this_request
         def cleanup(response):
-            cleanup_files(temp_yaml_path, output_path, config.HEADERS_CACHE_PATH)
-            return response
+            return cleanup_response(response, temp_path, out_path)
         
         return response
         
