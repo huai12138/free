@@ -34,7 +34,7 @@ skip-auth-prefixes: # 设置跳过验证的 IP 段
 external-ui: ui
 #external-ui-name: yacd
 global-client-fingerprint: chrome
-external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip"
+external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip"
 sniffer:
   enable: true
   sniff:
