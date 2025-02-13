@@ -225,7 +225,7 @@ proxy-groups:
   - name: Final
     type: select
     proxies: [DIRECT, Proxy, Singapore, United States, Japan, Hong Kong, Taiwan]
-    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|x)).*$"
+    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|0\\.[0-9])).*$"
     include-all-proxies: true
 rule-providers:
   adguard:
