@@ -689,7 +689,7 @@
         "tag": "geoip-google",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/google.srs",
+        "url": "https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@sing/geo/geoip/google.srs",
         "download_detour": "direct"
       },
       {
@@ -710,7 +710,7 @@
         "tag": "geoip-telegram",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/telegram.srs",
+        "url": "https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@sing/geo/geoip/telegram.srs",
         "download_detour": "direct"
       },
       {
@@ -724,7 +724,7 @@
         "tag": "geoip-twitter",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/twitter.srs",
+        "url": "https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@sing/geo/geoip/twitter.srs",
         "download_detour": "direct"
       },
       {
@@ -738,7 +738,7 @@
         "tag": "geoip-facebook",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/facebook.srs",
+        "url": "https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@sing/geo/geoip/facebook.srs",
         "download_detour": "direct"
       },
       {
@@ -766,7 +766,7 @@
         "tag": "geoip-netflix",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/netflix.srs",
+        "url": "https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@sing/geo/geoip/netflix.srs",
         "download_detour": "direct"
       },
       {
@@ -787,7 +787,7 @@
         "tag": "geoip-cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs",
+        "url": "https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@sing/geo/geoip/cn.srs",
         "download_detour": "direct"
       },
       {
