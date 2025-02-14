@@ -1,7 +1,7 @@
-payload: 
+payload:
     - +.ipify.org
     - +.mojie.app
-    - +.bajie.la  
+    - +.bajie.la
     - +.patreon.com
     - +.time.is
     - +.suckless.org
@@ -17,7 +17,7 @@ payload:
     - +.duyaoss.com
     - +.a4k.net
     - +.fikfap.com
-    - +.je51.com  
+    - +.je51.com
     - +.wiki.metacubex.one
     - +.wnacg.com
     - +.sing-box.sagernet.org
