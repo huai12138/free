@@ -922,7 +922,7 @@
       "external_ui": "ui",
       "secret": "101300",
       "external_ui_download_url": "https://www.huai.ink/dist-cdn-fonts.zip",
-      "external_ui_download_detour": "Singapore",
+      "external_ui_download_detour": "direct",
       "default_mode": "rule"
     }
   }
