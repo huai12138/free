@@ -558,6 +558,7 @@ rules:
   - DOMAIN-SUFFIX,lan,DIRECT
   - IP-CIDR,127.0.0.0/8,DIRECT
   - IP-CIDR,10.0.0.0/24,DIRECT
+  - IP-CIDR,35.212.250.35/32,DIRECT
   #######################
   # 直连规则
   #######################
