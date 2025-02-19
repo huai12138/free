@@ -137,7 +137,7 @@ dns:
     "rule-set:category-ads-all": "rcode://refused"
     # 特定应用服务
     "rule-set:openai": "https://cloudflare-dns.com/dns-query#OpenAi"
-    "rule-set:pikpak": "https://cloudflare-dns.com/dns-query#Singapore"
+    "rule-set:pikpak": "https://cloudflare-dns.com/dns-query#SG"
     "rule-set:pikpak-download": "https://dns.alidns.com/dns-query#PikPak-Download"
     "rule-set:adguard": "https://cloudflare-dns.com/dns-query#Proxy"
     "rule-set:tmdb": "https://cloudflare-dns.com/dns-query#Proxy"
@@ -167,34 +167,34 @@ proxies: []
 proxy-groups:
   - name: Proxy
     type: select
-    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9])).*$"
+    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB)).*$"
     include-all-proxies: true
-    proxies: [Singapore, United States, Japan, Hong Kong, Taiwan, DIRECT]
+    proxies: [SG, US, JP, HK, TW, DIRECT]
   - name: Google
     type: select
-    proxies: [Proxy, Singapore, United States, Japan, Hong Kong, Taiwan]
+    proxies: [Proxy, SG, US, JP, HK, TW]
   - name: OpenAi
     type: select
-    proxies: [Proxy, Singapore, United States, Japan, Hong Kong, Taiwan]
+    proxies: [Proxy, SG, US, JP, HK, TW]
   - name: Telegram
     type: select
-    proxies: [Proxy, Singapore, United States, Japan, Hong Kong, Taiwan]
+    proxies: [Proxy, SG, US, JP, HK, TW]
   - name: TikTok
     type: select
-    proxies: [Proxy, Singapore, United States, Japan, Hong Kong, Taiwan]
+    proxies: [Proxy, SG, US, JP, HK, TW]
   - name: Steam
     type: select
-    proxies: [Proxy, Singapore, United States, Japan, Hong Kong, Taiwan]
+    proxies: [Proxy, SG, US, JP, HK, TW]
   - name: Netflix
     type: select
-    proxies: [Proxy, Singapore, United States, Japan, Hong Kong, Taiwan]
+    proxies: [Proxy, SG, US, JP, HK, TW]
   - name: PikPak-Download
     type: select
-    proxies: [DIRECT, Proxy, Singapore, United States, Japan, Hong Kong, Taiwan]
+    proxies: [DIRECT, Proxy, SG, US, JP, HK, TW]
   - name: SpeedTest
     type: select
-    proxies: [Proxy, Singapore, United States, Japan, Hong Kong, Taiwan]
-  - name: Taiwan
+    proxies: [Proxy, SG, US, JP, HK, TW]
+  - name: TW
     filter: "(?i)(台湾|tw|taiwan)(?!.*(家宽|isp|小众|0\\.[0-9]))"
     include-all-proxies: true
     type: load-balance
@@ -204,7 +204,7 @@ proxy-groups:
     max-failed-times: 3
     # lazy: true
     strategy: consistent-hashing
-  - name: Hong Kong
+  - name: HK
     filter: "(?i)(香港|hk|hong)(?!.*(家宽|isp|小众|0\\.[0-9]))"
     include-all-proxies: true
     type: load-balance
@@ -214,7 +214,7 @@ proxy-groups:
     max-failed-times: 3
     #  lazy: true
     strategy: consistent-hashing
-  - name: Japan
+  - name: JP
     filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|小众|0\\.[0-9]))"
     include-all-proxies: true
     type: load-balance
@@ -224,7 +224,7 @@ proxy-groups:
     max-failed-times: 3
     #  lazy: true
     strategy: consistent-hashing
-  - name: United States
+  - name: US
     filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|小众|0\\.[0-9]))"
     include-all-proxies: true
     type: load-balance
@@ -234,7 +234,7 @@ proxy-groups:
     max-failed-times: 3
     # lazy: true
     strategy: consistent-hashing
-  - name: Singapore
+  - name: SG
     filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|小众|0\\.[0-9]))"
     include-all-proxies: true
     type: load-balance
@@ -246,8 +246,8 @@ proxy-groups:
     strategy: consistent-hashing
   - name: Final
     type: select
-    proxies: [DIRECT, Proxy, Singapore, United States, Japan, Hong Kong, Taiwan]
-    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9])).*$"
+    proxies: [DIRECT, Proxy, SG, US, JP, HK, TW]
+    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB)).*$"
     include-all-proxies: true
 rule-providers:
   adguard:
@@ -616,7 +616,7 @@ rules:
   #######################
   # 代理服务
   - RULE-SET,proxy,Proxy # 代理列表
-  - RULE-SET,pikpak,Singapore # PikPak服务
+  - RULE-SET,pikpak,SG # PikPak服务
   - RULE-SET,mozilla,Proxy # Firefox服务
   - RULE-SET,openwrt,Proxy # OpenWRT服务
   # 国内应用直连
