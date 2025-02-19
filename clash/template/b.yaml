@@ -123,6 +123,7 @@ dns:
     "rule-set:gfw": "https://cloudflare-dns.com/dns-query#Proxy"
     "rule-set:openwrt": "https://cloudflare-dns.com/dns-query#Proxy"
     # 国内直连服务
+    "rule-set:direct": "https://dns.alidns.com/dns-query#DIRECT"
     "fastly.jsdelivr.net": "https://dns.alidns.com/dns-query#DIRECT"
     "rule-set:cn": "https://dns.alidns.com/dns-query#DIRECT"
     "rule-set:bilibili": "https://dns.alidns.com/dns-query#DIRECT"
@@ -313,6 +314,22 @@ rule-providers:
     format: mrs
     path: ./rules/docker.mrs
     url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/docker.mrs
+  direct:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    behavior: domain
+    format: mrs
+    path: ./rules/direct.mrs
+    url: https://fastly.jsdelivr.net/gh/huai12138/free@main/direct.mrs
+  direct-ip:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    behavior: ipcidr
+    format: mrs
+    path: ./rules/direct-ip.mrs
+    url: https://fastly.jsdelivr.net/gh/huai12138/free@main/direct-ip.mrs
   mozilla:
     type: http
     interval: 86400
@@ -433,6 +450,14 @@ rule-providers:
     format: mrs
     path: ./rules/openwrt.mrs
     url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/openwrt.mrs
+  pass-ip:
+    type: http
+    interval: 86400
+    proxy: DIRECT
+    behavior: classical
+    format: yaml
+    path: ./rules/pass-ip.yaml
+    url: https://fastly.jsdelivr.net/gh/huai12138/free@main/pass-ip.yaml
   pikpak:
     type: http
     interval: 86400
@@ -577,21 +602,14 @@ rules:
   - DOMAIN-SUFFIX,lan,DIRECT
   - IP-CIDR,127.0.0.0/8,DIRECT
   - IP-CIDR,10.0.0.0/24,DIRECT
-  - IP-CIDR,35.212.250.35/32,DIRECT
+  - RULE-SET,direct-ip,DIRECT
   #######################
   # 直连规则
   #######################
-  - DOMAIN-SUFFIX,suckless.top,DIRECT
-  - DOMAIN-SUFFIX,huai.ink,DIRECT
-  - DOMAIN-SUFFIX,huaihuaidehuaihuai.top,DIRECT
-  - DOMAIN-SUFFIX,ihuai.top,DIRECT
-  #######################
+  - RULE-SET,direct,DIRECT
   # 智能家居设备直连规则
   #######################
-  - SRC-IP-CIDR,10.0.0.18/32,DIRECT # 小爱音响
-  - SRC-IP-CIDR,10.0.0.28/32,DIRECT # 小米智能插座
-  - SRC-IP-CIDR,10.0.0.13/32,DIRECT # 小米电暖器
-  - SRC-IP-CIDR,10.0.0.14/32,DIRECT # 小米小饭煲
+  - RULE-SET,pass-ip,DIRECT
   #######################
   # 应用规则集分流配置
   #######################
