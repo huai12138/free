@@ -38,18 +38,31 @@ external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/downloa
 sniffer:
   enable: true
   sniff:
-    {
-      QUIC: { ports: [443] },
-      TLS: { ports: [443, 8443] },
-      HTTP: { ports: [80, 8080-8880], override-destination: true },
-    }
-  skip-domain: ["Mijia Cloud", "dlg.io.mi.com", "+.apple.com", "*.baidu.com"]
-  force-domain: ["google.com"]
+    QUIC:
+      ports:
+        - 443
+    TLS:
+      ports:
+        - 443
+        - 8443
+    HTTP:
+      ports:
+        - 80
+        - 8080-8880
+      override-destination: true
+  skip-domain:
+    - "Mijia Cloud"
+    - "dlg.io.mi.com"
+    - "+.apple.com"
+    - "*.baidu.com"
+  force-domain:
+    - "google.com"
 tun:
   enable: true # 是否启用 tun 模式
   device: mihomo # tun device name
   stack: system # system, gvisor, mixed
-  dns-hijack: ["any:53"] # DNS 拦截
+  dns-hijack:
+    - "any:53" # DNS 拦截
   auto-route: true # 自动路由
   auto-detect-interface: true # 自动检测接口
   strict-route: true # 严格路由模式
@@ -95,7 +108,7 @@ dns:
     - "+.ihuai.top"
   use-hosts: true # 是否使用配置中设置的hosts
   use-system-hosts: false # 是否使用系统hosts
-  default-nameserver: 
+  default-nameserver:
     - 114.114.114.114
     - 223.5.5.5
     - 119.29.29.29
