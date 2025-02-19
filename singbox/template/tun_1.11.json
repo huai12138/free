@@ -111,27 +111,27 @@
       "tag": "Proxy",
       "type": "selector",
       "outbounds": [
-        "HongKong",
-        "TaiWan",
-        "Korea",
-        "Singapore",
-        "Japan",
-        "America",
+        "HK",
+        "TW",
+        "KR",
+        "SG",
+        "JP",
+        "US",
         "direct"
       ],
-      "default": "Singapore"
+      "default": "SG"
     },
     {
       "tag": "Google",
       "type": "selector",
       "outbounds": [
         "Proxy",
-        "HongKong",
-        "TaiWan",
-        "Korea",
-        "Singapore",
-        "Japan",
-        "America"
+        "HK",
+        "TW",
+        "KR",
+        "SG",
+        "JP",
+        "US"
       ],
       "default": "Proxy"
     },
@@ -140,12 +140,12 @@
       "type": "selector",
       "outbounds": [
         "Proxy",
-        "HongKong",
-        "TaiWan",
-        "Korea",
-        "Singapore",
-        "Japan",
-        "America"
+        "HK",
+        "TW",
+        "KR",
+        "SG",
+        "JP",
+        "US"
       ],
       "default": "Proxy"
     },
@@ -154,26 +154,26 @@
       "type": "selector",
       "outbounds": [
         "Proxy",
-        "HongKong",
-        "TaiWan",
-        "Korea",
-        "Singapore",
-        "Japan",
-        "America"
+        "HK",
+        "TW",
+        "KR",
+        "SG",
+        "JP",
+        "US"
       ],
-      "default": "HongKong"
+      "default": "HK"
     },
     {
       "tag": "Telegram",
       "type": "selector",
       "outbounds": [
         "Proxy",
-        "HongKong",
-        "TaiWan",
-        "Korea",
-        "Singapore",
-        "Japan",
-        "America"
+        "HK",
+        "TW",
+        "KR",
+        "SG",
+        "JP",
+        "US"
       ],
       "default": "Proxy"
     },
@@ -182,12 +182,12 @@
       "type": "selector",
       "outbounds": [
         "Proxy",
-        "HongKong",
-        "TaiWan",
-        "Korea",
-        "Singapore",
-        "Japan",
-        "America"
+        "HK",
+        "TW",
+        "KR",
+        "SG",
+        "JP",
+        "US"
       ],
       "default": "Proxy"
     },
@@ -196,12 +196,12 @@
       "type": "selector",
       "outbounds": [
         "Proxy",
-        "HongKong",
-        "TaiWan",
-        "Korea",
-        "Singapore",
-        "Japan",
-        "America"
+        "HK",
+        "TW",
+        "KR",
+        "SG",
+        "JP",
+        "US"
       ],
       "default": "Proxy"
     },
@@ -210,12 +210,12 @@
       "type": "selector",
       "outbounds": [
         "Proxy",
-        "HongKong",
-        "TaiWan",
-        "Korea",
-        "Singapore",
-        "Japan",
-        "America"
+        "HK",
+        "TW",
+        "KR",
+        "SG",
+        "JP",
+        "US"
       ],
       "default": "Proxy"
     },
@@ -224,12 +224,12 @@
       "type": "selector",
       "outbounds": [
         "Proxy",
-        "HongKong",
-        "TaiWan",
-        "Korea",
-        "Singapore",
-        "Japan",
-        "America"
+        "HK",
+        "TW",
+        "KR",
+        "SG",
+        "JP",
+        "US"
       ],
       "default": "Proxy"
     },
@@ -238,12 +238,12 @@
       "type": "selector",
       "outbounds": [
         "Proxy",
-        "HongKong",
-        "TaiWan",
-        "Korea",
-        "Singapore",
-        "Japan",
-        "America"
+        "HK",
+        "TW",
+        "KR",
+        "SG",
+        "JP",
+        "US"
       ],
       "default": "Proxy"
     },
@@ -252,12 +252,12 @@
       "type": "selector",
       "outbounds": [
         "Proxy",
-        "HongKong",
-        "TaiWan",
-        "Korea",
-        "Singapore",
-        "Japan",
-        "America",
+        "HK",
+        "TW",
+        "KR",
+        "SG",
+        "JP",
+        "US",
         "direct"
       ],
       "default": "direct"
@@ -267,12 +267,12 @@
       "type": "selector",
       "outbounds": [
         "Proxy",
-        "HongKong",
-        "TaiWan",
-        "Korea",
-        "Singapore",
-        "Japan",
-        "America",
+        "HK",
+        "TW",
+        "KR",
+        "SG",
+        "JP",
+        "US",
         "direct",
         "{all}"
       ],
@@ -287,7 +287,7 @@
       ]
     },
     {
-      "tag": "HongKong",
+      "tag": "HK",
       "type": "urltest",
       "outbounds": [
         "{all}"
@@ -299,13 +299,13 @@
         {
           "action": "match",
           "regex": [
-            "(?i)^(?=.*(🇭🇰|HK|hk|香港|HongKong))(?!.*(家宽|isp|小众|0\\.[0-9])).*$"
+            "(?i)^(?=.*(🇭🇰|HK|hk|香港|hongkong))(?!.*(家宽|isp|小众|0\\.[0-9])).*$"
           ]
         }
       ]
     },
     {
-      "tag": "TaiWan",
+      "tag": "TW",
       "type": "urltest",
       "outbounds": [
         "{all}"
@@ -317,13 +317,13 @@
         {
           "action": "match",
           "regex": [
-            "(?i)^(?=.*(🇹🇼|TW|tw|台湾|TaiWan))(?!.*(家宽|isp|小众|0\\.[0-9])).*$"
+            "(?i)^(?=.*(🇹🇼|TW|tw|台湾|taiwan))(?!.*(家宽|isp|小众|0\\.[0-9])).*$"
           ]
         }
       ]
     },
     {
-      "tag": "Korea",
+      "tag": "KR",
       "type": "urltest",
       "outbounds": [
         "{all}"
@@ -335,13 +335,13 @@
         {
           "action": "match",
           "regex": [
-            "(?i)^(?=.*(🇰🇷|KR|kr|韩国|Korea))(?!.*(家宽|isp|小众|0\\.[0-9])).*$"
+            "(?i)^(?=.*(🇰🇷|KR|kr|韩国|korea))(?!.*(家宽|isp|小众|0\\.[0-9])).*$"
           ]
         }
       ]
     },
     {
-      "tag": "Singapore",
+      "tag": "SG",
       "type": "urltest",
       "outbounds": [
         "{all}"
@@ -359,7 +359,7 @@
       ]
     },
     {
-      "tag": "Japan",
+      "tag": "JP",
       "type": "urltest",
       "outbounds": [
         "{all}"
@@ -371,13 +371,13 @@
         {
           "action": "match",
           "regex": [
-            "(?i)^(?=.*(🇯🇵|JP|jp|日本|Japan))(?!.*(家宽|isp|小众|0\\.[0-9])).*$"
+            "(?i)^(?=.*(🇯🇵|JP|jp|日本|japan))(?!.*(家宽|isp|小众|0\\.[0-9])).*$"
           ]
         }
       ]
     },
     {
-      "tag": "America",
+      "tag": "US",
       "type": "urltest",
       "outbounds": [
         "{all}"
@@ -389,7 +389,7 @@
         {
           "action": "match",
           "regex": [
-            "(?i)^(?=.*(🇺🇸|US|美国|United States))(?!.*(家宽|isp|小众|0\\.[0-9])).*$"
+            "(?i)^(?=.*(🇺🇸|US|美国|united states|america))(?!.*(家宽|isp|小众|0\\.[0-9])).*$"
           ]
         }
       ]
@@ -922,7 +922,7 @@
       "external_ui": "ui",
       "secret": "101300",
       "external_ui_download_url": "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip",
-      "external_ui_download_detour": "Singapore",
+      "external_ui_download_detour": "SG",
       "default_mode": "rule"
     }
   }
