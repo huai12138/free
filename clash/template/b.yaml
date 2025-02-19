@@ -169,31 +169,31 @@ proxy-groups:
     type: select
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB)).*$"
     include-all-proxies: true
-    proxies: [SG, US, JP, HK, TW, DIRECT]
+    proxies: [SG, US, JP, HK, TW, KR, DIRECT]
   - name: Google
     type: select
-    proxies: [Proxy, SG, US, JP, HK, TW]
+    proxies: [Proxy, SG, US, JP, HK, TW, KR]
   - name: OpenAi
     type: select
-    proxies: [Proxy, SG, US, JP, HK, TW]
+    proxies: [Proxy, SG, US, JP, HK, TW, KR]
   - name: Telegram
     type: select
-    proxies: [Proxy, SG, US, JP, HK, TW]
+    proxies: [Proxy, SG, US, JP, HK, TW, KR]
   - name: TikTok
     type: select
-    proxies: [Proxy, SG, US, JP, HK, TW]
+    proxies: [Proxy, SG, US, JP, HK, TW, KR]
   - name: Steam
     type: select
-    proxies: [Proxy, SG, US, JP, HK, TW]
+    proxies: [Proxy, SG, US, JP, HK, TW, KR]
   - name: Netflix
     type: select
-    proxies: [Proxy, SG, US, JP, HK, TW]
+    proxies: [Proxy, SG, US, JP, HK, TW, KR]
   - name: PikPak-Download
     type: select
-    proxies: [DIRECT, Proxy, SG, US, JP, HK, TW]
+    proxies: [DIRECT, Proxy, SG, US, JP, HK, TW, KR]
   - name: SpeedTest
     type: select
-    proxies: [Proxy, SG, US, JP, HK, TW]
+    proxies: [Proxy, SG, US, JP, HK, TW, KR]
   - name: TW
     filter: "(?i)(台湾|tw|taiwan)(?!.*(家宽|isp|小众|0\\.[0-9]))"
     include-all-proxies: true
@@ -244,9 +244,19 @@ proxy-groups:
     max-failed-times: 3
     # lazy: true
     strategy: consistent-hashing
+  - name: KR
+    filter: "(?i)(韩国|kr|korea)(?!.*(家宽|isp|小众|0\\.[0-9]))"
+    include-all-proxies: true
+    type: load-balance
+    url: https://cp.cloudflare.com/generate_204
+    interval: 60
+    timeout: 3000
+    max-failed-times: 3
+    # lazy: true
+    strategy: consistent-hashing
   - name: Final
     type: select
-    proxies: [DIRECT, Proxy, SG, US, JP, HK, TW]
+    proxies: [DIRECT, Proxy, SG, US, JP, HK, TW, KR]
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB)).*$"
     include-all-proxies: true
 rule-providers:
