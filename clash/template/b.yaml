@@ -116,12 +116,12 @@ dns:
     - "https://dns.alidns.com/dns-query"
     - "https://doh.pub/dns-query"
     - "https://doh.onedns.net/dns-query"
-  nameserver: [https://cloudflare-dns.com/dns-query#Proxy]
+  nameserver: [https://cloudflare-dns.com/dns-query#Main]
   nameserver-policy:
     # 代理服务
-    "rule-set:proxy": "https://cloudflare-dns.com/dns-query#Proxy"
-    "rule-set:gfw": "https://cloudflare-dns.com/dns-query#Proxy"
-    "rule-set:openwrt": "https://cloudflare-dns.com/dns-query#Proxy"
+    "rule-set:proxy": "https://cloudflare-dns.com/dns-query#Main"
+    "rule-set:gfw": "https://cloudflare-dns.com/dns-query#Main"
+    "rule-set:openwrt": "https://cloudflare-dns.com/dns-query#Main"
     # 国内直连服务
     "rule-set:direct": "https://dns.alidns.com/dns-query#DIRECT"
     "fastly.jsdelivr.net": "https://dns.alidns.com/dns-query#DIRECT"
@@ -139,21 +139,21 @@ dns:
     "rule-set:openai": "https://cloudflare-dns.com/dns-query#OpenAi"
     "rule-set:pikpak": "https://cloudflare-dns.com/dns-query#SG"
     "rule-set:pikpak-download": "https://dns.alidns.com/dns-query#PikPak-Download"
-    "rule-set:adguard": "https://cloudflare-dns.com/dns-query#Proxy"
-    "rule-set:tmdb": "https://cloudflare-dns.com/dns-query#Proxy"
-    "rule-set:docker": "https://cloudflare-dns.com/dns-query#Proxy"
-    "rule-set:reddit": "https://cloudflare-dns.com/dns-query#Proxy"
-    "rule-set:spotify": "https://cloudflare-dns.com/dns-query#Proxy"
-    "rule-set:wikimedia": "https://cloudflare-dns.com/dns-query#Proxy"
-    "rule-set:javdb": "https://cloudflare-dns.com/dns-query#Proxy"
-    "rule-set:apkpure": "https://cloudflare-dns.com/dns-query#Proxy"
+    "rule-set:adguard": "https://cloudflare-dns.com/dns-query#Main"
+    "rule-set:tmdb": "https://cloudflare-dns.com/dns-query#Main"
+    "rule-set:docker": "https://cloudflare-dns.com/dns-query#Main"
+    "rule-set:reddit": "https://cloudflare-dns.com/dns-query#Main"
+    "rule-set:spotify": "https://cloudflare-dns.com/dns-query#Main"
+    "rule-set:wikimedia": "https://cloudflare-dns.com/dns-query#Main"
+    "rule-set:javdb": "https://cloudflare-dns.com/dns-query#Main"
+    "rule-set:apkpure": "https://cloudflare-dns.com/dns-query#Main"
     "rule-set:steam": "https://cloudflare-dns.com/dns-query#Steam"
-    "rule-set:mozilla": "https://cloudflare-dns.com/dns-query#Proxy"
-    "rule-set:onedrive": "https://cloudflare-dns.com/dns-query#Proxy"
-    "rule-set:github": "https://cloudflare-dns.com/dns-query#Proxy"
+    "rule-set:mozilla": "https://cloudflare-dns.com/dns-query#Main"
+    "rule-set:onedrive": "https://cloudflare-dns.com/dns-query#Main"
+    "rule-set:github": "https://cloudflare-dns.com/dns-query#Main"
     # 社交媒体
     "rule-set:telegram": "https://cloudflare-dns.com/dns-query#Telegram"
-    "rule-set:twitter": "https://cloudflare-dns.com/dns-query#Proxy"
+    "rule-set:twitter": "https://cloudflare-dns.com/dns-query#Main"
     "rule-set:tiktok": "https://cloudflare-dns.com/dns-query#TikTok"
     # 流媒体服务
     "rule-set:netflix": "https://cloudflare-dns.com/dns-query#Netflix"
@@ -165,35 +165,35 @@ dns:
     "rule-set:speedtest": "https://cloudflare-dns.com/dns-query#SpeedTest"
 proxies: []
 proxy-groups:
-  - name: Proxy
+  - name: Main
     type: select
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB)).*$"
     include-all-proxies: true
     proxies: [SG, US, JP, HK, TW, KR, DIRECT]
   - name: Google
     type: select
-    proxies: [Proxy, SG, US, JP, HK, TW, KR]
+    proxies: [Main, SG, US, JP, HK, TW, KR]
   - name: OpenAi
     type: select
-    proxies: [Proxy, SG, US, JP, HK, TW, KR]
+    proxies: [Main, SG, US, JP, HK, TW, KR]
   - name: Telegram
     type: select
-    proxies: [Proxy, SG, US, JP, HK, TW, KR]
+    proxies: [Main, SG, US, JP, HK, TW, KR]
   - name: TikTok
     type: select
-    proxies: [Proxy, SG, US, JP, HK, TW, KR]
+    proxies: [Main, SG, US, JP, HK, TW, KR]
   - name: Steam
     type: select
-    proxies: [Proxy, SG, US, JP, HK, TW, KR]
+    proxies: [Main, SG, US, JP, HK, TW, KR]
   - name: Netflix
     type: select
-    proxies: [Proxy, SG, US, JP, HK, TW, KR]
+    proxies: [Main, SG, US, JP, HK, TW, KR]
   - name: PikPak-Download
     type: select
-    proxies: [DIRECT, Proxy, SG, US, JP, HK, TW, KR]
+    proxies: [DIRECT, Main, SG, US, JP, HK, TW, KR]
   - name: SpeedTest
     type: select
-    proxies: [Proxy, SG, US, JP, HK, TW, KR]
+    proxies: [Main, SG, US, JP, HK, TW, KR]
   - name: TW
     filter: "(?i)(台湾|tw|taiwan)(?!.*(家宽|isp|小众|0\\.[0-9]))"
     include-all-proxies: true
@@ -256,7 +256,7 @@ proxy-groups:
     strategy: consistent-hashing
   - name: Final
     type: select
-    proxies: [DIRECT, Proxy, SG, US, JP, HK, TW, KR]
+    proxies: [DIRECT, Main, SG, US, JP, HK, TW, KR]
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB)).*$"
     include-all-proxies: true
 rule-providers:
@@ -625,10 +625,10 @@ rules:
   # 应用规则集分流配置
   #######################
   # 代理服务
-  - RULE-SET,proxy,Proxy # 代理列表
+  - RULE-SET,proxy,Main # 代理列表
   - RULE-SET,pikpak,SG # PikPak服务
-  - RULE-SET,mozilla,Proxy # Firefox服务
-  - RULE-SET,openwrt,Proxy # OpenWRT服务
+  - RULE-SET,mozilla,Main # Firefox服务
+  - RULE-SET,openwrt,Main # OpenWRT服务
   # 国内应用直连
   - RULE-SET,xiaomi,DIRECT # 小米服务
   - RULE-SET,bilibili,DIRECT # B站
@@ -637,18 +637,18 @@ rules:
   - RULE-SET,meituan,DIRECT # 美团
   - RULE-SET,jd,DIRECT # 京东
   # 国外服务代理
-  - RULE-SET,onedrive,Proxy # OneDrive
+  - RULE-SET,onedrive,Main # OneDrive
   - RULE-SET,openai,OpenAi # OpenAI服务
   - RULE-SET,pikpak-download,PikPak-Download # PikPak下载
-  - RULE-SET,adguard,Proxy # AdGuard
-  - RULE-SET,tmdb,Proxy # TMDB影视资料库
-  - RULE-SET,docker,Proxy # Docker服务
-  - RULE-SET,reddit,Proxy # Reddit
-  - RULE-SET,spotify,Proxy # Spotify音乐
+  - RULE-SET,adguard,Main # AdGuard
+  - RULE-SET,tmdb,Main # TMDB影视资料库
+  - RULE-SET,docker,Main # Docker服务
+  - RULE-SET,reddit,Main # Reddit
+  - RULE-SET,spotify,Main # Spotify音乐
   - RULE-SET,speedtest,SpeedTest # 网速测试
-  - RULE-SET,wikimedia,Proxy # 维基媒体
-  - RULE-SET,javdb,Proxy # JavDB
-  - RULE-SET,apkpure,Proxy # APKPure
+  - RULE-SET,wikimedia,Main # 维基媒体
+  - RULE-SET,javdb,Main # JavDB
+  - RULE-SET,apkpure,Main # APKPure
   # 游戏平台
   - RULE-SET,steam,Steam # Steam平台
   # 社交媒体
@@ -656,10 +656,10 @@ rules:
   - RULE-SET,youtube,Google # YouTube
   - RULE-SET,telegram,Telegram # Telegram
   - RULE-SET,telegram-ip,Telegram # Telegram IP
-  - RULE-SET,twitter,Proxy # Twitter
-  - RULE-SET,twitter-ip,Proxy # Twitter IP
+  - RULE-SET,twitter,Main # Twitter
+  - RULE-SET,twitter-ip,Main # Twitter IP
   # 开发平台
-  - RULE-SET,github,Proxy # GitHub
+  - RULE-SET,github,Main # GitHub
   # 流媒体服务
   - RULE-SET,netflix,Netflix # Netflix
   - RULE-SET,netflix-ip,Netflix # Netflix IP
@@ -668,7 +668,7 @@ rules:
   - RULE-SET,google,Google # Google服务
   - RULE-SET,google-ip,Google # Google IP
   - RULE-SET,microsoft,DIRECT # 微软服务
-  - RULE-SET,gfw,Proxy # GFW封锁列表
+  - RULE-SET,gfw,Main # GFW封锁列表
   # 中国大陆直连
   - RULE-SET,cn,DIRECT # 中国大陆域名
   - RULE-SET,cn-ip,DIRECT # 中国大陆IP
