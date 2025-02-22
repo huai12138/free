@@ -6,6 +6,16 @@ if [ $# -ne 2 ]; then
     exit 1
 fi
 
+# 检查并安装 unzip 命令
+if ! command -v unzip >/dev/null 2>&1; then
+    echo "正在安装 unzip..."
+    if ! opkg update && opkg install unzip; then
+        echo "错误: 安装 unzip 失败"
+        exit 1
+    fi
+    echo "unzip 安装完成"
+fi
+
 SUBSCRIPTION=$1
 PASSWORD=$2
 
