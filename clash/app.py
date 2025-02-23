@@ -118,8 +118,8 @@ def process_yaml_content(yaml_path):
         for proxy in proxies:
             if isinstance(proxy, dict):
                 if proxy.get('type') == 'hysteria2':
-                    proxy['up'] = '100'
-                    proxy['down'] = '500'
+                    proxy['up'] = '50'
+                    proxy['down'] = '300'
                     # 检查是否存在匹配的端口配置
                     if proxy.get('name') in ports_config:
                         proxy['ports'] = ports_config[proxy['name']]
