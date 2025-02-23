@@ -7,6 +7,9 @@ class Config:
     # 基础配置
     USER_AGENT: str = 'clash verge'
     CACHE_DURATION: int = 300  # 缓存时间5分钟
+    # Hysteria2配置
+    HYSTERIA2_UP: str = '50'
+    HYSTERIA2_DOWN: str = '300'
     
     # 目录配置
     BASE_DIR: Path = Path(__file__).parent

@@ -118,12 +118,15 @@ def process_yaml_content(yaml_path):
         for proxy in proxies:
             if isinstance(proxy, dict):
                 if proxy.get('type') == 'hysteria2':
-                    proxy['up'] = '50'
-                    proxy['down'] = '300'
+                    proxy['up'] = config.HYSTERIA2_UP
+                    proxy['down'] = config.HYSTERIA2_DOWN
+                    proxy['skip-cert-verify'] = False
                     # 检查是否存在匹配的端口配置
                     if proxy.get('name') in ports_config:
                         proxy['ports'] = ports_config[proxy['name']]
                         proxy.pop('port', None)
+                elif proxy.get('type') == 'vless':
+                    proxy['skip-cert-verify'] = False
         
         # 更新模板中的代理列表
         template_data['proxies'] = proxies
