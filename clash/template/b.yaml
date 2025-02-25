@@ -169,31 +169,31 @@ proxy-groups:
     type: select
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|DE|GB)).*$"
     include-all-proxies: true
-    proxies: [SG, US, JP, HK, TW, KR, DIRECT]
+    proxies: [SG, US, JP, HK, TW, DIRECT]
   - name: Google
     type: select
-    proxies: [Main, SG, US, JP, HK, TW, KR]
+    proxies: [Main, SG, US, JP, HK, TW]
   - name: OpenAi
     type: select
-    proxies: [Main, SG, US, JP, HK, TW, KR]
+    proxies: [Main, SG, US, JP, HK, TW]
   - name: Telegram
     type: select
-    proxies: [Main, SG, US, JP, HK, TW, KR]
+    proxies: [Main, SG, US, JP, HK, TW]
   - name: TikTok
     type: select
-    proxies: [Main, SG, US, JP, HK, TW, KR]
+    proxies: [Main, SG, US, JP, HK, TW]
   - name: Steam
     type: select
-    proxies: [Main, SG, US, JP, HK, TW, KR]
+    proxies: [Main, SG, US, JP, HK, TW]
   - name: Netflix
     type: select
-    proxies: [Main, SG, US, JP, HK, TW, KR]
+    proxies: [Main, SG, US, JP, HK, TW]
   - name: PikPak-Download
     type: select
-    proxies: [DIRECT, Main, SG, US, JP, HK, TW, KR]
+    proxies: [DIRECT, Main, SG, US, JP, HK, TW]
   - name: SpeedTest
     type: select
-    proxies: [Main, SG, US, JP, HK, TW, KR]
+    proxies: [Main, SG, US, JP, HK, TW]
   - name: TW
     filter: "(?i)(台湾|tw|taiwan)(?!.*(家宽|isp|小众))"
     include-all-proxies: true
@@ -244,19 +244,9 @@ proxy-groups:
     max-failed-times: 3
     # lazy: true
     strategy: consistent-hashing
-  - name: KR
-    filter: "(?i)(韩国|kr|korea)(?!.*(家宽|isp|小众))"
-    include-all-proxies: true
-    type: load-balance
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    timeout: 3000
-    max-failed-times: 3
-    # lazy: true
-    strategy: consistent-hashing
   - name: Final
     type: select
-    proxies: [DIRECT, Main, SG, US, JP, HK, TW, KR]
+    proxies: [DIRECT, Main, SG, US, JP, HK, TW]
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB)).*$"
     include-all-proxies: true
 rule-providers:

@@ -4,7 +4,7 @@ from urllib.parse import unquote
 import json
 import logging
 import uuid
-from config import USER_AGENT, BASE_DIR, OUTPUT_FOLDER, TEMPLATE_PATH
+from config import USER_AGENT, BASE_DIR, OUTPUT_FOLDER, TEMPLATE_PATH, UPLOAD_MBPS, DOWNLOAD_MBPS
 import re  # 添加在文件开头
 
 app = Flask(__name__)
@@ -74,8 +74,8 @@ def process_subscription(sub_path):
                 item.get('tag', '') and 
                 item.get('tag') not in seen_tags):
                 if item.get('type') == 'hysteria2':
-                    item['up_mbps'] = 100
-                    item['down_mbps'] = 500
+                    item['up_mbps'] = UPLOAD_MBPS
+                    item['down_mbps'] = DOWNLOAD_MBPS
                     
                 # 检查并更新 server_ports
                 node_key = (item.get('type'), item.get('tag'))
