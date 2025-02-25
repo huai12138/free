@@ -113,7 +113,6 @@
       "outbounds": [
         "HK",
         "TW",
-        "KR",
         "SG",
         "JP",
         "US",
@@ -128,7 +127,6 @@
         "Proxy",
         "HK",
         "TW",
-        "KR",
         "SG",
         "JP",
         "US"
@@ -142,7 +140,6 @@
         "Proxy",
         "HK",
         "TW",
-        "KR",
         "SG",
         "JP",
         "US"
@@ -156,7 +153,6 @@
         "Proxy",
         "HK",
         "TW",
-        "KR",
         "SG",
         "JP",
         "US"
@@ -170,7 +166,6 @@
         "Proxy",
         "HK",
         "TW",
-        "KR",
         "SG",
         "JP",
         "US"
@@ -184,7 +179,6 @@
         "Proxy",
         "HK",
         "TW",
-        "KR",
         "SG",
         "JP",
         "US"
@@ -198,7 +192,6 @@
         "Proxy",
         "HK",
         "TW",
-        "KR",
         "SG",
         "JP",
         "US"
@@ -212,7 +205,6 @@
         "Proxy",
         "HK",
         "TW",
-        "KR",
         "SG",
         "JP",
         "US"
@@ -226,7 +218,6 @@
         "Proxy",
         "HK",
         "TW",
-        "KR",
         "SG",
         "JP",
         "US"
@@ -240,7 +231,6 @@
         "Proxy",
         "HK",
         "TW",
-        "KR",
         "SG",
         "JP",
         "US"
@@ -254,7 +244,6 @@
         "Proxy",
         "HK",
         "TW",
-        "KR",
         "SG",
         "JP",
         "US",
@@ -269,7 +258,6 @@
         "Proxy",
         "HK",
         "TW",
-        "KR",
         "SG",
         "JP",
         "US",
@@ -281,7 +269,7 @@
         {
           "action": "match",
           "regex": [
-            "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire)).*$"
+            "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|DE|GB)).*$"
           ]
         }
       ]
@@ -294,12 +282,12 @@
       ],
       "url": "https://cp.cloudflare.com/generate_204",
       "interval": "60s",
-      "tolerance": 20,
+      "tolerance": 100,
       "filter": [
         {
           "action": "match",
           "regex": [
-            "(?i)^(?=.*(🇭🇰|HK|hk|香港|hongkong))(?!.*(家宽|isp|小众|0\\.[0-9])).*$"
+            "(?i)^(?=.*(🇭🇰|HK|hk|香港|hongkong))(?!.*(家宽|isp|小众)).*$"
           ]
         }
       ]
@@ -312,30 +300,12 @@
       ],
       "url": "https://cp.cloudflare.com/generate_204",
       "interval": "60s",
-      "tolerance": 20,
+      "tolerance": 100,
       "filter": [
         {
           "action": "match",
           "regex": [
-            "(?i)^(?=.*(🇹🇼|TW|tw|台湾|taiwan))(?!.*(家宽|isp|小众|0\\.[0-9])).*$"
-          ]
-        }
-      ]
-    },
-    {
-      "tag": "KR",
-      "type": "urltest",
-      "outbounds": [
-        "{all}"
-      ],
-      "url": "https://cp.cloudflare.com/generate_204",
-      "interval": "60s",
-      "tolerance": 20,
-      "filter": [
-        {
-          "action": "match",
-          "regex": [
-            "(?i)^(?=.*(🇰🇷|KR|kr|韩国|korea))(?!.*(家宽|isp|小众|0\\.[0-9])).*$"
+            "(?i)^(?=.*(🇹🇼|TW|tw|台湾|taiwan))(?!.*(家宽|isp|小众)).*$"
           ]
         }
       ]
@@ -348,12 +318,12 @@
       ],
       "url": "https://cp.cloudflare.com/generate_204",
       "interval": "60s",
-      "tolerance": 20,
+      "tolerance": 100,
       "filter": [
         {
           "action": "match",
           "regex": [
-            "(?i)^(?=.*(新加坡|sg|singapore))(?!.*(家宽|isp|小众|0\\.[0-9])).*$"
+            "(?i)^(?=.*(新加坡|sg|singapore))(?!.*(家宽|isp|小众)).*$"
           ]
         }
       ]
@@ -366,12 +336,12 @@
       ],
       "url": "https://cp.cloudflare.com/generate_204",
       "interval": "60s",
-      "tolerance": 20,
+      "tolerance": 100,
       "filter": [
         {
           "action": "match",
           "regex": [
-            "(?i)^(?=.*(🇯🇵|JP|jp|日本|japan))(?!.*(家宽|isp|小众|0\\.[0-9])).*$"
+            "(?i)^(?=.*(🇯🇵|JP|jp|日本|japan))(?!.*(家宽|isp|小众)).*$"
           ]
         }
       ]
@@ -384,12 +354,12 @@
       ],
       "url": "https://cp.cloudflare.com/generate_204",
       "interval": "60s",
-      "tolerance": 20,
+      "tolerance": 100,
       "filter": [
         {
           "action": "match",
           "regex": [
-            "(?i)^(?=.*(🇺🇸|US|美国|united states|america))(?!.*(家宽|isp|小众|0\\.[0-9])).*$"
+            "(?i)^(?=.*(🇺🇸|US|美国|united states|america))(?!.*(家宽|isp|小众)).*$"
           ]
         }
       ]
