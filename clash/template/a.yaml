@@ -1,0 +1,373 @@
+# port: 7890 # HTTP(S) 代理服务器端口
+# socks-port: 7891 # SOCKS5 代理端口
+mixed-port: 12138 # HTTP(S) 和 SOCKS 代理混合端口
+# redir-port: 7892 # 透明代理端口，用于 Linux 和 MacOS
+# Transparent proxy server port for Linux (TProxy TCP and TProxy UDP)
+# tproxy-port: 7893
+allow-lan: true
+bind-address: "*"
+#  find-process-mode has 3 values:always, strict, off
+#  - always, 开启，强制匹配所有进程
+#  - strict, 默认，由 mihomo 判断是否开启
+#  - off, 不匹配进程，推荐在路由器上使用此模式
+find-process-mode: strict # always, strict, off
+mode: rule # global, rule, direct
+geox-url:
+  geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+  geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+
+geo-auto-update: true # 是否自动更新 geodata
+geo-update-interval: 24 # 更新间隔，单位：小时
+log-level: warning # info, warning, error, debug
+ipv6: false
+udp: true
+geodata-mode: true
+unified-delay: true
+tcp-concurrent: true
+enable-process: true
+# global-ua: "Mozilla/5.0 (X11; CrOS x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+profile:
+  store_fake_ip: true
+  store_selected: true
+external-controller: 0.0.0.0:9090
+secret: "101300"
+authentication: # http,socks 入口的验证用户名，密码
+  - "huai:12138password"
+skip-auth-prefixes: # 设置跳过验证的 IP 段
+  - 10.0.0.0/24 # 仅允许 10.0.0.1-10.0.0.255
+  - 127.0.0.1/8 # 仅允许 127.0.0.0-127.255.255.255 (本地回环地址)
+  - 192.168.0.0/16 # 仅允许 192.168.0.0-192.168.255.255
+external-ui: ui
+#external-ui-name: yacd
+global-client-fingerprint: chrome
+external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip"
+sniffer:
+  enable: true
+  sniff:
+    QUIC:
+      ports:
+        - 443
+    TLS:
+      ports:
+        - 443
+        - 8443
+    HTTP:
+      ports:
+        - 80
+        - 8080-8880
+      override-destination: true
+  skip-domain:
+    - "Mijia Cloud"
+    - "dlg.io.mi.com"
+    - "+.apple.com"
+    - "*.baidu.com"
+  force-domain:
+    - "google.com"
+tun:
+  enable: true # 是否启用 tun 模式
+  device: mihomo # tun device name
+  stack: system # system, gvisor, mixed
+  dns-hijack:
+    - "any:53" # DNS 拦截
+  auto-route: true # 自动路由
+  auto-detect-interface: true # 自动检测接口
+  strict-route: true # 严格路由模式
+  endpoint-independent-nat: true # 是否启用端点无关的 NAT
+hosts:
+  "openwrt": "10.0.0.1" # 替换为实际的路由器IP地址
+  "nas": "10.0.0.21" # 替换为实际的NAS IP地址
+  "ax6s": "10.0.0.2" # 替换为实际的路由器IP地址
+  "homeassistant.local": "10.0.0.21" # 替换为实际的HomeAssistant IP地址
+
+dns:
+  enable: true
+  prefer-h3: true
+  listen: "127.0.0.1:1053"
+  ipv6: false
+  enhanced-mode: fake-ip # fake-ip, redir-host
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter-mode: blacklist
+  fake-ip-filter:
+    - "+.lan"
+    - "+.local"
+    - "+.nas"
+    - "localhost.ptlogin2.qq.com"
+    - "+.msftconnecttest.com"
+    - "+.msftncsi.com"
+    - "+.googleapis.com"
+    - "+.googleapis.cn"
+    - "alt1-mtalk.google.com"
+    - "alt2-mtalk.google.com"
+    - "alt3-mtalk.google.com"
+    - "alt4-mtalk.google.com"
+    - "alt5-mtalk.google.com"
+    - "alt6-mtalk.google.com"
+    - "alt7-mtalk.google.com"
+    - "alt8-mtalk.google.com"
+    - "mtalk.google.com"
+    - "mtalk-dev.google.com"
+    - "mtalk-staging.google.com"
+    - "mtalk4.google.com"
+    - "+.huaihuaidehuaihuai.top"
+    - "+.huai.ink"
+    - "+.suckless.top"
+    - "+.ihuai.top"
+  use-hosts: true # 是否使用配置中设置的hosts
+  use-system-hosts: false # 是否使用系统hosts
+  default-nameserver:
+    - 114.114.114.114
+    - 223.5.5.5
+    - 119.29.29.29
+  proxy-server-nameserver:
+    - "https://dns.alidns.com/dns-query"
+    - "https://doh.pub/dns-query"
+    - "https://doh.onedns.net/dns-query"
+  nameserver: [https://cloudflare-dns.com/dns-query#Main]
+  nameserver-policy:
+    # 代理服务
+    "rule-set:proxy": "https://cloudflare-dns.com/dns-query#Main"
+    "GEOSITE:gfw": "https://cloudflare-dns.com/dns-query#Main"
+    "GEOSITE:openwrt": "https://cloudflare-dns.com/dns-query#Main"
+    # 国内直连服务
+    "rule-set:direct": "https://dns.alidns.com/dns-query#DIRECT"
+    "fastly.jsdelivr.net": "https://dns.alidns.com/dns-query#DIRECT"
+    "GEOSITE:cn": "https://dns.alidns.com/dns-query#DIRECT"
+    "GEOSITE:bilibili": "https://dns.alidns.com/dns-query#DIRECT"
+    "GEOSITE:xiaomi": "https://dns.alidns.com/dns-query#DIRECT"
+    "GEOSITE:unionpay": "https://dns.alidns.com/dns-query#DIRECT"
+    "GEOSITE:alibaba": "https://dns.alidns.com/dns-query#DIRECT"
+    "GEOSITE:meituan": "https://dns.alidns.com/dns-query#DIRECT"
+    "GEOSITE:jd": "https://dns.alidns.com/dns-query#DIRECT"
+    "GEOSITE:microsoft": "https://dns.alidns.com/dns-query#DIRECT"
+    # 广告拦截服务
+    "GEOSITE:category-ads-all": "rcode://refused"
+    # 特定应用服务
+    "GEOSITE:openai": "https://cloudflare-dns.com/dns-query#OpenAi"
+    "GEOSITE:pikpak": "https://cloudflare-dns.com/dns-query#SG"
+    "rule-set:pikpak-download": "https://dns.alidns.com/dns-query#PikPak-Download"
+    "GEOSITE:adguard": "https://cloudflare-dns.com/dns-query#Main"
+    "GEOSITE:tmdb": "https://cloudflare-dns.com/dns-query#Main"
+    "GEOSITE:docker": "https://cloudflare-dns.com/dns-query#Main"
+    "GEOSITE:reddit": "https://cloudflare-dns.com/dns-query#Main"
+    "GEOSITE:spotify": "https://cloudflare-dns.com/dns-query#Main"
+    "GEOSITE:wikimedia": "https://cloudflare-dns.com/dns-query#Main"
+    "GEOSITE:javdb": "https://cloudflare-dns.com/dns-query#Main"
+    "GEOSITE:apkpure": "https://cloudflare-dns.com/dns-query#Main"
+    "GEOSITE:steam": "https://cloudflare-dns.com/dns-query#Steam"
+    "GEOSITE:mozilla": "https://cloudflare-dns.com/dns-query#Main"
+    "GEOSITE:onedrive": "https://cloudflare-dns.com/dns-query#Main"
+    "GEOSITE:github": "https://cloudflare-dns.com/dns-query#Main"
+    # 社交媒体
+    "GEOSITE:telegram": "https://cloudflare-dns.com/dns-query#Telegram"
+    "GEOSITE:twitter": "https://cloudflare-dns.com/dns-query#Main"
+    "GEOSITE:tiktok": "https://cloudflare-dns.com/dns-query#TikTok"
+    # 流媒体服务
+    "GEOSITE:netflix": "https://cloudflare-dns.com/dns-query#Netflix"
+    "GEOSITE:youtube": "https://cloudflare-dns.com/dns-query#Google"
+    # Google服务
+    "GEOSITE:googlefcm": "https://cloudflare-dns.com/dns-query#Google"
+    "GEOSITE:google": "https://cloudflare-dns.com/dns-query#Google"
+    # 测速服务
+    "GEOSITE:speedtest": "https://cloudflare-dns.com/dns-query#SpeedTest"
+proxies: []
+proxy-groups:
+  - name: Main
+    type: select
+    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|DE|GB|低倍率)).*$"
+    include-all-proxies: true
+    proxies: [SG, US, JP, HK, TW, DIRECT]
+  - name: Google
+    type: select
+    proxies: [Main, SG, US, JP, HK, TW]
+  - name: OpenAi
+    type: select
+    proxies: [Main, SG, US, JP, HK, TW]
+  - name: Telegram
+    type: select
+    proxies: [Main, SG, US, JP, HK, TW]
+  - name: TikTok
+    type: select
+    proxies: [Main, SG, US, JP, HK, TW]
+  - name: Steam
+    type: select
+    proxies: [Main, SG, US, JP, HK, TW]
+  - name: Netflix
+    type: select
+    proxies: [Main, SG, US, JP, HK, TW]
+  - name: PikPak-Download
+    type: select
+    proxies: [DIRECT, Main, SG, US, JP, HK, TW]
+  - name: SpeedTest
+    type: select
+    proxies: [Main, SG, US, JP, HK, TW]
+  - name: TW
+    filter: "(?i)(台湾|tw|taiwan)(?!.*(家宽|isp|小众|低倍率))"
+    include-all-proxies: true
+    type: load-balance
+    url: https://cp.cloudflare.com/generate_204
+    interval: 60
+    timeout: 3000
+    max-failed-times: 3
+    # lazy: true
+    strategy: consistent-hashing
+  - name: HK
+    filter: "(?i)(香港|hk|hong)(?!.*(家宽|isp|小众|低倍率))"
+    include-all-proxies: true
+    type: load-balance
+    url: https://cp.cloudflare.com/generate_204
+    interval: 60
+    timeout: 3000
+    max-failed-times: 3
+    #  lazy: true
+    strategy: consistent-hashing
+  - name: JP
+    filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|小众|低倍率))"
+    include-all-proxies: true
+    type: load-balance
+    url: https://cp.cloudflare.com/generate_204
+    interval: 60
+    timeout: 3000
+    max-failed-times: 3
+    #  lazy: true
+    strategy: consistent-hashing
+  - name: US
+    filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|小众|低倍率))"
+    include-all-proxies: true
+    type: load-balance
+    url: https://cp.cloudflare.com/generate_204
+    interval: 60
+    timeout: 3000
+    max-failed-times: 3
+    # lazy: true
+    strategy: consistent-hashing
+  - name: SG
+    filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|小众|低倍率))"
+    include-all-proxies: true
+    type: load-balance
+    url: https://cp.cloudflare.com/generate_204
+    interval: 60
+    timeout: 3000
+    max-failed-times: 3
+    # lazy: true
+    strategy: consistent-hashing
+  - name: Final
+    type: select
+    proxies: [DIRECT, Main, SG, US, JP, HK, TW]
+    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB|低倍率)).*$"
+    include-all-proxies: true
+rule-providers:
+  direct:
+    type: http
+    interval: 86400
+    proxy: SG
+    behavior: domain
+    format: mrs
+    path: ./rules/direct.mrs
+    url: https://github.com/huai12138/free/raw/refs/heads/main/direct.mrs
+  direct-ip:
+    type: http
+    interval: 86400
+    proxy: SG
+    behavior: ipcidr
+    format: mrs
+    path: ./rules/direct-ip.mrs
+    url: https://github.com/huai12138/free/raw/refs/heads/main/direct-ip.mrs
+
+  pass-ip:
+    type: http
+    interval: 86400
+    proxy: SG
+    behavior: classical
+    format: yaml
+    path: ./rules/pass-ip.yaml
+    url: https://github.com/huai12138/free/raw/refs/heads/main/pass-ip.yaml
+
+  pikpak-download:
+    type: http
+    interval: 86400
+    proxy: SG
+    behavior: classical
+    format: yaml
+    path: ./rules/pikpak-download.yaml
+    url: https://github.com/huai12138/free/raw/refs/heads/main/pikpak-download.yaml
+  proxy:
+    type: http
+    interval: 86400
+    proxy: SG
+    behavior: domain
+    format: mrs
+    path: ./rules/proxy.mrs
+    url: https://github.com/huai12138/free/raw/refs/heads/main/proxy.mrs
+
+rules:
+  #######################
+  # 本地网络访问规则
+  #######################
+  - DOMAIN-SUFFIX,local,DIRECT
+  - DOMAIN-SUFFIX,lan,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - IP-CIDR,10.0.0.0/24,DIRECT
+
+  #######################
+  # 直连规则
+  #######################
+  - RULE-SET,direct,DIRECT
+  - RULE-SET,direct-ip,DIRECT
+  # 智能家居设备直连规则
+  #######################
+  - RULE-SET,pass-ip,DIRECT
+  #######################
+  # 应用规则集分流配置
+  #######################
+  # 代理服务
+  - RULE-SET,proxy,Main # 代理列表
+  - GEOSITE,pikpak,SG # PikPak服务
+  - GEOSITE,mozilla,Main # Firefox服务
+  - GEOSITE,openwrt,Main # OpenWRT服务
+  # 国内应用直连
+  - GEOSITE,xiaomi,DIRECT # 小米服务
+  - GEOSITE,bilibili,DIRECT # B站
+  - GEOSITE,unionpay,DIRECT # 银联支付
+  - GEOSITE,alibaba,DIRECT # 阿里巴巴
+  - GEOSITE,meituan,DIRECT # 美团
+  - GEOSITE,jd,DIRECT # 京东
+  # 国外服务代理
+  - GEOSITE,onedrive,Main # OneDrive
+  - GEOSITE,openai,OpenAi # OpenAI服务
+  - RULE-SET,pikpak-download,PikPak-Download # PikPak下载
+  - GEOSITE,adguard,Main # AdGuard
+  - GEOSITE,tmdb,Main # TMDB影视资料库
+  - GEOSITE,docker,Main # Docker服务
+  - GEOSITE,reddit,Main # Reddit
+  - GEOSITE,spotify,Main # Spotify音乐
+  - GEOSITE,speedtest,SpeedTest # 网速测试
+  - GEOSITE,wikimedia,Main # 维基媒体
+  - GEOSITE,javdb,Main # JavDB
+  - GEOSITE,apkpure,Main # APKPure
+  # 游戏平台
+  - GEOSITE,steam,Steam # Steam平台
+  # 社交媒体
+  - GEOSITE,tiktok,TikTok # TikTok
+  - GEOSITE,youtube,Google # YouTube
+  - GEOSITE,telegram,Telegram # Telegram
+  - GEOIP,telegram,Telegram # Telegram IP
+  - GEOSITE,twitter,Main # Twitter
+  - GEOIP,twitter,Main # Twitter IP
+  # 开发平台
+  - GEOSITE,github,Main # GitHub
+  # 流媒体服务
+  - GEOSITE,netflix,Netflix # Netflix
+  - GEOIP,netflix,Netflix # Netflix IP
+  # 科技公司服务
+  - GEOSITE,googlefcm,DIRECT # Google FCM服务
+  - GEOSITE,google,Google # Google服务
+  - GEOIP,google,Google # Google IP
+  - GEOSITE,microsoft,DIRECT # 微软服务
+  - GEOSITE,gfw,Main # GFW封锁列表
+  # 中国大陆直连
+  - GEOSITE,cn,DIRECT # 中国大陆域名
+  - GEOIP,cn,DIRECT # 中国大陆IP
+  # 广告拦截服务
+  - GEOSITE,category-ads-all,REJECT # 广告拦截
+  # 未匹配规则
+  - MATCH,Final # 最终规则
