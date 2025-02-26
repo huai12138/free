@@ -167,7 +167,7 @@ proxies: []
 proxy-groups:
   - name: Main
     type: select
-    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|DE|GB)).*$"
+    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|DE|GB|低倍率)).*$"
     include-all-proxies: true
     proxies: [SG, US, JP, HK, TW, DIRECT]
   - name: Google
@@ -195,7 +195,7 @@ proxy-groups:
     type: select
     proxies: [Main, SG, US, JP, HK, TW]
   - name: TW
-    filter: "(?i)(台湾|tw|taiwan)(?!.*(家宽|isp|小众))"
+    filter: "(?i)(台湾|tw|taiwan)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -205,7 +205,7 @@ proxy-groups:
     # lazy: true
     strategy: consistent-hashing
   - name: HK
-    filter: "(?i)(香港|hk|hong)(?!.*(家宽|isp|小众))"
+    filter: "(?i)(香港|hk|hong)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -215,7 +215,7 @@ proxy-groups:
     #  lazy: true
     strategy: consistent-hashing
   - name: JP
-    filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|小众))"
+    filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -225,7 +225,7 @@ proxy-groups:
     #  lazy: true
     strategy: consistent-hashing
   - name: US
-    filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|小众))"
+    filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -235,7 +235,7 @@ proxy-groups:
     # lazy: true
     strategy: consistent-hashing
   - name: SG
-    filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|小众))"
+    filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com/generate_204
@@ -247,7 +247,7 @@ proxy-groups:
   - name: Final
     type: select
     proxies: [DIRECT, Main, SG, US, JP, HK, TW]
-    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB)).*$"
+    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB|低倍率)).*$"
     include-all-proxies: true
 rule-providers:
   adguard:
