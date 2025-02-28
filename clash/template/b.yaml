@@ -165,9 +165,6 @@ dns:
     "rule-set:speedtest": "https://cloudflare-dns.com/dns-query#SpeedTest"
 proxies: []
 proxy-groups:
-  - name: D
-    type: select
-    proxies: [DIRECT]
   - name: M
     type: select
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|DE|GB|低倍率)).*$"
@@ -197,6 +194,9 @@ proxy-groups:
   - name: SpeedTest
     type: select
     proxies: [M, SG, US, JP, HK, TW]
+  - name: D
+    type: select
+    proxies: [DIRECT]
   - name: TW
     filter: "(?i)(台湾|tw|taiwan)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
