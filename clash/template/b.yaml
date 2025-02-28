@@ -12,18 +12,11 @@ bind-address: "*"
 #  - off, 不匹配进程，推荐在路由器上使用此模式
 find-process-mode: strict # always, strict, off
 mode: rule # global, rule, direct
-geox-url:
-  geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
-  geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
-  mmdb: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb"
-
-geo-auto-update: false # 是否自动更新 geodata
-geo-update-interval: 24 # 更新间隔，单位：小时
 log-level: warning # info, warning, error, debug
 ipv6: false
 udp: true
 geodata-mode: false
-unified-delay: true
+unified-delay: false
 tcp-concurrent: true
 enable-process: true
 # global-ua: "Mozilla/5.0 (X11; CrOS x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -172,11 +165,14 @@ dns:
     "rule-set:speedtest": "https://cloudflare-dns.com/dns-query#SpeedTest"
 proxies: []
 proxy-groups:
+  - name: D
+    type: select
+    proxies: [DIRECT]
   - name: M
     type: select
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|DE|GB|低倍率)).*$"
     include-all-proxies: true
-    proxies: [SG, US, JP, HK, TW, DIRECT]
+    proxies: [SG, US, JP, HK, TW, D]
   - name: Google
     type: select
     proxies: [M, SG, US, JP, HK, TW]
@@ -197,7 +193,7 @@ proxy-groups:
     proxies: [M, SG, US, JP, HK, TW]
   - name: PikPak-Download
     type: select
-    proxies: [DIRECT, M, SG, US, JP, HK, TW]
+    proxies: [D, M, SG, US, JP, HK, TW]
   - name: SpeedTest
     type: select
     proxies: [M, SG, US, JP, HK, TW]
@@ -253,14 +249,14 @@ proxy-groups:
     strategy: consistent-hashing
   - name: Default
     type: select
-    proxies: [M, DIRECT, SG, US, JP, HK, TW]
+    proxies: [M, D, SG, US, JP, HK, TW]
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB|低倍率)).*$"
     include-all-proxies: true
 rule-providers:
   adguard:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/adguard.mrs
@@ -268,7 +264,7 @@ rule-providers:
   alibaba:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/alibaba.mrs
@@ -276,7 +272,7 @@ rule-providers:
   apkpure:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/apkpure.mrs
@@ -284,7 +280,7 @@ rule-providers:
   bilibili:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/bilibili.mrs
@@ -292,7 +288,7 @@ rule-providers:
   category-ads-all:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/category-ads-all.mrs
@@ -300,7 +296,7 @@ rule-providers:
   cn:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/cn.mrs
@@ -308,7 +304,7 @@ rule-providers:
   cn-ip:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/cn-ip.mrs
@@ -316,7 +312,7 @@ rule-providers:
   docker:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/docker.mrs
@@ -324,7 +320,7 @@ rule-providers:
   direct:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/direct.mrs
@@ -332,7 +328,7 @@ rule-providers:
   direct-ip:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/direct-ip.mrs
@@ -340,7 +336,7 @@ rule-providers:
   mozilla:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/mozilla.mrs
@@ -348,7 +344,7 @@ rule-providers:
   gfw:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/gfw.mrs
@@ -356,7 +352,7 @@ rule-providers:
   github:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/github.mrs
@@ -364,7 +360,7 @@ rule-providers:
   google:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/google.mrs
@@ -372,7 +368,7 @@ rule-providers:
   google-ip:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/google-ip.mrs
@@ -380,7 +376,7 @@ rule-providers:
   googlefcm:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/googlefcm.mrs
@@ -388,7 +384,7 @@ rule-providers:
   javdb:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/javdb.mrs
@@ -396,7 +392,7 @@ rule-providers:
   jd:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/jd.mrs
@@ -404,7 +400,7 @@ rule-providers:
   meituan:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/meituan.mrs
@@ -412,7 +408,7 @@ rule-providers:
   microsoft:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/microsoft.mrs
@@ -420,7 +416,7 @@ rule-providers:
   netflix:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/netflix.mrs
@@ -428,7 +424,7 @@ rule-providers:
   netflix-ip:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/netflix-ip.mrs
@@ -436,7 +432,7 @@ rule-providers:
   onedrive:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/onedrive.mrs
@@ -444,7 +440,7 @@ rule-providers:
   openai:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/openai.mrs
@@ -452,7 +448,7 @@ rule-providers:
   openwrt:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/openwrt.mrs
@@ -460,7 +456,7 @@ rule-providers:
   pass-ip:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: classical
     format: yaml
     path: ./rules/pass-ip.yaml
@@ -468,7 +464,7 @@ rule-providers:
   pikpak:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/pikpak.mrs
@@ -476,7 +472,7 @@ rule-providers:
   pikpak-download:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: classical
     format: yaml
     path: ./rules/pikpak-download.yaml
@@ -484,7 +480,7 @@ rule-providers:
   proxy:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/proxy.mrs
@@ -492,7 +488,7 @@ rule-providers:
   reddit:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/reddit.mrs
@@ -500,7 +496,7 @@ rule-providers:
   speedtest:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/speedtest.mrs
@@ -508,7 +504,7 @@ rule-providers:
   spotify:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/spotify.mrs
@@ -516,7 +512,7 @@ rule-providers:
   steam:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/steam.mrs
@@ -524,7 +520,7 @@ rule-providers:
   telegram:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/telegram.mrs
@@ -532,7 +528,7 @@ rule-providers:
   telegram-ip:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/telegram-ip.mrs
@@ -540,7 +536,7 @@ rule-providers:
   tiktok:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/tiktok.mrs
@@ -548,7 +544,7 @@ rule-providers:
   tmdb:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/tmdb.mrs
@@ -556,7 +552,7 @@ rule-providers:
   twitter:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/twitter.mrs
@@ -564,7 +560,7 @@ rule-providers:
   twitter-ip:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/twitter-ip.mrs
@@ -572,7 +568,7 @@ rule-providers:
   unionpay:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/unionpay.mrs
@@ -580,7 +576,7 @@ rule-providers:
   wikimedia:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/wikimedia.mrs
@@ -588,7 +584,7 @@ rule-providers:
   xiaomi:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/xiaomi.mrs
@@ -596,7 +592,7 @@ rule-providers:
   youtube:
     type: http
     interval: 86400
-    proxy: SG
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/youtube.mrs
