@@ -601,19 +601,19 @@ rules:
   #######################
   # 本地网络访问规则
   #######################
-  - DOMAIN-SUFFIX,local,DIRECT
-  - DOMAIN-SUFFIX,lan,DIRECT
-  - IP-CIDR,127.0.0.0/8,DIRECT
-  - IP-CIDR,10.0.0.0/24,DIRECT
+  - DOMAIN-SUFFIX,local,D
+  - DOMAIN-SUFFIX,lan,D
+  - IP-CIDR,127.0.0.0/8,D
+  - IP-CIDR,10.0.0.0/24,D
 
   #######################
   # 直连规则
   #######################
-  - RULE-SET,direct,DIRECT
-  - RULE-SET,direct-ip,DIRECT
+  - RULE-SET,direct,D
+  - RULE-SET,direct-ip,D
   # 智能家居设备直连规则
   #######################
-  - RULE-SET,pass-ip,DIRECT
+  - RULE-SET,pass-ip,D
   #######################
   # 应用规则集分流配置
   #######################
@@ -623,12 +623,12 @@ rules:
   - RULE-SET,mozilla,M # Firefox服务
   - RULE-SET,openwrt,M # OpenWRT服务
   # 国内应用直连
-  - RULE-SET,xiaomi,DIRECT # 小米服务
-  - RULE-SET,bilibili,DIRECT # B站
-  - RULE-SET,unionpay,DIRECT # 银联支付
-  - RULE-SET,alibaba,DIRECT # 阿里巴巴
-  - RULE-SET,meituan,DIRECT # 美团
-  - RULE-SET,jd,DIRECT # 京东
+  - RULE-SET,xiaomi,D # 小米服务
+  - RULE-SET,bilibili,D # B站
+  - RULE-SET,unionpay,D # 银联支付
+  - RULE-SET,alibaba,D # 阿里巴巴
+  - RULE-SET,meituan,D # 美团
+  - RULE-SET,jd,D # 京东
   # 国外服务代理
   - RULE-SET,onedrive,M # OneDrive
   - RULE-SET,openai,OpenAi # OpenAI服务
@@ -657,14 +657,14 @@ rules:
   - RULE-SET,netflix,Netflix # Netflix
   - RULE-SET,netflix-ip,Netflix # Netflix IP
   # 科技公司服务
-  - RULE-SET,googlefcm,DIRECT # Google FCM服务
+  - RULE-SET,googlefcm,D # Google FCM服务
   - RULE-SET,google,Google # Google服务
   - RULE-SET,google-ip,Google # Google IP
-  - RULE-SET,microsoft,DIRECT # 微软服务
+  - RULE-SET,microsoft,D # 微软服务
   - RULE-SET,gfw,M # GFW封锁列表
   # 中国大陆直连
-  - RULE-SET,cn,DIRECT # 中国大陆域名
-  - RULE-SET,cn-ip,DIRECT # 中国大陆IP
+  - RULE-SET,cn,D # 中国大陆域名
+  - RULE-SET,cn-ip,D # 中国大陆IP
   # 广告拦截服务
   - RULE-SET,category-ads-all,REJECT # 广告拦截
   # 未匹配规则
