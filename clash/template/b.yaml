@@ -250,7 +250,7 @@ proxy-groups:
     strategy: consistent-hashing
   - name: Default
     type: select
-    proxies: [M, D, SG, US, JP, HK, TW]
+    proxies: [D, M, SG, US, JP, HK, TW]
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB|低倍率)).*$"
     include-all-proxies: true
 rule-providers:
