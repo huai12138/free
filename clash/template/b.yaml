@@ -176,7 +176,7 @@ proxy-groups:
     proxies: [DIRECT]
   - name: Google-Play
     type: select
-    filter: "(?i)^(play)(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|DE|GB|低倍率)).*$"
+    filter: "(?i).*?(play|store)(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|DE|GB|低倍率)).*$"
     include-all-proxies: true
     proxies: [M, SG, US, JP, HK, TW]
   - name: Google
