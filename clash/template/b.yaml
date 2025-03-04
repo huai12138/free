@@ -170,7 +170,7 @@ proxy-groups:
     type: select
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|DE|GB|低倍率)).*$"
     include-all-proxies: true
-    proxies: [SG, US, JP, HK, TW, D]
+    proxies: [SG, US, JP, HK, D]
   - name: D
     type: select
     proxies: [DIRECT]
@@ -178,42 +178,32 @@ proxy-groups:
     type: select
     filter: "(?i).*?(play|store)(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|DE|GB|低倍率)).*$"
     include-all-proxies: true
-    proxies: [M, SG, US, JP, HK, TW]
+    proxies: [M, SG, US, JP, HK]
   - name: Google
     type: select
-    proxies: [M, SG, US, JP, HK, TW]
+    proxies: [M, SG, US, JP, HK]
   - name: OpenAi
     type: select
-    proxies: [M, SG, US, JP, HK, TW]
+    proxies: [M, SG, US, JP, HK]
   - name: Telegram
     type: select
-    proxies: [M, SG, US, JP, HK, TW]
+    proxies: [M, SG, US, JP, HK]
   - name: TikTok
     type: select
-    proxies: [M, SG, US, JP, HK, TW]
+    proxies: [M, SG, US, JP, HK]
   - name: Steam
     type: select
-    proxies: [M, SG, US, JP, HK, TW]
+    proxies: [M, SG, US, JP, HK]
   - name: Netflix
     type: select
-    proxies: [M, SG, US, JP, HK, TW]
+    proxies: [M, SG, US, JP, HK]
   - name: PikPak-Download
     type: select
-    proxies: [D, M, SG, US, JP, HK, TW]
+    proxies: [D, M, SG, US, JP, HK]
   - name: SpeedTest
     type: select
-    proxies: [M, SG, US, JP, HK, TW]
+    proxies: [M, SG, US, JP, HK]
 
-  - name: TW
-    filter: "(?i)(台湾|tw|taiwan)(?!.*(家宽|isp|小众|低倍率))"
-    include-all-proxies: true
-    type: load-balance
-    url: https://cp.cloudflare.com/generate_204
-    interval: 60
-    timeout: 3000
-    max-failed-times: 3
-    # lazy: true
-    strategy: consistent-hashing
   - name: HK
     filter: "(?i)(香港|hk|hong)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
@@ -256,7 +246,7 @@ proxy-groups:
     strategy: consistent-hashing
   - name: Default
     type: select
-    proxies: [D, M, SG, US, JP, HK, TW]
+    proxies: [D, M, SG, US, JP, HK]
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB|低倍率)).*$"
     include-all-proxies: true
 rule-providers:
