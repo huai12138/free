@@ -10,8 +10,8 @@ fi
 SUBSCRIPTION=$1
 PASSWORD=$2
 
-(/etc/init.d/sing-box stop && /etc/init.d/mihomo stop) > /dev/null 2>&1
-(/etc/init.d/sing-box disable && /etc/init.d/mihomo disable) > /dev/null 2>&1
+(/etc/init.d/mihomo stop) > /dev/null 2>&1
+(/etc/init.d/mihomo disable) > /dev/null 2>&1
 
 # 创建临时目录
 temp_dir=$(mktemp -d)
@@ -56,7 +56,7 @@ rm -rf "$temp_dir"
 # 删除 ui 目录（如果存在），并忽略错误
 rm -rf /usr/share/sing-box/ui && rm -rf /usr/share/sing-box/cache.db
 
-(/etc/init.d/sing-box start && /etc/init.d/sing-box enable) > /dev/null 2>&1
+(/etc/init.d/sing-box stop && /etc/init.d/sing-box start) > /dev/null 2>&1
 echo "sing-box 已启动"
 
 echo "sing-box 配置已更新（订阅：$SUBSCRIPTION）"
