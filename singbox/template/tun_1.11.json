@@ -16,7 +16,7 @@
         "address": "https://cloudflare-dns.com/dns-query",
         "address_resolver": "dns_resolver",
         "strategy": "ipv4_only",
-        "detour": "Proxy"
+        "detour": "M"
       },
       {
         "tag": "dns_direct",
@@ -108,11 +108,10 @@
       "type": "direct"
     },
     {
-      "tag": "Proxy",
+      "tag": "M",
       "type": "selector",
       "outbounds": [
         "HK",
-        "TW",
         "SG",
         "JP",
         "US",
@@ -124,126 +123,116 @@
       "tag": "Google",
       "type": "selector",
       "outbounds": [
-        "Proxy",
+        "M",
         "HK",
-        "TW",
         "SG",
         "JP",
         "US"
       ],
-      "default": "Proxy"
+      "default": "M"
     },
     {
       "tag": "OpenAi",
       "type": "selector",
       "outbounds": [
-        "Proxy",
+        "M",
         "HK",
-        "TW",
         "SG",
         "JP",
         "US"
       ],
-      "default": "Proxy"
+      "default": "M"
     },
     {
       "tag": "Steam",
       "type": "selector",
       "outbounds": [
-        "Proxy",
+        "M",
         "HK",
-        "TW",
         "SG",
         "JP",
         "US"
       ],
-      "default": "HK"
+      "default": "M"
     },
     {
       "tag": "Telegram",
       "type": "selector",
       "outbounds": [
-        "Proxy",
+        "M",
         "HK",
-        "TW",
         "SG",
         "JP",
         "US"
       ],
-      "default": "Proxy"
+      "default": "M"
     },
     {
       "tag": "Twitter",
       "type": "selector",
       "outbounds": [
-        "Proxy",
+        "M",
         "HK",
-        "TW",
         "SG",
         "JP",
         "US"
       ],
-      "default": "Proxy"
+      "default": "M"
     },
     {
       "tag": "FaceBook",
       "type": "selector",
       "outbounds": [
-        "Proxy",
+        "M",
         "HK",
-        "TW",
         "SG",
         "JP",
         "US"
       ],
-      "default": "Proxy"
+      "default": "M"
     },
     {
       "tag": "TikTok",
       "type": "selector",
       "outbounds": [
-        "Proxy",
+        "M",
         "HK",
-        "TW",
         "SG",
         "JP",
         "US"
       ],
-      "default": "Proxy"
+      "default": "M"
     },
     {
       "tag": "Netflix",
       "type": "selector",
       "outbounds": [
-        "Proxy",
+        "M",
         "HK",
-        "TW",
         "SG",
         "JP",
         "US"
       ],
-      "default": "Proxy"
+      "default": "M"
     },
     {
       "tag": "PikPak",
       "type": "selector",
       "outbounds": [
-        "Proxy",
+        "M",
         "HK",
-        "TW",
         "SG",
         "JP",
         "US"
       ],
-      "default": "Proxy"
+      "default": "M"
     },
     {
       "tag": "PikPak-Download",
       "type": "selector",
       "outbounds": [
-        "Proxy",
+        "M",
         "HK",
-        "TW",
         "SG",
         "JP",
         "US",
@@ -255,9 +244,8 @@
       "tag": "Final",
       "type": "selector",
       "outbounds": [
-        "Proxy",
+        "M",
         "HK",
-        "TW",
         "SG",
         "JP",
         "US",
@@ -288,24 +276,6 @@
           "action": "match",
           "regex": [
             "(?i)^(?=.*(🇭🇰|HK|hk|香港|hongkong))(?!.*(家宽|isp|小众)).*$"
-          ]
-        }
-      ]
-    },
-    {
-      "tag": "TW",
-      "type": "urltest",
-      "outbounds": [
-        "{all}"
-      ],
-      "url": "https://cp.cloudflare.com/generate_204",
-      "interval": "60s",
-      "tolerance": 100,
-      "filter": [
-        {
-          "action": "match",
-          "regex": [
-            "(?i)^(?=.*(🇹🇼|TW|tw|台湾|taiwan))(?!.*(家宽|isp|小众)).*$"
           ]
         }
       ]
@@ -395,7 +365,7 @@
       },
       {
         "rule_set": "proxy",
-        "outbound": "Proxy"
+        "outbound": "M"
       },
       {
         "rule_set": "pikpak-download",
@@ -423,7 +393,7 @@
       },
       {
         "rule_set": "geosite-onedrive",
-        "outbound": "Proxy"
+        "outbound": "M"
       },
       {
         "rule_set": "geosite-openai",
@@ -447,39 +417,39 @@
       },
       {
         "rule_set": "geosite-github",
-        "outbound": "Proxy"
+        "outbound": "M"
       },
       {
         "rule_set": "geosite-adguard",
-        "outbound": "Proxy"
+        "outbound": "M"
       },
       {
         "rule_set": "geosite-apkpure",
-        "outbound": "Proxy"
+        "outbound": "M"
       },
       {
         "rule_set": "geosite-docker",
-        "outbound": "Proxy"
+        "outbound": "M"
       },
       {
         "rule_set": "geosite-javdb",
-        "outbound": "Proxy"
+        "outbound": "M"
       },
       {
         "rule_set": "geosite-tmdb",
-        "outbound": "Proxy"
+        "outbound": "M"
       },
       {
         "rule_set": "geosite-reddit",
-        "outbound": "Proxy"
+        "outbound": "M"
       },
       {
         "rule_set": "geosite-speedtest",
-        "outbound": "Proxy"
+        "outbound": "M"
       },
       {
         "rule_set": "geosite-wikimedia",
-        "outbound": "Proxy"
+        "outbound": "M"
       },
       {
         "rule_set": "geosite-steam",
@@ -487,7 +457,7 @@
       },
       {
         "rule_set": "geosite-openwrt",
-        "outbound": "Proxy"
+        "outbound": "M"
       },
       {
         "rule_set": "geosite-googlefcm",
@@ -542,7 +512,7 @@
       },
       {
         "rule_set": "geosite-gfw",
-        "outbound": "Proxy"
+        "outbound": "M"
       },
       {
         "rule_set": "geosite-microsoft",
@@ -891,8 +861,8 @@
       "external_controller": "0.0.0.0:9090",
       "external_ui": "ui",
       "secret": "101300",
-      "external_ui_download_url": "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip",
-      "external_ui_download_detour": "SG",
+      "external_ui_download_url": "https://fastly.jsdelivr.net/gh/huai12138/free@main/dist-cdn-fonts.zip",
+      "external_ui_download_detour": "direct",
       "default_mode": "rule"
     }
   }
