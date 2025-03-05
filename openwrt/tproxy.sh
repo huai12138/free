@@ -1,15 +1,15 @@
 #!/bin/sh
 
 # 设置默认模式,转换为大写以便统一比较
-MODE=$(echo "${1:-tproxy}" | tr '[:lower:]' '[:upper:]')  # 如果没有参数传入,默认使用 tproxy 模式
+MODE=$(echo "${1:-tproxy}" | tr '[a-z]' '[A-Z]')  # 使用确定的字符范围进行转换
 
 # 验证输入的模式是否有效
 case "$MODE" in
-    TPROXY|CLEAN)
-        echo "当前运行模式: $MODE"
+    "TPROXY"|"CLEAN")
+        echo "当前运行模式: ${1:-tproxy}"  # 显示原始输入
         ;;
     *)
-        echo "错误: 无效的模式 '$1'"
+        echo "错误: 无效的模式 '${1:-tproxy}'"
         echo "用法: $0 [tproxy|clean]"
         exit 1
         ;;
@@ -56,7 +56,7 @@ check_route_exists() {
 
 # 创建路由表，如果不存在的话
 create_route_table_if_not_exists() {
-    if ! check_route_exists("$PROXY_ROUTE_TABLE"); then
+    if ! check_route_exists "$PROXY_ROUTE_TABLE"; then
         echo "路由表不存在，正在创建..."
         ip route add local default dev "$INTERFACE" table "$PROXY_ROUTE_TABLE" || { echo "创建路由表失败"; exit 1; }
     fi
