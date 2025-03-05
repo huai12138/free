@@ -77,23 +77,10 @@
   },
   "inbounds": [
     {
-      "type": "tun",
-      "tag": "tun-in",
-      "interface_name": "sing-box",
-      "mtu": 9000,
-      "address": [
-        "172.19.0.1/30"
-      ],
-      "auto_route": true,
-      "strict_route": true,
-      "stack": "system",
-      "platform": {
-        "http_proxy": {
-          "server": "::",
-          "server_port": 12138
-        }
-      },
-      "sniff_override_destination": false
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "::",
+      "listen_port": 12138
     }
   ],
   "outbounds": [
@@ -337,13 +324,13 @@
       },
       {
         "inbound": [
-          "tun-in"
+          "mixed-in"
         ],
         "action": "sniff"
       },
       {
         "inbound": [
-          "tun-in"
+          "mixed-in"
         ],
         "action": "resolve",
         "strategy": "ipv4_only"
