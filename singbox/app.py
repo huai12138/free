@@ -1,10 +1,10 @@
-from flask import Flask, send_file, after_this_request
+from flask import Flask, send_file, after_this_request, request
 import requests
 from urllib.parse import unquote
 import json
 import logging
 import uuid
-from config import USER_AGENT, BASE_DIR, OUTPUT_FOLDER, TEMPLATE_PATH, UPLOAD_MBPS, DOWNLOAD_MBPS
+from config import USER_AGENT, BASE_DIR, OUTPUT_FOLDER, TEMPLATE_PATH, TEMPLATE_MAP, DEFAULT_TEMPLATE, UPLOAD_MBPS, DOWNLOAD_MBPS
 import re  # 添加在文件开头
 
 app = Flask(__name__)
@@ -41,13 +41,14 @@ def fetch_subscription(url):
         logger.error(f"下载订阅失败: {str(error)}")
         raise
 
-def process_subscription(sub_path):
+def process_subscription(sub_path, template_path):
     """处理本地订阅文件"""
     output_path = get_unique_filepath("config", ".json")
     node_path = get_unique_filepath("node", ".json")
     
     try:
         logger.info(f"开始处理本地订阅文件: {sub_path}")
+        logger.info(f"使用模板文件: {template_path}")
         # 1. 读取订阅数据
         with open(sub_path, 'r', encoding='utf-8') as f:
             sub_data = json.load(f)
@@ -98,7 +99,7 @@ def process_subscription(sub_path):
         logger.info(f"保存节点标签到: {node_path}")
             
         # 3. 读取模板
-        with open(TEMPLATE_PATH, 'r', encoding='utf-8') as f:
+        with open(template_path, 'r', encoding='utf-8') as f:
             template_data = json.load(f)
 
         # 4. 处理代理组中的节点分配
@@ -169,6 +170,10 @@ def create_cleanup_callback(temp_files):
 def process_subscription_url(sub_url):
     temp_files = []
     try:
+        # 获取switch参数
+        template_switch = request.args.get('switch', '1')
+        template_path = TEMPLATE_MAP.get(template_switch, DEFAULT_TEMPLATE)
+        
         sub_url = unquote(sub_url)
         if not sub_url.startswith(('http://', 'https://')):
             sub_url = 'https://' + sub_url
@@ -176,7 +181,8 @@ def process_subscription_url(sub_url):
         temp_path = fetch_subscription(sub_url)
         temp_files.append(temp_path)
         
-        output_path, node_path = process_subscription(temp_path)
+        # 修改process_subscription函数调用，传入模板路径
+        output_path, node_path = process_subscription(temp_path, template_path)
         temp_files.extend([output_path, node_path])
         
         # 准备响应
