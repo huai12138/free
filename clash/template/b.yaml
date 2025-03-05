@@ -159,7 +159,6 @@ dns:
     "rule-set:netflix": "https://cloudflare-dns.com/dns-query#Netflix"
     "rule-set:youtube": "https://cloudflare-dns.com/dns-query#Google"
     # Google服务
-    "rule-set:google-play": "https://cloudflare-dns.com/dns-query#Google-Play"
     "rule-set:googlefcm": "https://cloudflare-dns.com/dns-query#Google"
     "rule-set:google": "https://cloudflare-dns.com/dns-query#Google"
     # 测速服务
@@ -174,11 +173,6 @@ proxy-groups:
   - name: D
     type: select
     proxies: [DIRECT]
-  - name: Google-Play
-    type: select
-    filter: "(?i).*?(play|store)(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|DE|GB|低倍率)).*$"
-    include-all-proxies: true
-    proxies: [M, SG, US, JP, HK]
   - name: Google
     type: select
     proxies: [M, SG, US, JP, HK]
@@ -354,14 +348,6 @@ rule-providers:
     format: mrs
     path: ./rules/github.mrs
     url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/github.mrs
-  google-play:
-    type: http
-    interval: 86400
-    proxy: D
-    behavior: domain
-    format: mrs
-    path: ./rules/google-play.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/google-play.mrs
   google:
     type: http
     interval: 86400
@@ -662,7 +648,6 @@ rules:
   - RULE-SET,netflix,Netflix # Netflix
   - RULE-SET,netflix-ip,Netflix # Netflix IP
   # 科技公司服务
-  - RULE-SET,google-play,Google-Play # Google Play服务
   - RULE-SET,googlefcm,D # Google FCM服务
   - RULE-SET,google,Google # Google服务
   - RULE-SET,google-ip,Google # Google IP
