@@ -93,8 +93,6 @@ main() {
     # 检查必要工具
     check_requirements
     
-    # 清理现有的防火墙规则
-    echo "清理现有的防火墙规则..."
     clearSingboxRules
 
     # 如果是 clean 模式,到此结束
@@ -115,9 +113,6 @@ main() {
             echo "FIB 表准备失败，退出脚本。"
             exit 1
         fi
-
-        # 清理现有规则
-        clearSingboxRules
 
         # 设置 IP 规则和路由
         ip rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE || { echo "添加 IP 规则失败"; exit 1; }
@@ -205,8 +200,6 @@ EOF
         # nft list ruleset > /etc/nftables.conf
 
         echo "TProxy 模式的防火墙规则已成功应用。"
-    else
-        echo "当前模式为 TUN 模式，已清理现有防火墙规则。"
     fi
 }
 
