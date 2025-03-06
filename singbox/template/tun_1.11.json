@@ -94,6 +94,12 @@
         }
       },
       "sniff_override_destination": false
+    },
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "::",
+      "listen_port": 12138
     }
   ],
   "outbounds": [
@@ -337,13 +343,15 @@
       },
       {
         "inbound": [
-          "tun-in"
+          "tun-in",
+          "mixed-in"
         ],
         "action": "sniff"
       },
       {
         "inbound": [
-          "tun-in"
+          "tun-in",
+          "mixed-in"
         ],
         "action": "resolve",
         "strategy": "ipv4_only"
