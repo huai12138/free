@@ -4,7 +4,7 @@ from urllib.parse import unquote
 import json
 import logging
 import uuid
-from config import USER_AGENT, BASE_DIR, OUTPUT_FOLDER, TEMPLATE_PATH, TEMPLATE_MAP, DEFAULT_TEMPLATE, UPLOAD_MBPS, DOWNLOAD_MBPS
+from config import USER_AGENT, BASE_DIR, OUTPUT_FOLDER, TEMPLATE_MAP, DEFAULT_TEMPLATE, UPLOAD_MBPS, DOWNLOAD_MBPS
 import re  # 添加在文件开头
 
 app = Flask(__name__)

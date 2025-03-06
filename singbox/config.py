@@ -10,7 +10,7 @@ DOWNLOAD_MBPS = 300
 # 使用 Path 对象处理路径 
 BASE_DIR = Path(__file__).parent
 OUTPUT_FOLDER = BASE_DIR / 'outputs'
-TEMPLATE_PATH = BASE_DIR / 'template' / 'tproxy_1.11.json'
+
 # 添加模板映射
 TEMPLATE_MAP = {
     '1': BASE_DIR / 'template' / 'tproxy_1.11.json',  # tproxy模式
