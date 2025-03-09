@@ -41,7 +41,7 @@
         "server": "dns_direct"
       },
       {
-        "outbound": "D",
+        "outbound": "any",
         "action": "route",
         "server": "dns_direct",
         "disable_cache": true
