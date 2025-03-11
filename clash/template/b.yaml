@@ -186,7 +186,7 @@ proxy-groups:
     proxies: [M, SG, US, JP, HK]
   - name: TikTok
     type: select
-    proxies: [M, SG, US, JP, HK]
+    proxies: [JP, M, SG, US, HK]
   - name: Steam
     type: select
     proxies: [M, SG, US, JP, HK]
