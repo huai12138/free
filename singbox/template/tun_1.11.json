@@ -402,6 +402,10 @@
         "outbound": "M"
       },
       {
+        "rule_set": "geosite-fdroid", 
+        "outbound": "M"
+      },
+      {
         "rule_set": "geosite-openai",
         "outbound": "OpenAi"
       },
@@ -860,6 +864,13 @@
         "type": "remote",
         "format": "binary",
         "url": "https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@sing/geo/geosite/gfw.srs",
+        "download_detour": "D"
+      },
+      {
+        "tag": "geosite-fdroid",
+        "type": "remote",
+        "format": "binary", 
+        "url": "https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@sing/geo/geosite/fdroid.srs",
         "download_detour": "D"
       }
     ],
