@@ -870,7 +870,7 @@
         "tag": "geosite-fdroid",
         "type": "remote",
         "format": "binary", 
-        "url": "https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@sing/geo/geosite/fdroid.srs",
+        "url": "https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@sing/geo/geosite/f-droid.srs",
         "download_detour": "D"
       }
     ],
