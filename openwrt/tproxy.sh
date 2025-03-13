@@ -22,7 +22,7 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 # 配置参数
-TPROXY_PORT=12138  # 与 sing-box 中定义的一致
+TPROXY_PORT=7893  # 与 sing-box 中定义的一致
 ROUTING_MARK=666   # 与 sing-box 中定义的一致
 PROXY_FWMARK=1
 PROXY_ROUTE_TABLE=100
