@@ -204,40 +204,40 @@ proxy-groups:
   - name: HK
     filter: "(?i)(香港|hk|hong)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
-    type: url-test
+    type: load-balance
+    strategy: consistent-hashing
     url: https://cp.cloudflare.com/generate_204
     interval: 60
-    tolerance: 100
     timeout: 3000
     max-failed-times: 3
     #  lazy: true
   - name: JP
     filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
-    type: url-test
+    type: load-balance
+    strategy: consistent-hashing
     url: https://cp.cloudflare.com/generate_204
     interval: 60
-    tolerance: 100
     timeout: 3000
     max-failed-times: 3
     #  lazy: true
   - name: US
     filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
-    type: url-test
+    type: load-balance
+    strategy: consistent-hashing
     url: https://cp.cloudflare.com/generate_204
     interval: 60
-    tolerance: 100
     timeout: 3000
     max-failed-times: 3
     # lazy: true
   - name: SG
     filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
-    type: url-test
+    type: load-balance
+    strategy: consistent-hashing
     url: https://cp.cloudflare.com/generate_204
     interval: 60
-    tolerance: 100
     timeout: 3000
     max-failed-times: 3
     # lazy: true
