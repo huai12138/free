@@ -6,12 +6,35 @@ import json
 from datetime import datetime, timedelta
 from filelock import FileLock
 import logging
-from config import Config
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# 加载.env文件
+load_dotenv()
 
 app = Flask(__name__)
-config = Config()
+
+# 基础配置
+BASE_DIR = Path(os.getenv('BASE_DIR', '.')).absolute()
+OUTPUT_FOLDER = BASE_DIR / os.getenv('OUTPUT_FOLDER', 'outputs')
+TEMPLATE_PATH = BASE_DIR / os.getenv('TEMPLATE_PATH', 'template/b.yaml')
+HEADERS_CACHE_PATH = OUTPUT_FOLDER / os.getenv('HEADERS_CACHE_PATH', 'headers_cache.json').split('/')[-1]
+TEMP_YAML_PATH = OUTPUT_FOLDER / os.getenv('TEMP_YAML_PATH', 'temp.yaml').split('/')[-1]
+TEMP_YAML_LOCK = OUTPUT_FOLDER / os.getenv('TEMP_YAML_LOCK', 'temp.yaml.lock').split('/')[-1]
+
+USER_AGENT = os.getenv('USER_AGENT', 'clash verge')
+CACHE_DURATION = int(os.getenv('CACHE_DURATION', 300))
+HYSTERIA2_UP = os.getenv('HYSTERIA2_UP', '50')
+HYSTERIA2_DOWN = os.getenv('HYSTERIA2_DOWN', '300')
+INCLUDED_HEADERS = set(os.getenv('INCLUDED_HEADERS', 'Subscription-Userinfo').split(','))
+
+# 确保输出目录存在
+OUTPUT_FOLDER.mkdir(exist_ok=True)
+
+# 验证必要文件存在
+if not TEMPLATE_PATH.exists():
+    raise FileNotFoundError(f"模板文件不存在: {TEMPLATE_PATH}")
 
 # YAML 配置
 yaml = YAML()
@@ -24,21 +47,21 @@ logger = logging.getLogger(__name__)
 def save_headers_cache(url, headers):
     """保存请求头缓存，仅保存白名单中的header"""
     try:
-        if config.HEADERS_CACHE_PATH.exists():
-            with open(config.HEADERS_CACHE_PATH, 'r', encoding='utf-8') as f:
+        if HEADERS_CACHE_PATH.exists():
+            with open(HEADERS_CACHE_PATH, 'r', encoding='utf-8') as f:
                 cache = json.load(f)
         else:
             cache = {}
         
         filtered_headers = {k: v for k, v in headers.items() 
-                          if k.lower() in {h.lower() for h in config.INCLUDED_HEADERS}}
+                          if k.lower() in {h.lower() for h in INCLUDED_HEADERS}}
         
         cache[url] = {
             'headers': filtered_headers,
             'timestamp': datetime.now().isoformat()
         }
         
-        with open(config.HEADERS_CACHE_PATH, 'w', encoding='utf-8') as f:
+        with open(HEADERS_CACHE_PATH, 'w', encoding='utf-8') as f:
             json.dump(cache, f, indent=2, ensure_ascii=False)
     except Exception as e:
         logger.error(f"保存headers缓存失败: {e}")
@@ -46,12 +69,12 @@ def save_headers_cache(url, headers):
 def get_headers_cache(url):
     """获取指定URL的headers缓存，检查是否过期"""
     try:
-        if config.HEADERS_CACHE_PATH.exists():
-            with open(config.HEADERS_CACHE_PATH, 'r', encoding='utf-8') as f:
+        if HEADERS_CACHE_PATH.exists():
+            with open(HEADERS_CACHE_PATH, 'r', encoding='utf-8') as f:
                 cache = json.load(f)
                 if url in cache:
                     cache_time = datetime.fromisoformat(cache[url]['timestamp'])
-                    if datetime.now() - cache_time < timedelta(seconds=config.CACHE_DURATION):
+                    if datetime.now() - cache_time < timedelta(seconds=CACHE_DURATION):
                         return cache[url]['headers']
     except Exception as e:
         logger.error(f"读取headers缓存失败: {e}")
@@ -59,11 +82,11 @@ def get_headers_cache(url):
 
 def fetch_yaml(url):
     """获取 YAML 内容并缓存到本地"""
-    temp_path = config.TEMP_YAML_PATH.with_suffix('.tmp')
+    temp_path = TEMP_YAML_PATH.with_suffix('.tmp')
     
-    with FileLock(config.TEMP_YAML_LOCK):
+    with FileLock(TEMP_YAML_LOCK):
         try:
-            headers = {'User-Agent': config.USER_AGENT}
+            headers = {'User-Agent': USER_AGENT}
             response = requests.get(url, headers=headers, timeout=30)
             response.raise_for_status()
             
@@ -75,12 +98,12 @@ def fetch_yaml(url):
             if not temp_path.exists() or os.path.getsize(temp_path) == 0:
                 raise IOError("临时文件写入失败")
                 
-            if config.TEMP_YAML_PATH.exists():
-                config.TEMP_YAML_PATH.unlink()
-            temp_path.rename(config.TEMP_YAML_PATH)
+            if TEMP_YAML_PATH.exists():
+                TEMP_YAML_PATH.unlink()
+            temp_path.rename(TEMP_YAML_PATH)
             
             logger.info(f"成功缓存YAML文件: {url}")
-            return config.TEMP_YAML_PATH
+            return TEMP_YAML_PATH
             
         except Exception as e:
             logger.error(f"获取YAML失败: {str(e)}")
@@ -99,11 +122,11 @@ def process_yaml_content(yaml_path):
             raise ValueError('YAML内容必须是有效的字典格式')
             
         # 读取标准模板
-        with open(config.TEMPLATE_PATH, 'r', encoding='utf-8') as f:
+        with open(TEMPLATE_PATH, 'r', encoding='utf-8') as f:
             template_data = yaml.load(f)
 
         # 读取ports配置
-        ports_path = config.BASE_DIR / 'template' / 'ports.yaml'
+        ports_path = BASE_DIR / 'template' / 'ports.yaml'
         with open(ports_path, 'r', encoding='utf-8') as f:
             ports_data = yaml.load(f)
             
@@ -118,8 +141,8 @@ def process_yaml_content(yaml_path):
         for proxy in proxies:
             if isinstance(proxy, dict):
                 if proxy.get('type') == 'hysteria2':
-                    proxy['up'] = config.HYSTERIA2_UP
-                    proxy['down'] = config.HYSTERIA2_DOWN
+                    proxy['up'] = HYSTERIA2_UP
+                    proxy['down'] = HYSTERIA2_DOWN
                     proxy['skip-cert-verify'] = False
                     # 检查是否存在匹配的端口配置
                     if proxy.get('name') in ports_config:
@@ -137,7 +160,7 @@ def process_yaml_content(yaml_path):
         yaml.width = 4096  # 避免自动换行
         
         # 保存处理后的YAML
-        output_path = config.OUTPUT_FOLDER / 'config.yaml'
+        output_path = OUTPUT_FOLDER / 'config.yaml'
         with open(output_path, 'w', encoding='utf-8') as f:
             yaml.dump(template_data, f)
             
@@ -158,7 +181,7 @@ def cleanup_files(*paths):
 
 def cleanup_response(response, temp_yaml_path, output_path):
     """处理响应后的清理函数"""
-    cleanup_files(temp_yaml_path, output_path, config.HEADERS_CACHE_PATH)
+    cleanup_files(temp_yaml_path, output_path, HEADERS_CACHE_PATH)
     return response
 
 @app.route('/<path:yaml_url>')
@@ -191,7 +214,7 @@ def process_yaml(yaml_url):
         
         if cached_headers:
             for header, value in cached_headers.items():
-                if header.lower() in {h.lower() for h in config.INCLUDED_HEADERS}:
+                if header.lower() in {h.lower() for h in INCLUDED_HEADERS}:
                     response.headers[header] = value
         
         # 修复：将清理函数定义在外部，通过闭包捕获必要的变量
@@ -206,7 +229,7 @@ def process_yaml(yaml_url):
         
     except Exception as e:
         if temp_yaml_path or output_path:
-            cleanup_files(temp_yaml_path, output_path, config.HEADERS_CACHE_PATH)
+            cleanup_files(temp_yaml_path, output_path, HEADERS_CACHE_PATH)
         logger.error(f"处理请求失败: {str(e)}")
         return str(e), 500
 
