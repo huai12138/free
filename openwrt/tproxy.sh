@@ -1,16 +1,16 @@
 #!/bin/sh
 
 # 设置默认模式,转换为大写以便统一比较
-MODE=$(echo "${1:-tproxy}" | tr '[a-z]' '[A-Z]')  # 使用确定的字符范围进行转换
+MODE=$(echo "${1:-clean}" | tr '[a-z]' '[A-Z]')  # 使用确定的字符范围进行转换
 
 # 验证输入的模式是否有效
 case "$MODE" in
-    "TPROXY"|"CLEAN")
-        echo "当前运行模式: ${1:-tproxy}"  # 显示原始输入
+    "SINGBOX"|"CLEAN")
+        echo "当前运行模式: ${1:-clean}"  # 显示原始输入
         ;;
     *)
-        echo "错误: 无效的模式 '${1:-tproxy}'"
-        echo "用法: $0 [tproxy|clean]"
+        echo "错误: 无效的模式 '${1:-clean}'"
+        echo "用法: $0 [singbox|clean]"
         exit 1
         ;;
 esac
@@ -22,7 +22,7 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 # 配置参数
-TPROXY_PORT=7893  # 与 sing-box 中定义的一致
+SINGBOX_PORT=7893  # 与 sing-box 中定义的一致
 ROUTING_MARK=666   # 与 sing-box 中定义的一致
 PROXY_FWMARK=1
 PROXY_ROUTE_TABLE=100
@@ -101,9 +101,9 @@ main() {
         exit 0
     fi
 
-    # 仅在 TProxy 模式下应用新的防火墙规则
-    if [ "$MODE" = "TPROXY" ]; then
-        echo "应用 TProxy 模式下的防火墙规则..."
+    # 仅在 SingBox 模式下应用新的防火墙规则
+    if [ "$MODE" = "SINGBOX" ]; then
+        echo "应用 SingBox 模式下的防火墙规则..."
 
         # 创建并确保路由表存在
         create_route_table_if_not_exists
@@ -125,7 +125,7 @@ main() {
         # 手动创建 inet 表
         nft add table inet sing-box
 
-        # 设置 TProxy 模式下的 nftables 规则
+        # 设置 SingBox 模式下的 nftables 规则
         cat > /etc/sing-box/nft/nftables.conf <<EOF
 table inet sing-box {
     set RESERVED_IPSET {
@@ -135,17 +135,17 @@ table inet sing-box {
         elements = $ReservedIP4
     }
 
-    chain prerouting_tproxy {
+    chain prerouting_singbox {
         type filter hook prerouting priority mangle; policy accept;
 
-        # DNS 请求重定向到本地 TProxy 端口
-        meta l4proto { tcp, udp } th dport 53 tproxy to :$TPROXY_PORT accept
+        # DNS 请求重定向到本地 SingBox 端口
+        meta l4proto { tcp, udp } th dport 53 tproxy to :$SINGBOX_PORT accept
 
         # 自定义绕过地址
         ip daddr $CustomBypassIP accept
 
         # 拒绝访问本地 TProxy 端口
-        fib daddr type local meta l4proto { tcp, udp } th dport $TPROXY_PORT reject with icmpx type host-unreachable
+        fib daddr type local meta l4proto { tcp, udp } th dport $SINGBOX_PORT reject with icmpx type host-unreachable
 
         # 本地地址绕过
         fib daddr type local accept
@@ -156,11 +156,11 @@ table inet sing-box {
         #放行所有经过 DNAT 的流量
         ct status dnat accept comment "Allow forwarded traffic"
 
-        # 重定向剩余流量到 TProxy 端口并设置标记
-        meta l4proto { tcp, udp } tproxy to :$TPROXY_PORT meta mark set $PROXY_FWMARK
+        # 重定向剩余流量到 SingBox 端口并设置标记
+        meta l4proto { tcp, udp } tproxy to :$SINGBOX_PORT meta mark set $PROXY_FWMARK
     }
 
-    chain output_tproxy {
+    chain output_singbox {
         type route hook output priority mangle; policy accept;
 
         # 放行本地回环接口流量
@@ -199,7 +199,7 @@ EOF
         # 持久化防火墙规则
         # nft list ruleset > /etc/nftables.conf
 
-        echo "TProxy 模式的防火墙规则已成功应用。"
+        echo "SingBox 模式的防火墙规则已成功应用。"
     fi
 }
 
