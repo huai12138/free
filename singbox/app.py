@@ -4,8 +4,31 @@ from urllib.parse import unquote
 import json
 import logging
 import uuid
-from config import USER_AGENT, BASE_DIR, OUTPUT_FOLDER, TEMPLATE_MAP, DEFAULT_TEMPLATE, UPLOAD_MBPS, DOWNLOAD_MBPS
-import re  # 添加在文件开头
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+import re
+
+# 加载.env文件
+load_dotenv()
+
+# 常量定义
+USER_AGENT = os.getenv('USER_AGENT', 'sing-box')
+UPLOAD_MBPS = int(os.getenv('UPLOAD_MBPS', 50))
+DOWNLOAD_MBPS = int(os.getenv('DOWNLOAD_MBPS', 300))
+
+# 路径配置
+BASE_DIR = Path(__file__).parent
+OUTPUT_FOLDER = BASE_DIR / 'outputs'
+
+# 模板映射
+TEMPLATE_MAP = {
+    '1': BASE_DIR / 'template' / 'tproxy_1.11.json',  # tproxy模式
+    '2': BASE_DIR / 'template' / 'tun_1.11.json'      # tun模式
+}
+
+# 默认模板
+DEFAULT_TEMPLATE = TEMPLATE_MAP[os.getenv('TEMPLATE_MODE', '1')]
 
 app = Flask(__name__)
 
