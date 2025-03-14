@@ -35,7 +35,7 @@ external-ui: ui
 #external-ui-name: yacd
 global-client-fingerprint: chrome
 routing-mark: 666
-external-ui-url: "https://cdn.jsdmirror.com/gh/huai12138/free@main/dist-cdn-fonts.zip"
+external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip"
 sniffer:
   enable: true
   sniff:
