@@ -294,7 +294,7 @@ rule-providers:
   cn:
     type: http
     interval: 86400
-    proxy: Mraw
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/cn.mrs
