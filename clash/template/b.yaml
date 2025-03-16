@@ -64,7 +64,6 @@ tun:
   stack: system # system, gvisor, mixed
   dns-hijack:
     - "any:53" # DNS 拦截
-    - "any:[::]:53" # DNS 拦截  
   auto-route: true # 自动路由
   mtu: 9000 # 最大传输单元
   auto-detect-interface: true # 自动检测接口
