@@ -254,355 +254,355 @@ rule-providers:
   adguard:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/adguard.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/adguard.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/adguard.mrs
   alibaba:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/alibaba.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/alibaba.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/alibaba.mrs
   apkpure:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/apkpure.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/apkpure.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apkpure.mrs
   bilibili:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/bilibili.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/bilibili.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/bilibili.mrs
   category-ads-all:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/category-ads-all.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/category-ads-all.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ads-all.mrs
   cn:
     type: http
     interval: 86400
-    proxy: D
+    proxy: Mraw
     behavior: domain
     format: mrs
     path: ./rules/cn.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/cn.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cn.mrs
   cn-ip:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/cn-ip.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geoip/cn.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/cn.mrs
   docker:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/docker.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/docker.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/docker.mrs
   direct:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/direct.mrs
-    url: https://cdn.jsdmirror.com/gh/huai12138/free@main/direct.mrs
+    url: https://github.com/huai12138/free/raw/refs/heads/main/direct.mrs
   direct-ip:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/direct-ip.mrs
-    url: https://cdn.jsdmirror.com/gh/huai12138/free@main/direct-ip.mrs
+    url: https://github.com/huai12138/free/raw/refs/heads/main/direct-ip.mrs
   mozilla:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/mozilla.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/mozilla.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/mozilla.mrs
   gfw:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/gfw.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/gfw.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/gfw.mrs
   github:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/github.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/github.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/github.mrs
   google:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/google.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/google.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs
   google-ip:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/google-ip.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geoip/google.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/google.mrs
   googlefcm:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/googlefcm.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/googlefcm.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/googlefcm.mrs
   javdb:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/javdb.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/javdb.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/javdb.mrs
   jd:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/jd.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/jd.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/jd.mrs
   meituan:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/meituan.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/meituan.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/meituan.mrs
   microsoft:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/microsoft.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/microsoft.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/microsoft.mrs
   netflix:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/netflix.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/netflix.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/netflix.mrs
   netflix-ip:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/netflix-ip.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geoip/netflix.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/netflix.mrs
   onedrive:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/onedrive.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/onedrive.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/onedrive.mrs
   openai:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/openai.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/openai.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openai.mrs
   openwrt:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/openwrt.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/openwrt.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openwrt.mrs
   pass-ip:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: classical
     format: yaml
     path: ./rules/pass-ip.yaml
-    url: https://cdn.jsdmirror.com/gh/huai12138/free@main/pass-ip.yaml
+    url: https://github.com/huai12138/free/raw/refs/heads/main/pass-ip.yaml
   pikpak:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/pikpak.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/pikpak.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/pikpak.mrs
   pikpak-download:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: classical
     format: yaml
     path: ./rules/pikpak-download.yaml
-    url: https://cdn.jsdmirror.com/gh/huai12138/free@main/pikpak-download.yaml
+    url: https://github.com/huai12138/free/raw/refs/heads/main/pikpak-download.yaml
   proxy:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/proxy.mrs
-    url: https://cdn.jsdmirror.com/gh/huai12138/free@main/proxy.mrs
+    url: https://github.com/huai12138/free/raw/refs/heads/main/proxy.mrs
   reddit:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/reddit.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/reddit.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/reddit.mrs
   speedtest:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/speedtest.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/speedtest.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/speedtest.mrs
   spotify:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/spotify.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/spotify.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/spotify.mrs
   steam:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/steam.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/steam.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/steam.mrs
   telegram:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/telegram.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/telegram.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/telegram.mrs
   telegram-ip:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/telegram-ip.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geoip/telegram.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/telegram.mrs
   tiktok:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/tiktok.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/tiktok.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/tiktok.mrs
   tmdb:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/tmdb.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/tmdb.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/tmdb.mrs
   twitter:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/twitter.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/twitter.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/twitter.mrs
   twitter-ip:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/twitter-ip.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geoip/twitter.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/twitter.mrs
   unionpay:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/unionpay.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/unionpay.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/unionpay.mrs
   wikimedia:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/wikimedia.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/wikimedia.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/wikimedia.mrs
   xiaomi:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/xiaomi.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/xiaomi.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/xiaomi.mrs
   youtube:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/youtube.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/youtube.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs
   f-droid:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/f-droid.mrs
-    url: https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@meta/geo/geosite/f-droid.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/f-droid.mrs
 rules:
   #######################
   # 本地网络访问规则
