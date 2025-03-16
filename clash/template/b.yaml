@@ -13,7 +13,7 @@ bind-address: "*"
 find-process-mode: strict # always, strict, off
 mode: rule # global, rule, direct
 log-level: warning # info, warning, error, debug
-ipv6: false
+ipv6: true
 udp: true
 geodata-mode: false
 unified-delay: false
@@ -59,14 +59,15 @@ sniffer:
   force-domain:
     - "google.com"
 tun:
-  enable: false # 是否启用 tun 模式
+  enable: true # 是否启用 tun 模式
   device: mihomo # tun device name
   stack: system # system, gvisor, mixed
   dns-hijack:
     - "any:53" # DNS 拦截
   auto-route: true # 自动路由
   auto-detect-interface: true # 自动检测接口
-  strict-route: true # 严格路由模式
+  auto-redirect: false # 自动配置 iptables 以重定向 TCP 连接。仅支持 Linux。带有 auto-redirect 的 auto-route 现在可以在路由器上按预期工作，无需干预。
+  strict-route: false # 严格路由模式
   endpoint-independent-nat: true # 是否启用端点无关的 NAT
 hosts:
   "openwrt": "10.0.0.1" # 替换为实际的路由器IP地址
@@ -78,7 +79,7 @@ dns:
   enable: true
   prefer-h3: true
   listen: "127.0.0.1:1053"
-  ipv6: false
+  ipv6: true
   enhanced-mode: fake-ip # fake-ip, redir-host
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter-mode: blacklist
