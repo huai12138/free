@@ -75,7 +75,8 @@
       }
     ],
     "final": "dns_proxy",
-    "independent_cache": true
+    "independent_cache": true,
+    "strategy": "prefer_ipv6"
   },
   "inbounds": [
     {
@@ -84,7 +85,8 @@
       "interface_name": "sing-box",
       "mtu": 9000,
       "address": [
-        "172.19.0.1/30"
+        "172.19.0.1/30",
+        "fdfe:dcba:9876::1/126"
       ],
       "auto_route": true,
       "strict_route": true,
@@ -402,7 +404,7 @@
         "outbound": "M"
       },
       {
-        "rule_set": "geosite-fdroid", 
+        "rule_set": "geosite-fdroid",
         "outbound": "M"
       },
       {
@@ -869,7 +871,7 @@
       {
         "tag": "geosite-fdroid",
         "type": "remote",
-        "format": "binary", 
+        "format": "binary",
         "url": "https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@sing/geo/geosite/f-droid.srs",
         "download_detour": "D"
       }
