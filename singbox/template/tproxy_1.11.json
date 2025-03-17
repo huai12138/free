@@ -8,21 +8,21 @@
       {
         "tag": "dns_resolver",
         "address": "223.5.5.5",
-        "strategy": "ipv6_prefer",
+        "strategy": "prefer_ipv6",
         "detour": "D"
       },
       {
         "tag": "dns_proxy",
         "address": "https://cloudflare-dns.com/dns-query",
         "address_resolver": "dns_resolver",
-        "strategy": "ipv6_prefer",
+        "strategy": "prefer_ipv6",
         "detour": "M"
       },
       {
         "tag": "dns_direct",
         "address": "https://dns.alidns.com/dns-query",
         "address_resolver": "dns_resolver",
-        "strategy": "ipv6_prefer",
+        "strategy": "prefer_ipv6",
         "detour": "D"
       },
       {
@@ -336,7 +336,7 @@
           "tproxy-in"
         ],
         "action": "resolve",
-        "strategy": "ipv6_prefer"
+        "strategy": "prefer_ipv6"
       },
       {
         "rule_set": [
