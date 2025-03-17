@@ -67,7 +67,7 @@ tun:
   auto-route: true # 自动路由
   mtu: 9000 # 最大传输单元
   auto-detect-interface: true # 自动检测接口
-  auto-redirect: false # 自动配置 iptables 以重定向 TCP 连接。仅支持 Linux。带有 auto-redirect 的 auto-route 现在可以在路由器上按预期工作，无需干预。
+  auto-redirect: true # 自动配置 iptables 以重定向 TCP 连接。仅支持 Linux。带有 auto-redirect 的 auto-route 现在可以在路由器上按预期工作，无需干预。
   strict-route: true # 严格路由模式
   endpoint-independent-nat: true # 是否启用端点无关的 NAT
 hosts:
