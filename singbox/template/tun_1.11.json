@@ -99,7 +99,7 @@
         }
       },
       "endpoint_independent_nat": true,
-      "sniff_override_destination": false
+      "sniff_override_destination": true
     },
     {
       "type": "mixed",
