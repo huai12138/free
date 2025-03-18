@@ -83,7 +83,8 @@
       "type": "mixed",
       "tag": "mixed-in",
       "listen": "::",
-      "listen_port": 12138
+      "listen_port": 12138,
+      "users": []
     }
   ],
   "outbounds": [
