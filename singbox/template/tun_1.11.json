@@ -8,21 +8,21 @@
       {
         "tag": "dns_resolver",
         "address": "223.5.5.5",
-        "strategy": "prefer_ipv6",
+        "strategy": "ipv4_only",
         "detour": "D"
       },
       {
         "tag": "dns_proxy",
         "address": "https://cloudflare-dns.com/dns-query",
         "address_resolver": "dns_resolver",
-        "strategy": "prefer_ipv6",
+        "strategy": "ipv4_only",
         "detour": "M"
       },
       {
         "tag": "dns_direct",
         "address": "https://dns.alidns.com/dns-query",
         "address_resolver": "dns_resolver",
-        "strategy": "prefer_ipv6",
+        "strategy": "ipv4_only",
         "detour": "D"
       },
       {
@@ -76,7 +76,7 @@
     ],
     "final": "dns_proxy",
     "independent_cache": true,
-    "strategy": "prefer_ipv6"
+    "strategy": "ipv4_only"
   },
   "inbounds": [
     {
@@ -85,8 +85,8 @@
       "interface_name": "sing-box",
       "mtu": 9000,
       "address": [
-        "172.19.0.1/30",
-        "fdfe:dcba:9876::1/126"
+        "172.19.0.1/30"
+ 
       ],
       "auto_route": true,
       "auto_redirect": false,
@@ -360,7 +360,7 @@
           "mixed-in"
         ],
         "action": "resolve",
-        "strategy": "prefer_ipv6"
+        "strategy": "ipv4_only"
       },
       {
         "rule_set": [

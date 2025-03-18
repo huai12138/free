@@ -121,10 +121,10 @@ dns:
     - 1.1.1.1 # Cloudflare 主要
     - 1.0.0.1 # Cloudflare 备用（可选）
     # 添加IPv6 DNS服务器
-    - 2400:3200::1 # 阿里DNS IPv6
-    - 2400:3200:baba::1 # 阿里DNS IPv6
-    - 2606:4700:4700::1111 # Cloudflare IPv6 主要
-    - 2606:4700:4700::1001 # Cloudflare IPv6 备用（可选）
+    # - 2400:3200::1 # 阿里DNS IPv6
+    # - 2400:3200:baba::1 # 阿里DNS IPv6
+    # - 2606:4700:4700::1111 # Cloudflare IPv6 主要
+    # - 2606:4700:4700::1001 # Cloudflare IPv6 备用（可选）
 
   proxy-server-nameserver:
     - "https://dns.alidns.com/dns-query"
