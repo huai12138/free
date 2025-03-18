@@ -9,8 +9,17 @@ from pathlib import Path
 from dotenv import load_dotenv
 import re
 
-# 加载.env文件
-load_dotenv()
+# 设置日志配置
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# 加载.env文件 - 使用明确的路径并强制覆盖
+env_path = Path(__file__).parent / '.env'
+load_dotenv(dotenv_path=env_path, override=True)
+
+# 添加调试输出
+logger.info(f"加载环境变量文件: {env_path}")
+logger.info(f"TEMPLATE_MODE: {os.getenv('TEMPLATE_MODE', '未设置')}")
 
 # 常量定义
 USER_AGENT = os.getenv('USER_AGENT', 'sing-box')
@@ -27,16 +36,15 @@ TEMPLATE_MAP = {
     '2': BASE_DIR / 'template' / 'tun_1.11.json'      # tun模式
 }
 
-# 默认模板
-DEFAULT_TEMPLATE = TEMPLATE_MAP[os.getenv('TEMPLATE_MODE', '1')]
+# 重新获取环境变量值
+template_mode = os.getenv('TEMPLATE_MODE', '1')
+DEFAULT_TEMPLATE = TEMPLATE_MAP[template_mode]
+logger.info(f"使用默认模板: {DEFAULT_TEMPLATE}")
 
 app = Flask(__name__)
 
 # 确保输出目录存在
 OUTPUT_FOLDER.mkdir(exist_ok=True)
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 def get_unique_filepath(prefix, suffix):
     """生成唯一的文件路径"""
@@ -193,8 +201,14 @@ def create_cleanup_callback(temp_files):
 def process_subscription_url(sub_url):
     temp_files = []
     try:
-        # 获取switch参数，如未提供则使用环境变量中的值
-        template_switch = request.args.get('switch', os.getenv('TEMPLATE_MODE', '1'))
+        # 更明确地获取和记录环境变量值
+        env_template_mode = os.getenv('TEMPLATE_MODE', '1')
+        template_switch = request.args.get('switch', env_template_mode)
+        
+        logger.info(f"URL参数switch: {request.args.get('switch', '未提供')}")
+        logger.info(f"环境变量TEMPLATE_MODE: {env_template_mode}")
+        logger.info(f"最终使用的模板模式: {template_switch}")
+        
         template_path = TEMPLATE_MAP.get(template_switch, DEFAULT_TEMPLATE)
         
         sub_url = unquote(sub_url)
@@ -241,5 +255,10 @@ if __name__ == '__main__':
     debug_mode = os.getenv('DEBUG', 'True').lower() in ('true', '1', 't')
     port = int(os.getenv('PORT', 5000))
     host = os.getenv('HOST', '0.0.0.0')
+    
+    # 添加环境变量调试输出
+    template_mode = os.getenv('TEMPLATE_MODE', '1')
+    logger.info(f"当前TEMPLATE_MODE: {template_mode}")
+    logger.info(f"默认模板: {DEFAULT_TEMPLATE}")
     
     app.run(debug=debug_mode, port=port, host=host)
