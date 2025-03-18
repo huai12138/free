@@ -193,8 +193,8 @@ def create_cleanup_callback(temp_files):
 def process_subscription_url(sub_url):
     temp_files = []
     try:
-        # 获取switch参数
-        template_switch = request.args.get('switch', '1')
+        # 获取switch参数，如未提供则使用环境变量中的值
+        template_switch = request.args.get('switch', os.getenv('TEMPLATE_MODE', '1'))
         template_path = TEMPLATE_MAP.get(template_switch, DEFAULT_TEMPLATE)
         
         sub_url = unquote(sub_url)
