@@ -32,12 +32,13 @@ OUTPUT_FOLDER = BASE_DIR / 'outputs'
 
 # 模板映射
 TEMPLATE_MAP = {
-    '1': BASE_DIR / 'template' / 'tproxy_1.11.json',  # tproxy模式
-    '2': BASE_DIR / 'template' / 'tun_1.11.json'      # tun模式
+    'tproxy': BASE_DIR / 'template' / 'tproxy_1.11.json',  # tproxy模式
+    'tun': BASE_DIR / 'template' / 'tun_1.11.json',        # tun模式
+    'sock': BASE_DIR / 'template' / 'sock_1.11.json'       # socks模式
 }
 
-# 重新获取环境变量值
-template_mode = os.getenv('TEMPLATE_MODE', '1')
+# 重新获取环境变量值 - 默认为 'tproxy'
+template_mode = os.getenv('TEMPLATE_MODE', 'tproxy')
 DEFAULT_TEMPLATE = TEMPLATE_MAP[template_mode]
 logger.info(f"使用默认模板: {DEFAULT_TEMPLATE}")
 
@@ -202,7 +203,7 @@ def process_subscription_url(sub_url):
     temp_files = []
     try:
         # 更明确地获取和记录环境变量值
-        env_template_mode = os.getenv('TEMPLATE_MODE', '1')
+        env_template_mode = os.getenv('TEMPLATE_MODE', 'tproxy')
         template_switch = request.args.get('switch', env_template_mode)
         
         logger.info(f"URL参数switch: {request.args.get('switch', '未提供')}")

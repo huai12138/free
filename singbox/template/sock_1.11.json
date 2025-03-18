@@ -80,10 +80,10 @@
   },
   "inbounds": [
     {
-      "type": "tproxy",
-      "tag": "tproxy-in",
+      "type": "socks",
+      "tag": "socks-in",
       "listen": "::",
-      "listen_port": 7893
+      "listen_port": 12138
     }
   ],
   "outbounds": [
@@ -328,13 +328,13 @@
       },
       {
         "inbound": [
-          "tproxy-in"
+          "socks-in"
         ],
         "action": "sniff"
       },
       {
         "inbound": [
-          "tproxy-in"
+          "socks-in"
         ],
         "action": "resolve",
         "strategy": "ipv4_only"
