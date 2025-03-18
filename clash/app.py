@@ -1,4 +1,4 @@
-from flask import Flask, send_file, after_this_request
+from flask import Flask, send_file, after_this_request, request
 from ruamel.yaml import YAML
 import requests
 from urllib.parse import unquote
@@ -111,7 +111,7 @@ def fetch_yaml(url):
                 temp_path.unlink()
             raise
 
-def process_yaml_content(yaml_path):
+def process_yaml_content(yaml_path, template_path=None):
     """处理本地YAML文件"""
     try:
         # 读取输入的YAML
@@ -121,8 +121,11 @@ def process_yaml_content(yaml_path):
         if not isinstance(input_data, dict):
             raise ValueError('YAML内容必须是有效的字典格式')
             
+        # 使用提供的模板路径或默认模板
+        template_to_use = template_path or TEMPLATE_PATH
+        
         # 读取标准模板
-        with open(TEMPLATE_PATH, 'r', encoding='utf-8') as f:
+        with open(template_to_use, 'r', encoding='utf-8') as f:
             template_data = yaml.load(f)
 
         # 读取ports配置
@@ -198,9 +201,20 @@ def process_yaml(yaml_url):
             yaml_url = yaml_url[1:]
         elif not yaml_url.startswith(('http://', 'https://')):
             yaml_url = 'https://' + yaml_url
+        
+        # 获取模板切换参数
+        switch_template = request.args.get('switch', 'b').lower()
+        
+        # 选择模板文件
+        if switch_template == 'a':
+            template_path = BASE_DIR / 'template' / 'a.yaml'
+            if not template_path.exists():
+                return f"模板文件不存在: {template_path}", 404
+        else:
+            template_path = TEMPLATE_PATH
             
         temp_yaml_path = fetch_yaml(yaml_url)
-        output_path = process_yaml_content(temp_yaml_path)
+        output_path = process_yaml_content(temp_yaml_path, template_path)
         cached_headers = get_headers_cache(yaml_url)
         
         response = send_file(
