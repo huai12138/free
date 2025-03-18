@@ -23,8 +23,8 @@ OUTPUT_FOLDER = BASE_DIR / 'outputs'
 
 # 模板映射
 TEMPLATE_MAP = {
-    '2': BASE_DIR / 'template' / 'tproxy_1.11.json',  # tproxy模式
-    '1': BASE_DIR / 'template' / 'tun_1.11.json'      # tun模式
+    '1': BASE_DIR / 'template' / 'tproxy_1.11.json',  # tproxy模式
+    '2': BASE_DIR / 'template' / 'tun_1.11.json'      # tun模式
 }
 
 # 默认模板
@@ -238,4 +238,8 @@ def cleanup_files(file_paths):
             logger.error(f"清理文件失败 {file_path}: {str(error)}")
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000, host='0.0.0.0')
+    debug_mode = os.getenv('DEBUG', 'True').lower() in ('true', '1', 't')
+    port = int(os.getenv('PORT', 5000))
+    host = os.getenv('HOST', '0.0.0.0')
+    
+    app.run(debug=debug_mode, port=port, host=host)
