@@ -234,6 +234,10 @@ def process_yaml(yaml_url):
         return str(e), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5002, host='0.0.0.0')
+    debug_mode = os.getenv('DEBUG', 'True').lower() in ('true', '1', 'yes')
+    port = int(os.getenv('PORT', 5002))
+    host = os.getenv('HOST', '0.0.0.0')
+    
+    app.run(debug=debug_mode, port=port, host=host)
 
 
