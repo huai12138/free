@@ -219,7 +219,7 @@ proxy-groups:
     include-all-proxies: true
     type: url-test
     tolerance: 100
-    url: https://cp.cloudflare.com/generate_204
+    url: https://cp.cloudflare.com
     interval: 60
     timeout: 3000
     max-failed-times: 3
@@ -229,7 +229,7 @@ proxy-groups:
     include-all-proxies: true
     type: url-test
     tolerance: 100
-    url: https://cp.cloudflare.com/generate_204
+    url: https://cp.cloudflare.com
     interval: 60
     timeout: 3000
     max-failed-times: 3
@@ -239,7 +239,7 @@ proxy-groups:
     include-all-proxies: true
     type: url-test
     tolerance: 100
-    url: https://cp.cloudflare.com/generate_204
+    url: https://cp.cloudflare.com
     interval: 60
     timeout: 3000
     max-failed-times: 3
@@ -249,7 +249,7 @@ proxy-groups:
     include-all-proxies: true
     type: url-test
     tolerance: 100
-    url: https://cp.cloudflare.com/generate_204
+    url: https://cp.cloudflare.com
     interval: 60
     timeout: 3000
     max-failed-times: 3
