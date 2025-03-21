@@ -252,7 +252,7 @@
       "outbounds": [
         "{all}"
       ],
-      "url": "https://cp.cloudflare.com/generate_204",
+      "url": "https://cp.cloudflare.com",
       "interval": "60s",
       "tolerance": 100,
       "filter": [
@@ -270,7 +270,7 @@
       "outbounds": [
         "{all}"
       ],
-      "url": "https://cp.cloudflare.com/generate_204",
+      "url": "https://cp.cloudflare.com",
       "interval": "60s",
       "tolerance": 100,
       "filter": [
@@ -288,7 +288,7 @@
       "outbounds": [
         "{all}"
       ],
-      "url": "https://cp.cloudflare.com/generate_204",
+      "url": "https://cp.cloudflare.com",
       "interval": "60s",
       "tolerance": 100,
       "filter": [
@@ -306,7 +306,7 @@
       "outbounds": [
         "{all}"
       ],
-      "url": "https://cp.cloudflare.com/generate_204",
+      "url": "https://cp.cloudflare.com",
       "interval": "60s",
       "tolerance": 100,
       "filter": [
