@@ -12,18 +12,11 @@ bind-address: "*"
 #  - off, 不匹配进程，推荐在路由器上使用此模式
 find-process-mode: strict # always, strict, off
 mode: rule # global, rule, direct
-geox-url:
-  geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
-  geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
-  mmdb: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb"
-
-geo-auto-update: true # 是否自动更新 geodata
-geo-update-interval: 24 # 更新间隔，单位：小时
 log-level: warning # info, warning, error, debug
-ipv6: false # 是否启用 IPv6
+ipv6: true # 是否启用 IPv6
 udp: true
 geodata-mode: false
-unified-delay: false
+unified-delay: true
 tcp-concurrent: true
 enable-process: true
 # global-ua: "Mozilla/5.0 (X11; CrOS x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -40,15 +33,19 @@ skip-auth-prefixes: # 设置跳过验证的 IP 段
   - 192.168.0.0/16 # 仅允许 192.168.0.0-192.168.255.255
 external-ui: ui
 #external-ui-name: yacd
-global-client-fingerprint: chrome
+global-client-fingerprint: firefox
 routing-mark: 666
 external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip"
 sniffer:
   enable: true
+  force-dns-mapping: true
+  parse-pure-ip: true
+  override-destination: true
   sniff:
     QUIC:
       ports:
         - 443
+        - 8443
     TLS:
       ports:
         - 443
@@ -87,11 +84,11 @@ hosts:
 
 dns:
   enable: true
-  prefer-h3: true
+  prefer-h3: flase
   listen: "[::]:1053"
-  ipv6: false # 是否启用 IPv6
+  ipv6: true # 是否启用 IPv6
   ipv6-timeout: 300 # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
-  enhanced-mode: redir-host # fake-ip, redir-host
+  enhanced-mode: fake-ip # fake-ip, redir-host
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter-mode: blacklist
   fake-ip-filter:
@@ -267,6 +264,70 @@ proxy-groups:
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB|低倍率)).*$"
     include-all-proxies: true
 rule-providers:
+  adguard:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/adguard.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/adguard.mrs
+  alibaba:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/alibaba.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/alibaba.mrs
+  apkpure:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/apkpure.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apkpure.mrs
+  bilibili:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/bilibili.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/bilibili.mrs
+  category-ads-all:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/category-ads-all.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ads-all.mrs
+  cn:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/cn.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/cn.mrs
+  cn-ip:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: ipcidr
+    format: mrs
+    path: ./rules/cn-ip.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/cn.mrs
+  docker:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/docker.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/docker.mrs
   direct:
     type: http
     interval: 86400
@@ -283,6 +344,126 @@ rule-providers:
     format: mrs
     path: ./rules/direct-ip.mrs
     url: https://github.com/huai12138/free/raw/refs/heads/main/direct-ip.mrs
+  mozilla:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/mozilla.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/mozilla.mrs
+  gfw:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/gfw.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/gfw.mrs
+  github:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/github.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/github.mrs
+  google:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/google.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs
+  google-ip:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: ipcidr
+    format: mrs
+    path: ./rules/google-ip.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/google.mrs
+  googlefcm:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/googlefcm.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/googlefcm.mrs
+  javdb:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/javdb.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/javdb.mrs
+  jd:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/jd.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/jd.mrs
+  meituan:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/meituan.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/meituan.mrs
+  microsoft:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/microsoft.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/microsoft.mrs
+  netflix:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/netflix.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/netflix.mrs
+  netflix-ip:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: ipcidr
+    format: mrs
+    path: ./rules/netflix-ip.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/netflix.mrs
+  onedrive:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/onedrive.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/onedrive.mrs
+  openai:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/openai.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openai.mrs
+  openwrt:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/openwrt.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/openwrt.mrs
   pass-ip:
     type: http
     interval: 86400
@@ -291,7 +472,14 @@ rule-providers:
     format: yaml
     path: ./rules/pass-ip.yaml
     url: https://github.com/huai12138/free/raw/refs/heads/main/pass-ip.yaml
-
+  pikpak:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/pikpak.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/pikpak.mrs
   pikpak-download:
     type: http
     interval: 86400
@@ -308,7 +496,126 @@ rule-providers:
     format: mrs
     path: ./rules/proxy.mrs
     url: https://github.com/huai12138/free/raw/refs/heads/main/proxy.mrs
- 
+  reddit:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/reddit.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/reddit.mrs
+  speedtest:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/speedtest.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/speedtest.mrs
+  spotify:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/spotify.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/spotify.mrs
+  steam:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/steam.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/steam.mrs
+  telegram:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/telegram.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/telegram.mrs
+  telegram-ip:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: ipcidr
+    format: mrs
+    path: ./rules/telegram-ip.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/telegram.mrs
+  tiktok:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/tiktok.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/tiktok.mrs
+  tmdb:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/tmdb.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/tmdb.mrs
+  twitter:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/twitter.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/twitter.mrs
+  twitter-ip:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: ipcidr
+    format: mrs
+    path: ./rules/twitter-ip.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/twitter.mrs
+  unionpay:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/unionpay.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/unionpay.mrs
+  wikimedia:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/wikimedia.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/wikimedia.mrs
+  xiaomi:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/xiaomi.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/xiaomi.mrs
+  youtube:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/youtube.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs
+  f-droid:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/f-droid.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/f-droid.mrs
 rules:
   #######################
   # 本地网络访问规则
@@ -332,54 +639,54 @@ rules:
   #######################
   # 代理服务
   - RULE-SET,proxy,M # 代理列表
-  - GEOSITE:pikpak,SG # PikPak服务
-  - GEOSITE:mozilla,M # Firefox服务
-  - GEOSITE:openwrt,M # OpenWRT服务
+  - RULE-SET,pikpak,SG # PikPak服务
+  - RULE-SET,mozilla,M # Firefox服务
+  - RULE-SET,openwrt,M # OpenWRT服务
   # 国内应用直连
-  - GEOSITE:xiaomi,D # 小米服务
-  - GEOSITE:bilibili,D # B站
-  - GEOSITE:unionpay,D # 银联支付
-  - GEOSITE:alibaba,D # 阿里巴巴
-  - GEOSITE:meituan,D # 美团
-  - GEOSITE:jd,D # 京东
+  - RULE-SET,xiaomi,D # 小米服务
+  - RULE-SET,bilibili,D # B站
+  - RULE-SET,unionpay,D # 银联支付
+  - RULE-SET,alibaba,D # 阿里巴巴
+  - RULE-SET,meituan,D # 美团
+  - RULE-SET,jd,D # 京东
   # 国外服务代理
-  - GEOSITE:onedrive,M # OneDrive
-  - GEOSITE:openai,OpenAi # OpenAI服务
+  - RULE-SET,onedrive,M # OneDrive
+  - RULE-SET,openai,OpenAi # OpenAI服务
   - RULE-SET,pikpak-download,PikPak-Download # PikPak下载
-  - GEOSITE:adguard,M # AdGuard
-  - GEOSITE:tmdb,M # TMDB影视资料库
-  - GEOSITE:docker,M # Docker服务
-  - GEOSITE:reddit,M # Reddit
-  - GEOSITE:spotify,M # Spotify音乐
-  - GEOSITE:speedtest,SpeedTest # 网速测试
-  - GEOSITE:wikimedia,M # 维基媒体
-  - GEOSITE:javdb,M # JavDB
-  - GEOSITE:apkpure,M # APKPure
-  - GEOSITE:f-droid,M # F-Droid
+  - RULE-SET,adguard,M # AdGuard
+  - RULE-SET,tmdb,M # TMDB影视资料库
+  - RULE-SET,docker,M # Docker服务
+  - RULE-SET,reddit,M # Reddit
+  - RULE-SET,spotify,M # Spotify音乐
+  - RULE-SET,speedtest,SpeedTest # 网速测试
+  - RULE-SET,wikimedia,M # 维基媒体
+  - RULE-SET,javdb,M # JavDB
+  - RULE-SET,apkpure,M # APKPure
+  - RULE-SET,f-droid,M # F-Droid
   # 游戏平台
-  - GEOSITE:steam,Steam # Steam平台
+  - RULE-SET,steam,Steam # Steam平台
   # 社交媒体
-  - GEOSITE:tiktok,TikTok # TikTok
-  - GEOSITE:youtube,Google # YouTube
-  - GEOSITE:telegram,Telegram # Telegram
-  - GEOIP:telegram-ip,Telegram # Telegram IP
-  - GEOSITE:twitter,M # Twitter
-  - GEOIP:twitter-ip,M # Twitter IP
+  - RULE-SET,tiktok,TikTok # TikTok
+  - RULE-SET,youtube,Google # YouTube
+  - RULE-SET,telegram,Telegram # Telegram
+  - RULE-SET,telegram-ip,Telegram # Telegram IP
+  - RULE-SET,twitter,M # Twitter
+  - RULE-SET,twitter-ip,M # Twitter IP
   # 开发平台
-  - GEOSITE:github,M # GitHub
+  - RULE-SET,github,M # GitHub
   # 流媒体服务
-  - GEOSITE:netflix,Netflix # Netflix
-  - GEOIP:netflix-ip,Netflix # Netflix IP
+  - RULE-SET,netflix,Netflix # Netflix
+  - RULE-SET,netflix-ip,Netflix # Netflix IP
   # 科技公司服务
-  - GEOSITE:googlefcm,D # Google FCM服务
-  - GEOSITE:google,Google # Google服务
-  - GEOIP:google-ip,Google # Google IP
-  - GEOSITE:microsoft,D # 微软服务
-  - GEOSITE:gfw,M # GFW封锁列表
+  - RULE-SET,googlefcm,D # Google FCM服务
+  - RULE-SET,google,Google # Google服务
+  - RULE-SET,google-ip,Google # Google IP
+  - RULE-SET,microsoft,D # 微软服务
+  - RULE-SET,gfw,M # GFW封锁列表
   # 中国大陆直连
-  - GEOSITE:cn,D # 中国大陆域名
-  - GEOIP:cn-ip,D # 中国大陆IP
+  - RULE-SET,cn,D # 中国大陆域名
+  - RULE-SET,cn-ip,D # 中国大陆IP
   # 广告拦截服务
-  - GEOSITE:category-ads-all,REJECT # 广告拦截
+  - RULE-SET,category-ads-all,REJECT # 广告拦截
   # 未匹配规则
   - MATCH,Default # 最终规则
