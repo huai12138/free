@@ -213,6 +213,9 @@ def process_yaml(yaml_url):
         else:
             template_path = TEMPLATE_PATH
             
+        # 打印当前使用的模板
+        logger.info(f"当前使用的模板: {template_path}")
+        
         temp_yaml_path = fetch_yaml(yaml_url)
         output_path = process_yaml_content(temp_yaml_path, template_path)
         cached_headers = get_headers_cache(yaml_url)
