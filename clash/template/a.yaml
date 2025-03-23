@@ -84,7 +84,7 @@ hosts:
 
 dns:
   enable: true
-  prefer-h3: flase
+  prefer-h3: false
   listen: "[::]:1053"
   ipv6: true # 是否启用 IPv6
   ipv6-timeout: 300 # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
