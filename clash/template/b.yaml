@@ -218,7 +218,7 @@ proxy-groups:
     proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
 
   - name: HK_AS
-    filter: "(?i)(香港|HK_AS|hong)(?!.*(家宽|isp|小众|低倍率))"
+    filter: "(?i)(香港|HK|hong)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: url-test
     tolerance: 100
@@ -228,7 +228,7 @@ proxy-groups:
     max-failed-times: 3
     #  lazy: true
   - name: HK_LB
-    filter: "(?i)(香港|HK_AS|hong)(?!.*(家宽|isp|小众|低倍率))"
+    filter: "(?i)(香港|HK|hong)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: load-balance
     url: https://cp.cloudflare.com
