@@ -231,6 +231,7 @@ proxy-groups:
     filter: "(?i)(香港|HK|hong)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: load-balance
+    strategy: consistent-hashing
     url: https://cp.cloudflare.com
     interval: 60
     timeout: 3000
@@ -250,6 +251,7 @@ proxy-groups:
     filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: load-balance
+    strategy: consistent-hashing
     url: https://cp.cloudflare.com
     interval: 60
     timeout: 3000
@@ -269,6 +271,7 @@ proxy-groups:
     filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: load-balance
+    strategy: consistent-hashing
     url: https://cp.cloudflare.com
     interval: 60
     timeout: 3000
@@ -288,6 +291,7 @@ proxy-groups:
     filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: load-balance
+    strategy: consistent-hashing
     url: https://cp.cloudflare.com
     interval: 60
     timeout: 3000
