@@ -13,7 +13,7 @@ bind-address: "*"
 find-process-mode: strict # always, strict, off
 mode: rule # global, rule, direct
 log-level: warning # info, warning, error, debug
-ipv6: false # 是否启用 IPv6
+ipv6: true # 是否启用 IPv6
 udp: true
 geodata-mode: false
 unified-delay: true
@@ -86,7 +86,7 @@ dns:
   enable: true
   prefer-h3: false
   listen: "[::]:1053"
-  ipv6: false # 是否启用 IPv6
+  ipv6: true # 是否启用 IPv6
   ipv6-timeout: 300 # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
   enhanced-mode: fake-ip # fake-ip, redir-host
   fake-ip-range: 198.18.0.1/16
@@ -155,7 +155,7 @@ dns:
     "rule-set:category-ads-all": "rcode://refused"
     # 特定应用服务
     "rule-set:openai": "https://cloudflare-dns.com/dns-query#OpenAi"
-    "rule-set:pikpak": "https://cloudflare-dns.com/dns-query#SG"
+    "rule-set:pikpak": "https://cloudflare-dns.com/dns-query#SG_AS"
     "rule-set:pikpak-download": "https://dns.alidns.com/dns-query#PikPak-Download"
     "rule-set:adguard": "https://cloudflare-dns.com/dns-query#M"
     "rule-set:tmdb": "https://cloudflare-dns.com/dns-query#M"
@@ -188,37 +188,37 @@ proxy-groups:
     type: select
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|DE|GB|低倍率)).*$"
     include-all-proxies: true
-    proxies: [SG, US, JP, HK, D]
+    proxies: [SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB, D]
   - name: D
     type: select
     proxies: [DIRECT]
   - name: Google
     type: select
-    proxies: [M, SG, US, JP, HK]
+    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
   - name: OpenAi
     type: select
-    proxies: [M, SG, US, JP, HK]
+    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
   - name: Telegram
     type: select
-    proxies: [M, SG, US, JP, HK]
+    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
   - name: TikTok
     type: select
-    proxies: [JP, M, SG, US, HK]
+    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
   - name: Steam
     type: select
-    proxies: [M, SG, US, JP, HK]
+    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
   - name: Netflix
     type: select
-    proxies: [M, SG, US, JP, HK]
+    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
   - name: PikPak-Download
     type: select
-    proxies: [D, M, SG, US, JP, HK]
+    proxies: [D, M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
   - name: SpeedTest
     type: select
-    proxies: [M, SG, US, JP, HK]
+    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
 
-  - name: HK
-    filter: "(?i)(香港|hk|hong)(?!.*(家宽|isp|小众|低倍率))"
+  - name: HK_AS
+    filter: "(?i)(香港|HK_AS|hong)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: url-test
     tolerance: 100
@@ -227,7 +227,16 @@ proxy-groups:
     timeout: 3000
     max-failed-times: 3
     #  lazy: true
-  - name: JP
+  - name: HK_LB
+    filter: "(?i)(香港|HK_AS|hong)(?!.*(家宽|isp|小众|低倍率))"
+    include-all-proxies: true
+    type: load-balance
+    url: https://cp.cloudflare.com
+    interval: 60
+    timeout: 3000
+    max-failed-times: 3
+    #  lazy: true
+  - name: JP_AS
     filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: url-test
@@ -237,7 +246,16 @@ proxy-groups:
     timeout: 3000
     max-failed-times: 3
     #  lazy: true
-  - name: US
+  - name: JP_LB
+    filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|小众|低倍率))"
+    include-all-proxies: true
+    type: load-balance
+    url: https://cp.cloudflare.com
+    interval: 60
+    timeout: 3000
+    max-failed-times: 3
+    #  lazy: true
+  - name: US_AS
     filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: url-test
@@ -247,7 +265,16 @@ proxy-groups:
     timeout: 3000
     max-failed-times: 3
     # lazy: true
-  - name: SG
+  - name: US_LB
+    filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|小众|低倍率))"
+    include-all-proxies: true
+    type: load-balance
+    url: https://cp.cloudflare.com
+    interval: 60
+    timeout: 3000
+    max-failed-times: 3
+    # lazy: true
+  - name: SG_AS
     filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: url-test
@@ -257,9 +284,18 @@ proxy-groups:
     timeout: 3000
     max-failed-times: 3
     # lazy: true
+  - name: SG_LB
+    filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|小众|低倍率))"
+    include-all-proxies: true
+    type: load-balance
+    url: https://cp.cloudflare.com
+    interval: 60
+    timeout: 3000
+    max-failed-times: 3
+    # lazy: true
   - name: Default
     type: select
-    proxies: [D, M, SG, US, JP, HK]
+    proxies: [D, M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB|低倍率)).*$"
     include-all-proxies: true
 rule-providers:
@@ -638,7 +674,7 @@ rules:
   #######################
   # 代理服务
   - RULE-SET,proxy,M # 代理列表
-  - RULE-SET,pikpak,SG # PikPak服务
+  - RULE-SET,pikpak,SG_AS # PikPak服务
   - RULE-SET,mozilla,M # Firefox服务
   - RULE-SET,openwrt,M # OpenWRT服务
   # 国内应用直连
