@@ -36,7 +36,7 @@ fi
 
 # 保留 IP 地址集合
 ReservedIP4='{ 127.0.0.0/8, 10.0.0.0/8, 100.64.0.0/10, 169.254.0.0/16, 172.16.0.0/12, 192.0.0.0/24, 192.0.2.0/24, 198.51.100.0/24, 192.88.99.0/24, 192.168.0.0/16, 203.0.113.0/24, 224.0.0.0/4, 240.0.0.0/4, 255.255.255.255/32 }'
-CustomBypassIP='{ 192.168.0.0/16, 10.0.0.0/8 }'  # 自定义绕过的 IP 地址集合
+
 
 # 检查必要工具是否存在
 check_requirements() {
@@ -141,9 +141,6 @@ table inet sing-box {
         # DNS 请求重定向到本地 SingBox 端口
         meta l4proto { tcp, udp } th dport 53 tproxy to :$SINGBOX_PORT accept
 
-        # 自定义绕过地址
-        ip daddr $CustomBypassIP accept
-
         # 拒绝访问本地 TProxy 端口
         fib daddr type local meta l4proto { tcp, udp } th dport $SINGBOX_PORT reject with icmpx type host-unreachable
 
@@ -174,9 +171,6 @@ table inet sing-box {
 
         # 绕过 NBNS 流量
         udp dport { netbios-ns, netbios-dgm, netbios-ssn } accept
-
-        # 自定义绕过地址
-        ip daddr $CustomBypassIP accept
 
         # 本地地址绕过
         fib daddr type local accept
