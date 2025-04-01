@@ -138,6 +138,9 @@ table inet sing-box {
     chain prerouting_singbox {
         type filter hook prerouting priority mangle; policy accept;
 
+        # 确保 DHCP 数据包不被拦截 UDP 67/68
+        udp dport { 67, 68 } accept comment "Allow DHCP traffic"
+        
         # DNS 请求重定向到本地 SingBox 端口
         meta l4proto { tcp, udp } th dport 53 tproxy to :$SINGBOX_PORT accept
 
