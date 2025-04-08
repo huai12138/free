@@ -13,11 +13,12 @@ bind-address: "*"
 find-process-mode: strict # always, strict, off
 mode: rule # global, rule, direct
 log-level: warning # info, warning, error, debug
-ipv6: true # 是否启用 IPv6
+ipv6: false # 是否启用 IPv6
 udp: true
 geodata-mode: false
 unified-delay: true
 tcp-concurrent: true
+global-ua: clash.meta
 enable-process: true
 # global-ua: "Mozilla/5.0 (X11; CrOS x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 profile:
@@ -85,7 +86,7 @@ dns:
   enable: true
   prefer-h3: false
   listen: "[::]:1053"
-  ipv6: true # 是否启用 IPv6
+  ipv6: false # 是否启用 IPv6
   ipv6-timeout: 300 # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
   enhanced-mode: fake-ip # fake-ip, redir-host
   fake-ip-range: 198.18.0.1/16
@@ -119,10 +120,10 @@ dns:
   use-system-hosts: false # 是否使用系统hosts
   default-nameserver:
     # 添加IPv6 DNS服务器
-    - 2400:3200::1 # 阿里DNS IPv6
-    - 2400:3200:baba::1 # 阿里DNS IPv6
-    - 2606:4700:4700::1111 # Cloudflare IPv6 主要
-    - 2606:4700:4700::1001 # Cloudflare IPv6 备用（可选）
+    # - 2400:3200::1 # 阿里DNS IPv6
+    # - 2400:3200:baba::1 # 阿里DNS IPv6
+    # - 2606:4700:4700::1111 # Cloudflare IPv6 主要
+    # - 2606:4700:4700::1001 # Cloudflare IPv6 备用（可选）
     # 添加IPv4 DNS服务器
     - 223.5.5.5 # 阿里DNS
     - 223.6.6.6 # 阿里DNS
@@ -655,76 +656,78 @@ rule-providers:
     path: ./rules/f-droid.mrs
     url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/f-droid.mrs
 rules:
+  - "AND,((DST-PORT,443),(NETWORK,UDP)),REJECT"
   #######################
   # 本地网络访问规则
   #######################
-  - DOMAIN-SUFFIX,local,D
-  - DOMAIN-SUFFIX,lan,D
-  - IP-CIDR,127.0.0.0/8,D
-  - IP-CIDR,10.0.0.0/24,D
+  - "DOMAIN-SUFFIX,local,D"
+  - "DOMAIN-SUFFIX,lan,D"
+  - "IP-CIDR,127.0.0.0/8,D"
+  - "IP-CIDR,10.0.0.0/24,D"
 
   #######################
   # 直连规则
   #######################
-  - DOMAIN-SUFFIX,jsdmirror.com,D
-  - RULE-SET,direct,D
-  - RULE-SET,direct-ip,D
+  - "DOMAIN,ntp.aliyun.com,DIRECT"
+  - "DOMAIN-SUFFIX,jsdmirror.com,D"
+  - "RULE-SET,direct,D"
+  - "RULE-SET,direct-ip,D"
   # 智能家居设备直连规则
   #######################
-  - RULE-SET,pass-ip,D
+  - "RULE-SET,pass-ip,D"
   #######################
   # 应用规则集分流配置
   #######################
   # 代理服务
-  - RULE-SET,proxy,M # 代理列表
-  - RULE-SET,pikpak,SG_AS # PikPak服务
-  - RULE-SET,mozilla,M # Firefox服务
-  - RULE-SET,openwrt,M # OpenWRT服务
+  - "RULE-SET,proxy,M" # 代理列表
+  - "RULE-SET,pikpak,M" # PikPak服务
+  - "RULE-SET,mozilla,M" # Firefox服务
+  - "RULE-SET,openwrt,M" # OpenWRT服务
   # 国内应用直连
-  - RULE-SET,xiaomi,D # 小米服务
-  - RULE-SET,bilibili,D # B站
-  - RULE-SET,unionpay,D # 银联支付
-  - RULE-SET,alibaba,D # 阿里巴巴
-  - RULE-SET,meituan,D # 美团
-  - RULE-SET,jd,D # 京东
+  - "RULE-SET,xiaomi,D" # 小米服务
+  - "RULE-SET,bilibili,D" # B站
+  - "RULE-SET,unionpay,D" # 银联支付
+  - "RULE-SET,alibaba,D" # 阿里巴巴
+  - "RULE-SET,meituan,D" # 美团
+  - "RULE-SET,jd,D" # 京东
   # 国外服务代理
-  - RULE-SET,onedrive,M # OneDrive
-  - RULE-SET,openai,OpenAi # OpenAI服务
-  - RULE-SET,pikpak-download,PikPak-Download # PikPak下载
-  - RULE-SET,adguard,M # AdGuard
-  - RULE-SET,tmdb,M # TMDB影视资料库
-  - RULE-SET,docker,M # Docker服务
-  - RULE-SET,reddit,M # Reddit
-  - RULE-SET,spotify,M # Spotify音乐
-  - RULE-SET,speedtest,SpeedTest # 网速测试
-  - RULE-SET,wikimedia,M # 维基媒体
-  - RULE-SET,javdb,M # JavDB
-  - RULE-SET,apkpure,M # APKPure
-  - RULE-SET,f-droid,M # F-Droid
+  - "RULE-SET,onedrive,M" # OneDrive
+  - "RULE-SET,openai,OpenAi" # OpenAI服务
+  - "RULE-SET,pikpak-download,PikPak-Download" # PikPak下载
+  - "RULE-SET,adguard,M" # AdGuard
+  - "RULE-SET,tmdb,M" # TMDB影视资料库
+  - "RULE-SET,docker,M" # Docker服务
+  - "RULE-SET,reddit,M" # Reddit
+  - "RULE-SET,spotify,M" # Spotify音乐
+  - "RULE-SET,speedtest,SpeedTest" # 网速测试
+  - "RULE-SET,wikimedia,M" # 维基媒体
+  - "RULE-SET,javdb,M" # JavDB
+  - "RULE-SET,apkpure,M" # APKPure
+  - "RULE-SET,f-droid,M" # F-Droid
   # 游戏平台
-  - RULE-SET,steam,Steam # Steam平台
+  - "RULE-SET,steam,Steam" # Steam平台
   # 社交媒体
-  - RULE-SET,tiktok,TikTok # TikTok
-  - RULE-SET,youtube,Google # YouTube
-  - RULE-SET,telegram,Telegram # Telegram
-  - RULE-SET,telegram-ip,Telegram # Telegram IP
-  - RULE-SET,twitter,M # Twitter
-  - RULE-SET,twitter-ip,M # Twitter IP
+  - "RULE-SET,tiktok,TikTok" # TikTok
+  - "RULE-SET,youtube,Google" # YouTube
+  - "RULE-SET,telegram,Telegram" # Telegram
+  - "RULE-SET,telegram-ip,Telegram" # Telegram IP
+  - "RULE-SET,twitter,M" # Twitter
+  - "RULE-SET,twitter-ip,M" # Twitter IP
   # 开发平台
-  - RULE-SET,github,M # GitHub
+  - "RULE-SET,github,M" # GitHub
   # 流媒体服务
-  - RULE-SET,netflix,Netflix # Netflix
-  - RULE-SET,netflix-ip,Netflix # Netflix IP
+  - "RULE-SET,netflix,Netflix" # Netflix
+  - "RULE-SET,netflix-ip,Netflix" # Netflix IP
   # 科技公司服务
-  - RULE-SET,googlefcm,D # Google FCM服务
-  - RULE-SET,google,Google # Google服务
-  - RULE-SET,google-ip,Google # Google IP
-  - RULE-SET,microsoft,D # 微软服务
-  - RULE-SET,gfw,M # GFW封锁列表
+  - "RULE-SET,googlefcm,D" # Google FCM服务
+  - "RULE-SET,google,Google" # Google服务
+  - "RULE-SET,google-ip,Google" # Google IP
+  - "RULE-SET,microsoft,D" # 微软服务
+  - "RULE-SET,gfw,M" # GFW封锁列表
   # 中国大陆直连
-  - RULE-SET,cn,D # 中国大陆域名
-  - RULE-SET,cn-ip,D # 中国大陆IP
+  - "RULE-SET,cn,D" # 中国大陆域名
+  - "RULE-SET,cn-ip,D" # 中国大陆IP
   # 广告拦截服务
-  - RULE-SET,category-ads-all,REJECT # 广告拦截
+  - "RULE-SET,category-ads-all,REJECT" # 广告拦截
   # 未匹配规则
-  - MATCH,Default # 最终规则
+  - "MATCH,Default" # 最终规则
