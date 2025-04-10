@@ -216,7 +216,11 @@ proxy-groups:
   - name: SpeedTest
     type: select
     proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
-
+  - name: GitHub
+    type: select
+    filter: "(?i)(香港|HK|hong)"
+    include-all-proxies: true
+    proxies: [HK_AS, M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_LB]
   - name: HK_AS
     filter: "(?i)(香港|HK|hong)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
@@ -714,7 +718,7 @@ rules:
   - "RULE-SET,twitter,M" # Twitter
   - "RULE-SET,twitter-ip,M" # Twitter IP
   # 开发平台
-  - "RULE-SET,github,M" # GitHub
+  - "RULE-SET,github,GitHub" # GitHub
   # 流媒体服务
   - "RULE-SET,netflix,Netflix" # Netflix
   - "RULE-SET,netflix-ip,Netflix" # Netflix IP
