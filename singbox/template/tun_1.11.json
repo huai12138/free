@@ -247,6 +247,28 @@
       "default": "D"
     },
     {
+      "tag": "GitHub",
+      "type": "selector",
+      "outbounds": [
+        "M",
+        "HK",
+        "SG",
+        "JP",
+        "US",
+        "D",
+        "{all}"
+      ],
+      "default": "HK",
+      "filter": [
+        {
+          "action": "match",
+          "regex": [
+            "(?i)^(?=.*(🇭🇰|HK|hk|香港|hongkong))"
+          ]
+        }
+      ]
+    },
+    {
       "tag": "Default",
       "type": "selector",
       "outbounds": [
@@ -431,7 +453,7 @@
       },
       {
         "rule_set": "geosite-github",
-        "outbound": "M"
+        "outbound": "GitHub"
       },
       {
         "rule_set": "geosite-adguard",
