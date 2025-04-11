@@ -34,7 +34,7 @@ skip-auth-prefixes: # 设置跳过验证的 IP 段
   - 192.168.0.0/16 # 仅允许 192.168.0.0-192.168.255.255
 external-ui: ui
 #external-ui-name: yacd
-global-client-fingerprint: firefox
+global-client-fingerprint: chrome
 routing-mark: 666
 external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip"
 sniffer:
@@ -69,7 +69,7 @@ tun:
   mtu: 1500 # 最大传输单元
   auto-detect-interface: true # 自动检测接口
   auto-redirect: true # 自动配置 iptables 以重定向 TCP 连接。仅支持 Linux。带有 auto-redirect 的 auto-route 现在可以在路由器上按预期工作，无需干预。
-  strict-route: false # 严格路由模式
+  strict-route: true # 严格路由模式
   endpoint-independent-nat: true # 是否启用端点无关的 NAT
 hosts:
   "openwrt": "10.0.0.1" # 替换为实际的路由器IP地址
@@ -87,7 +87,7 @@ dns:
   prefer-h3: false
   listen: "[::]:1053"
   ipv6: false # 是否启用 IPv6
-  ipv6-timeout: 300 # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
+  ipv6-timeout: 100 # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
   enhanced-mode: fake-ip # fake-ip, redir-host
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter-mode: blacklist
@@ -150,12 +150,12 @@ dns:
     "rule-set:alibaba": "https://dns.alidns.com/dns-query#D"
     "rule-set:meituan": "https://dns.alidns.com/dns-query#D"
     "rule-set:jd": "https://dns.alidns.com/dns-query#D"
-    "rule-set:microsoft": "https://dns.alidns.com/dns-query#D"
+    "rule-set:microsoft": "https://cloudflare-dns.com/dns-query#Microsoft"
     # 广告拦截服务
     "rule-set:category-ads-all": "rcode://refused"
     # 特定应用服务
     "rule-set:openai": "https://cloudflare-dns.com/dns-query#OpenAi"
-    "rule-set:pikpak": "https://cloudflare-dns.com/dns-query#SG_AS"
+    "rule-set:pikpak": "https://cloudflare-dns.com/dns-query#M"
     "rule-set:pikpak-download": "https://dns.alidns.com/dns-query#PikPak-Download"
     "rule-set:adguard": "https://cloudflare-dns.com/dns-query#M"
     "rule-set:tmdb": "https://cloudflare-dns.com/dns-query#M"
@@ -167,8 +167,7 @@ dns:
     "rule-set:apkpure": "https://cloudflare-dns.com/dns-query#M"
     "rule-set:steam": "https://cloudflare-dns.com/dns-query#Steam"
     "rule-set:mozilla": "https://cloudflare-dns.com/dns-query#M"
-    "rule-set:onedrive": "https://cloudflare-dns.com/dns-query#M"
-    "rule-set:github": "https://cloudflare-dns.com/dns-query#M"
+    "rule-set:github": "https://cloudflare-dns.com/dns-query#GitHub"
     # 社交媒体
     "rule-set:telegram": "https://cloudflare-dns.com/dns-query#Telegram"
     "rule-set:twitter": "https://cloudflare-dns.com/dns-query#M"
@@ -221,6 +220,11 @@ proxy-groups:
     filter: "(?i)(香港|HK|hong)"
     include-all-proxies: true
     proxies: [HK_AS, M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_LB]
+  - name: Microsoft
+    type: select
+    filter: "(?i)(香港|HK|hong)"
+    include-all-proxies: true
+    proxies: [HK_AS, M, D, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_LB]
   - name: HK_AS
     filter: "(?i)(香港|HK|hong)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
@@ -483,14 +487,6 @@ rule-providers:
     format: mrs
     path: ./rules/netflix-ip.mrs
     url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/netflix.mrs
-  onedrive:
-    type: http
-    interval: 86400
-    proxy: M
-    behavior: domain
-    format: mrs
-    path: ./rules/onedrive.mrs
-    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/onedrive.mrs
   openai:
     type: http
     interval: 86400
@@ -695,7 +691,6 @@ rules:
   - "RULE-SET,meituan,D" # 美团
   - "RULE-SET,jd,D" # 京东
   # 国外服务代理
-  - "RULE-SET,onedrive,M" # OneDrive
   - "RULE-SET,openai,OpenAi" # OpenAI服务
   - "RULE-SET,pikpak-download,PikPak-Download" # PikPak下载
   - "RULE-SET,adguard,M" # AdGuard
@@ -726,7 +721,7 @@ rules:
   - "RULE-SET,googlefcm,D" # Google FCM服务
   - "RULE-SET,google,Google" # Google服务
   - "RULE-SET,google-ip,Google" # Google IP
-  - "RULE-SET,microsoft,D" # 微软服务
+  - "RULE-SET,microsoft,Microsoft" # 微软服务
   - "RULE-SET,gfw,M" # GFW封锁列表
   # 中国大陆直连
   - "RULE-SET,cn,D" # 中国大陆域名
