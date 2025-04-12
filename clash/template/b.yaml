@@ -158,6 +158,7 @@ dns:
     "rule-set:pikpak": "https://cloudflare-dns.com/dns-query#M"
     "rule-set:pikpak-download": "https://dns.alidns.com/dns-query#PikPak-Download"
     "rule-set:adguard": "https://cloudflare-dns.com/dns-query#M"
+    "rule-set:signal": "https://cloudflare-dns.com/dns-query#Signal"
     "rule-set:tmdb": "https://cloudflare-dns.com/dns-query#M"
     "rule-set:docker": "https://cloudflare-dns.com/dns-query#M"
     "rule-set:reddit": "https://cloudflare-dns.com/dns-query#M"
@@ -194,6 +195,9 @@ proxy-groups:
   - name: Google
     type: select
     proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
+  - name: Signal
+    type: select
+    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]  
   - name: OpenAi
     type: select
     proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
@@ -551,6 +555,14 @@ rule-providers:
     format: mrs
     path: ./rules/speedtest.mrs
     url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/speedtest.mrs
+  signal:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/signal.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/signal.mrs  
   spotify:
     type: http
     interval: 86400
@@ -708,6 +720,7 @@ rules:
   # 社交媒体
   - "RULE-SET,tiktok,TikTok" # TikTok
   - "RULE-SET,youtube,Google" # YouTube
+  - "RULE-SET,signal,Signal" # Signal
   - "RULE-SET,telegram,Telegram" # Telegram
   - "RULE-SET,telegram-ip,Telegram" # Telegram IP
   - "RULE-SET,twitter,M" # Twitter
