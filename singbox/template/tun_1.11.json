@@ -269,6 +269,28 @@
       ]
     },
     {
+      "tag": "Microsoft",
+      "type": "selector",
+      "outbounds": [
+        "M",
+        "HK",
+        "SG",
+        "JP",
+        "US",
+        "D",
+        "{all}"
+      ],
+      "default": "HK",
+      "filter": [
+        {
+          "action": "match",
+          "regex": [
+            "(?i)^(?=.*(🇭🇰|HK|hk|香港|hongkong))"
+          ]
+        }
+      ]
+    },
+    {
       "tag": "Default",
       "type": "selector",
       "outbounds": [
@@ -420,10 +442,6 @@
         "outbound": "D"
       },
       {
-        "rule_set": "geosite-onedrive",
-        "outbound": "M"
-      },
-      {
         "rule_set": "geosite-mozilla",
         "outbound": "M"
       },
@@ -552,7 +570,7 @@
       },
       {
         "rule_set": "geosite-microsoft",
-        "outbound": "D"
+        "outbound": "Microsoft"
       },
       {
         "rule_set": [
@@ -603,13 +621,6 @@
         "type": "remote",
         "format": "binary",
         "url": "https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@sing/geo/geosite/mozilla.srs",
-        "download_detour": "D"
-      },
-      {
-        "tag": "geosite-onedrive",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@sing/geo/geosite/onedrive.srs",
         "download_detour": "D"
       },
       {
@@ -912,7 +923,7 @@
       "external_ui": "ui",
       "secret": "101300",
       "external_ui_download_url": "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip",
-      "external_ui_download_detour": "D",
+      "external_ui_download_detour": "M",
       "default_mode": "rule"
     }
   }
