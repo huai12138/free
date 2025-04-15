@@ -117,6 +117,7 @@ dns:
     - "+.suckless.top"
     - "+.ihuai.top"
     - "+.082500.xyz"
+    - "+.202309.xyz"
   use-hosts: true # 是否使用配置中设置的hosts
   use-system-hosts: false # 是否使用系统hosts
   default-nameserver:
