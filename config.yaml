@@ -34,7 +34,7 @@ skip-auth-prefixes: # 设置跳过验证的 IP 段
   - 192.168.0.0/16 # 仅允许 192.168.0.0-192.168.255.255
 external-ui: ui
 #external-ui-name: yacd
-global-client-fingerprint: firefox
+global-client-fingerprint: chrome
 routing-mark: 666
 external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip"
 sniffer:
