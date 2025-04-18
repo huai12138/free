@@ -89,12 +89,6 @@
         "server": "dns_google"
       },
       {
-        "outbound": "any",
-        "action": "route",
-        "server": "dns_direct",
-        "disable_cache": true
-      },
-      {
         "rule_set": "geosite-category-ads-all",
         "server": "dns_block"
       },
