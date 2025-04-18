@@ -1,8 +1,14 @@
 {
   "log": {
     "disabled": false,
-    "level": "warn",
+    "level": "error",
     "timestamp": true
+  },
+  "ntp": {
+    "enabled": true,
+    "server": "ntp.aliyun.com",
+    "server_port": 123,
+    "interval": "30m"
   },
   "dns": {
     "servers": [
@@ -20,6 +26,20 @@
         "detour": "M"
       },
       {
+        "tag": "dns_google",
+        "address": "https://cloudflare-dns.com/dns-query",
+        "address_resolver": "dns_resolver",
+        "strategy": "ipv4_only",
+        "detour": "Google"
+      },
+      {
+        "tag": "dns_microsoft",
+        "address": "https://cloudflare-dns.com/dns-query",
+        "address_resolver": "dns_resolver",
+        "strategy": "ipv4_only",
+        "detour": "Microsoft"
+      },
+      {
         "tag": "dns_direct",
         "address": "https://dns.alidns.com/dns-query",
         "address_resolver": "dns_resolver",
@@ -29,17 +49,44 @@
       {
         "tag": "dns_block",
         "address": "rcode://refused"
+      },
+      {
+        "tag": "dns_fakeip",
+        "address": "fakeip"
       }
     ],
+    "fakeip": {
+      "enabled": true,
+      "inet4_range": "198.18.0.0/15",
+      "inet6_range": "fc00::/18"
+    },
     "rules": [
       {
         "domain_suffix": [
           "jsdelivr.net",
-          "jsdmirror.com",
-          "jsdmirror.cn"
+          "ntp.aliyun.com",
+          "ddns-link-b5.uk",
+          "dexlos.com",
+          "jsdmirror.cn",
+          "jsdmirror.com"
         ],
         "action": "route",
         "server": "dns_direct"
+      },
+      {
+        "domain_keyword": [
+          "msftconnecttest.com",
+          "msftncsi.com"
+        ],
+        "action": "route",
+        "server": "dns_microsoft"
+      },
+      {
+        "domain_keyword": [
+          "googleapis"
+        ],
+        "action": "route",
+        "server": "dns_google"
       },
       {
         "outbound": "any",
@@ -60,6 +107,13 @@
         "server": "dns_direct"
       },
       {
+        "rule_set": [
+          "geosite-googlefcm"
+        ],
+        "action": "route",
+        "server": "dns_google"
+      },
+      {
         "type": "logical",
         "mode": "and",
         "rules": [
@@ -73,6 +127,22 @@
         ],
         "server": "dns_proxy",
         "client_subnet": "114.114.114.114/24"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "action": "route",
+        "server": "dns_fakeip",
+        "disable_cache": true
+      },
+      {
+        "outbound": [
+          "D"
+        ],
+        "action": "route",
+        "server": "dns_direct"
       }
     ],
     "final": "dns_proxy",
@@ -440,6 +510,25 @@
       {
         "ip_is_private": true,
         "outbound": "D"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "network": [
+              "udp"
+            ]
+          },
+          {
+            "port": [
+              443
+            ]
+          }
+        ],
+        "action": "reject",
+        "method": "default",
+        "no_drop": false
       },
       {
         "rule_set": "geosite-mozilla",
@@ -922,8 +1011,8 @@
       "external_controller": "0.0.0.0:9090",
       "external_ui": "ui",
       "secret": "101300",
-      "external_ui_download_url": "https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip",
-      "external_ui_download_detour": "M",
+      "external_ui_download_url": "https://cdn.jsdmirror.com/gh/huai12138/free@main/dist-cdn-fonts.zip",
+      "external_ui_download_detour": "D",
       "default_mode": "rule"
     }
   }
