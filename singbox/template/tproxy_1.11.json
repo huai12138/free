@@ -4,12 +4,6 @@
     "level": "error",
     "timestamp": true
   },
-  "ntp": {
-    "enabled": true,
-    "server": "ntp.aliyun.com",
-    "server_port": 123,
-    "interval": "30m"
-  },
   "dns": {
     "servers": [
       {
@@ -149,6 +143,12 @@
       "tag": "tproxy-in",
       "listen": "::",
       "listen_port": 7893
+    },
+    {
+      "type": "socks",
+      "tag": "socks-in",
+      "listen": "::",
+      "listen_port": 12138
     }
   ],
   "outbounds": [
@@ -437,13 +437,15 @@
       },
       {
         "inbound": [
-          "tproxy-in"
+          "tproxy-in",
+          "socks-in"
         ],
         "action": "sniff"
       },
       {
         "inbound": [
-          "tproxy-in"
+          "tproxy-in",
+          "socks-in"
         ],
         "action": "resolve",
         "strategy": "ipv4_only"
