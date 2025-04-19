@@ -199,7 +199,7 @@ proxy-groups:
     proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
   - name: Signal
     type: select
-    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]  
+    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
   - name: OpenAi
     type: select
     proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
@@ -230,7 +230,7 @@ proxy-groups:
     type: select
     filter: "(?i)(香港|HK|hong)"
     include-all-proxies: true
-    proxies: [HK_AS, M, D, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_LB]
+    proxies: [D, HK_AS, M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_LB]
   - name: HK_AS
     filter: "(?i)(香港|HK|hong)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
@@ -564,7 +564,7 @@ rule-providers:
     behavior: domain
     format: mrs
     path: ./rules/signal.mrs
-    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/signal.mrs  
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/signal.mrs
   spotify:
     type: http
     interval: 86400
