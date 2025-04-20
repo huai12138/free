@@ -155,6 +155,7 @@ dns:
     "rule-set:microsoft": "https://cloudflare-dns.com/dns-query#Microsoft"
     # 广告拦截服务
     "rule-set:category-ads-all": "rcode://refused"
+    "rule-set:huawei": "rcode://refused"
     # 特定应用服务
     "rule-set:openai": "https://cloudflare-dns.com/dns-query#OpenAi"
     "rule-set:pikpak": "https://cloudflare-dns.com/dns-query#M"
@@ -445,6 +446,14 @@ rule-providers:
     format: mrs
     path: ./rules/googlefcm.mrs
     url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/googlefcm.mrs
+  huawei:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/googlefcm.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/huawei.mrs  
   javdb:
     type: http
     interval: 86400
@@ -671,6 +680,7 @@ rule-providers:
     url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/f-droid.mrs
 rules:
   - "AND,((DST-PORT,443),(NETWORK,UDP)),REJECT"
+  - "RULE-SET,huawei,REJECT"
   #######################
   # 本地网络访问规则
   #######################
