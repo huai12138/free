@@ -87,6 +87,10 @@
         "server": "dns_block"
       },
       {
+        "rule_set":"geosite-huawei",
+        "server": "dns_block"
+      },
+      {
         "rule_set": "geosite-xiaomi",
         "server": "dns_direct"
       },
@@ -650,6 +654,24 @@
         "outbound": "Microsoft"
       },
       {
+        "rule_set": "geosite-huawei",
+        "action": "reject"
+      },
+      {
+        "rule_set": [
+          "geoip-geolocation-!cn",
+          "geosite-geolocation-!cn"
+        ],
+        "outbound": "M"
+      },
+      {
+        "rule_set": [
+          "geoip-geolocation-cn",
+          "geosite-geolocation-cn"
+        ],
+        "outbound": "D"
+      },
+      {
         "rule_set": [
           "geoip-cn",
           "geosite-cn"
@@ -985,6 +1007,13 @@
         "type": "remote",
         "format": "binary",
         "url": "https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@sing/geo/geosite/f-droid.srs",
+        "download_detour": "D"
+      },
+      {
+        "tag": "geosite-huawei",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@sing/geo/geosite/huawei.srs",
         "download_detour": "D"
       }
     ],
