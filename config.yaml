@@ -13,7 +13,7 @@ bind-address: "*"
 find-process-mode: strict # always, strict, off
 mode: rule # global, rule, direct
 log-level: warning # info, warning, error, debug
-ipv6: false # 是否启用 IPv6
+ipv6: true # 是否启用 IPv6
 udp: true
 geodata-mode: false
 unified-delay: true
@@ -82,13 +82,12 @@ ntp:
   server: ntp.aliyun.com
   port: 123
   interval: 30
-
 dns:
   enable: true
   prefer-h3: false
   listen: "[::]:1053"
-  ipv6: false # 是否启用 IPv6
-  ipv6-timeout: 300 # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
+  ipv6: true # 是否启用 IPv6
+  ipv6-timeout: 100 # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
   enhanced-mode: fake-ip # fake-ip, redir-host
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter-mode: blacklist
@@ -123,10 +122,10 @@ dns:
   use-system-hosts: false # 是否使用系统hosts
   default-nameserver:
     # 添加IPv6 DNS服务器
-    # - 2400:3200::1 # 阿里DNS IPv6
-    # - 2400:3200:baba::1 # 阿里DNS IPv6
-    # - 2606:4700:4700::1111 # Cloudflare IPv6 主要
-    # - 2606:4700:4700::1001 # Cloudflare IPv6 备用（可选）
+    - 2400:3200::1 # 阿里DNS IPv6
+    - 2400:3200:baba::1 # 阿里DNS IPv6
+    - 2606:4700:4700::1111 # Cloudflare IPv6 主要
+    - 2606:4700:4700::1001 # Cloudflare IPv6 备用（可选）
     # 添加IPv4 DNS服务器
     - 223.5.5.5 # 阿里DNS
     - 223.6.6.6 # 阿里DNS
@@ -156,11 +155,13 @@ dns:
     "rule-set:microsoft": "https://cloudflare-dns.com/dns-query#Microsoft"
     # 广告拦截服务
     "rule-set:category-ads-all": "rcode://refused"
+    "rule-set:huawei": "rcode://refused"
     # 特定应用服务
     "rule-set:openai": "https://cloudflare-dns.com/dns-query#OpenAi"
-    "rule-set:pikpak": "https://cloudflare-dns.com/dns-query#SG_AS"
+    "rule-set:pikpak": "https://cloudflare-dns.com/dns-query#M"
     "rule-set:pikpak-download": "https://dns.alidns.com/dns-query#PikPak-Download"
     "rule-set:adguard": "https://cloudflare-dns.com/dns-query#M"
+    "rule-set:signal": "https://cloudflare-dns.com/dns-query#Signal"
     "rule-set:tmdb": "https://cloudflare-dns.com/dns-query#M"
     "rule-set:docker": "https://cloudflare-dns.com/dns-query#M"
     "rule-set:reddit": "https://cloudflare-dns.com/dns-query#M"
@@ -213,6 +214,9 @@ proxy-groups:
   - name: Google
     type: select
     proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
+  - name: Signal
+    type: select
+    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
   - name: OpenAi
     type: select
     proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
@@ -245,7 +249,7 @@ proxy-groups:
     filter: "(?i)(香港|HK|hong)"
     use:
       - main
-    proxies: [HK_AS, M, D, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_LB]
+    proxies: [D, HK_AS, M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_LB]
   - name: HK_AS
     filter: "(?i)(香港|HK|hong)(?!.*(家宽|isp|小众|低倍率))"
     use:
@@ -469,6 +473,14 @@ rule-providers:
     format: mrs
     path: ./rules/googlefcm.mrs
     url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/googlefcm.mrs
+  huawei:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/googlefcm.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/huawei.mrs
   javdb:
     type: http
     interval: 86400
@@ -581,6 +593,14 @@ rule-providers:
     format: mrs
     path: ./rules/speedtest.mrs
     url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/speedtest.mrs
+  signal:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: domain
+    format: mrs
+    path: ./rules/signal.mrs
+    url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/signal.mrs
   spotify:
     type: http
     interval: 86400
@@ -687,6 +707,7 @@ rule-providers:
     url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/f-droid.mrs
 rules:
   - "AND,((DST-PORT,443),(NETWORK,UDP)),REJECT"
+  - "RULE-SET,huawei,REJECT"
   #######################
   # 本地网络访问规则
   #######################
@@ -738,6 +759,7 @@ rules:
   # 社交媒体
   - "RULE-SET,tiktok,TikTok" # TikTok
   - "RULE-SET,youtube,Google" # YouTube
+  - "RULE-SET,signal,Signal" # Signal
   - "RULE-SET,telegram,Telegram" # Telegram
   - "RULE-SET,telegram-ip,Telegram" # Telegram IP
   - "RULE-SET,twitter,M" # Twitter
