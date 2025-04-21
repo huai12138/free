@@ -13,10 +13,9 @@ echo "JSON文件转换完成"
 
 # 第二部分：YAML到MRS格式转换
 echo -e "\n>>> 执行YAML到MRS格式转换..."
-mihomo convert-ruleset "domain" yaml "proxy.yaml" "proxy.mrs"
-mihomo convert-ruleset "domain" yaml "direct.yaml" "direct.mrs"
-mihomo convert-ruleset "ipcidr" yaml "pass-ip.yaml" "pass-ip.mrs"
-mihomo convert-ruleset "ipcidr" yaml "direct-ip.yaml" "direct-ip.mrs"
+./mihomo convert-ruleset "domain" yaml "proxy.yaml" "proxy.mrs"
+./mihomo convert-ruleset "domain" yaml "direct.yaml" "direct.mrs"
+./mihomo convert-ruleset "ipcidr" yaml "direct-ip.yaml" "direct-ip.mrs"
 echo "YAML文件转换完成"
 
 echo -e "\n===== 所有转换操作已完成！ ====="
