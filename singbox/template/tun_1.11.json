@@ -87,7 +87,7 @@
         "server": "dns_block"
       },
       {
-        "rule_set":"geosite-huawei",
+        "rule_set": "geosite-huawei",
         "server": "dns_block"
       },
       {
@@ -1022,7 +1022,12 @@
   },
   "experimental": {
     "cache_file": {
-      "enabled": true
+      "enabled": true,
+      "path": "cache.db",
+      "cache_id": "default",
+      "store_fakeip": true,
+      "store_rdrc": true,
+      "rdrc_timeout": "7d"
     },
     "clash_api": {
       "external_controller": "0.0.0.0:9090",
