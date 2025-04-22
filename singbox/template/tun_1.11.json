@@ -1001,9 +1001,6 @@
     "auto_detect_interface": true
   },
   "experimental": {
-    "cache_file": {
-      "enabled": true
-    },
     "clash_api": {
       "external_controller": "0.0.0.0:9090",
       "external_ui": "ui",
