@@ -659,14 +659,12 @@
       },
       {
         "rule_set": [
-          "geoip-geolocation-!cn",
           "geosite-geolocation-!cn"
         ],
         "outbound": "M"
       },
       {
         "rule_set": [
-          "geoip-geolocation-cn",
           "geosite-geolocation-cn"
         ],
         "outbound": "D"
