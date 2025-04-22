@@ -43,17 +43,8 @@
       {
         "tag": "dns_block",
         "address": "rcode://refused"
-      },
-      {
-        "tag": "dns_fakeip",
-        "address": "fakeip"
       }
     ],
-    "fakeip": {
-      "enabled": true,
-      "inet4_range": "198.18.0.0/15",
-      "inet6_range": "fc00::/18"
-    },
     "rules": [
       {
         "domain_suffix": [
@@ -119,15 +110,6 @@
         ],
         "server": "dns_proxy",
         "client_subnet": "114.114.114.114/24"
-      },
-      {
-        "query_type": [
-          "A",
-          "AAAA"
-        ],
-        "action": "route",
-        "server": "dns_fakeip",
-        "disable_cache": true
       },
       {
         "outbound": [
@@ -1019,6 +1001,9 @@
     "auto_detect_interface": true
   },
   "experimental": {
+    "cache_file": {
+      "enabled": true
+    },
     "clash_api": {
       "external_controller": "0.0.0.0:9090",
       "external_ui": "ui",
