@@ -5,6 +5,10 @@ on:
     - cron: '0 2 * * *'  # 每天UTC时间2点执行一次
   workflow_dispatch:     # 手动触发也可以
 
+# 添加这个权限块
+permissions:
+  contents: write
+
 jobs:
   sync:
     runs-on: ubuntu-latest
