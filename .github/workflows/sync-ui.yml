@@ -1,0 +1,30 @@
+name: Sync UI Panel from zashboard
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # 每天UTC时间2点执行一次
+  workflow_dispatch:     # 手动触发也可以
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout your repo
+        uses: actions/checkout@v4
+
+      - name: Download latest UI panel zip
+        run: |
+          curl -L -o dist-cdn-fonts.zip https://github.com/Zephyruso/zashboard/releases/latest/download/dist-cdn-fonts.zip
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist-cdn-fonts.zip
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update dist-cdn-fonts.zip from zashboard"
+            git push
+          fi
