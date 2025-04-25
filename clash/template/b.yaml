@@ -24,7 +24,7 @@ enable-process: true
 profile:
   store_fake_ip: true
   store_selected: true
-external-controller: 0.0.0.0:9090
+external-controller: 127.0.0.1:9090
 secret: "101300"
 authentication: # http,socks 入口的验证用户名，密码
   - "huai:12138password"
@@ -112,12 +112,6 @@ dns:
     - "mtalk-dev.google.com"
     - "mtalk-staging.google.com"
     - "mtalk4.google.com"
-    - "+.huaihuaidehuaihuai.top"
-    - "+.huai.ink"
-    - "+.suckless.top"
-    - "+.ihuai.top"
-    - "+.082500.xyz"
-    - "+.202309.xyz"
   use-hosts: true # 是否使用配置中设置的hosts
   use-system-hosts: false # 是否使用系统hosts
   default-nameserver:
