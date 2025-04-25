@@ -36,7 +36,7 @@ external-ui: ui
 #external-ui-name: yacd
 global-client-fingerprint: chrome
 routing-mark: 666
-external-ui-url: "https://fastly.jsdelivr.net/gh/huai12138/free@main/dist-cdn-fonts.zip"
+external-ui-url: "https://raw.githubusercontent.com/huai12138/free/refs/heads/main/dist-cdn-fonts.zip"
 sniffer:
   enable: true
   force-dns-mapping: true
@@ -137,8 +137,6 @@ dns:
     "rule-set:openwrt": "https://cloudflare-dns.com/dns-query#M"
     # 国内直连服务
     "rule-set:direct": "https://dns.alidns.com/dns-query#D"
-    "+.jsdmirror.com": "https://dns.alidns.com/dns-query#D"
-    "+.jsdelivr.net": "https://dns.alidns.com/dns-query#D"
     "rule-set:cn": "https://dns.alidns.com/dns-query#D"
     "rule-set:bilibili": "https://dns.alidns.com/dns-query#D"
     "rule-set:xiaomi": "https://dns.alidns.com/dns-query#D"
@@ -185,48 +183,48 @@ proxy-groups:
     type: select
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|DE|GB|低倍率)).*$"
     include-all-proxies: true
-    proxies: [SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB, D]
+    proxies: [SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB, D]
   - name: D
     type: select
     proxies: [DIRECT]
   - name: Google
     type: select
-    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
+    proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
   - name: Signal
     type: select
-    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
+    proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
   - name: OpenAi
     type: select
-    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
+    proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
   - name: Telegram
     type: select
-    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
+    proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
   - name: TikTok
     type: select
-    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
+    proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
   - name: Steam
     type: select
-    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
+    proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
   - name: Netflix
     type: select
-    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
+    proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
   - name: PikPak-Download
     type: select
-    proxies: [D, M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
+    proxies: [D, M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
   - name: SpeedTest
     type: select
-    proxies: [M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
+    proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
   - name: GitHub
     type: select
     filter: "(?i)(香港|HK|hong)"
     include-all-proxies: true
-    proxies: [HK_AS, M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_LB]
+    proxies: [HK, M, SG, SG_LB, US, US_LB, JP, JP_LB, HK_LB]
   - name: Microsoft
     type: select
     filter: "(?i)(香港|HK|hong)"
     include-all-proxies: true
-    proxies: [D, HK_AS, M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_LB]
-  - name: HK_AS
+    proxies: [D, HK, M, SG, SG_LB, US, US_LB, JP, JP_LB, HK_LB]
+  - name: HK
     filter: "(?i)(香港|HK|hong)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: url-test
@@ -246,7 +244,7 @@ proxy-groups:
     timeout: 3000
     max-failed-times: 3
     lazy: true
-  - name: JP_AS
+  - name: JP
     filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: url-test
@@ -266,7 +264,7 @@ proxy-groups:
     timeout: 3000
     max-failed-times: 3
     lazy: true
-  - name: US_AS
+  - name: US
     filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: url-test
@@ -286,7 +284,7 @@ proxy-groups:
     timeout: 3000
     max-failed-times: 3
     lazy: true
-  - name: SG_AS
+  - name: SG
     filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
     type: url-test
@@ -308,370 +306,370 @@ proxy-groups:
     lazy: true
   - name: Default
     type: select
-    proxies: [D, M, SG_AS, SG_LB, US_AS, US_LB, JP_AS, JP_LB, HK_AS, HK_LB]
+    proxies: [D, M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB|低倍率)).*$"
     include-all-proxies: true
 rule-providers:
   adguard:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/adguard.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/adguard.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/adguard.mrs
   alibaba:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/alibaba.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/alibaba.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/alibaba.mrs
   apkpure:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/apkpure.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/apkpure.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/apkpure.mrs
   bilibili:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/bilibili.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/bilibili.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/bilibili.mrs
   category-ads-all:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/category-ads-all.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/category-ads-all.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ads-all.mrs
   cn:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/cn.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/cn.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/cn.mrs
   cn-ip:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/cn-ip.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geoip/cn.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/cn.mrs
   docker:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/docker.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/docker.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/docker.mrs
   direct:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/direct.mrs
-    url: https://fastly.jsdelivr.net/gh/huai12138/free@main/direct.mrs
+    url: https://raw.githubusercontent.com/huai12138/free/refs/heads/main/direct.mrs
   direct-ip:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/direct-ip.mrs
-    url: https://fastly.jsdelivr.net/gh/huai12138/free@main/direct-ip.mrs
+    url: https://raw.githubusercontent.com/huai12138/free/refs/heads/main/direct-ip.mrs
   mozilla:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/mozilla.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/mozilla.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/mozilla.mrs
   gfw:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/gfw.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/gfw.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/gfw.mrs
   github:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/github.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/github.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/github.mrs
   google:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/google.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/google.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google.mrs
   google-ip:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/google-ip.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geoip/google.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/google.mrs
   googlefcm:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/googlefcm.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/googlefcm.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/googlefcm.mrs
   huawei:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/googlefcm.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/huawei.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/huawei.mrs
   javdb:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/javdb.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/javdb.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/javdb.mrs
   jd:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/jd.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/jd.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/jd.mrs
   meituan:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/meituan.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/meituan.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/meituan.mrs
   microsoft:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/microsoft.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/microsoft.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/microsoft.mrs
   netflix:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/netflix.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/netflix.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/netflix.mrs
   netflix-ip:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/netflix-ip.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geoip/netflix.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/netflix.mrs
   openai:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/openai.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/openai.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openai.mrs
   openwrt:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/openwrt.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/openwrt.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openwrt.mrs
   pass-ip:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: classical
     format: yaml
     path: ./rules/pass-ip.yaml
-    url: https://fastly.jsdelivr.net/gh/huai12138/free@main/pass-ip.yaml
+    url: https://raw.githubusercontent.com/huai12138/free/refs/heads/main/pass-ip.yaml
   pikpak:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/pikpak.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/pikpak.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/pikpak.mrs
   pikpak-download:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: classical
     format: yaml
     path: ./rules/pikpak-download.yaml
-    url: https://fastly.jsdelivr.net/gh/huai12138/free@main/pikpak-download.yaml
+    url: https://raw.githubusercontent.com/huai12138/free/refs/heads/main/pikpak-download.yaml
   proxy:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/proxy.mrs
-    url: https://fastly.jsdelivr.net/gh/huai12138/free@main/proxy.mrs
+    url: https://raw.githubusercontent.com/huai12138/free/refs/heads/main/proxy.mrs
   reddit:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/reddit.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/reddit.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/reddit.mrs
   speedtest:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/speedtest.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/speedtest.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/speedtest.mrs
   signal:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/signal.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/signal.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/signal.mrs
   spotify:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/spotify.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/spotify.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/spotify.mrs
   steam:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/steam.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/steam.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/steam.mrs
   telegram:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/telegram.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/telegram.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/telegram.mrs
   telegram-ip:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/telegram-ip.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geoip/telegram.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/telegram.mrs
   tiktok:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/tiktok.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/tiktok.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/tiktok.mrs
   tmdb:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/tmdb.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/tmdb.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/tmdb.mrs
   twitter:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/twitter.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/twitter.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/twitter.mrs
   twitter-ip:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: ipcidr
     format: mrs
     path: ./rules/twitter-ip.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geoip/twitter.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/twitter.mrs
   unionpay:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/unionpay.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/unionpay.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/unionpay.mrs
   wikimedia:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/wikimedia.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/wikimedia.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/wikimedia.mrs
   xiaomi:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/xiaomi.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/xiaomi.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/xiaomi.mrs
   youtube:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/youtube.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/youtube.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/youtube.mrs
   f-droid:
     type: http
     interval: 86400
-    proxy: D
+    proxy: M
     behavior: domain
     format: mrs
     path: ./rules/f-droid.mrs
-    url: https://fastly.jsdelivr.net/gh/metacubex/meta-rules-dat@meta/geo/geosite/f-droid.mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/f-droid.mrs
 rules:
   - "AND,((DST-PORT,443),(NETWORK,UDP)),REJECT"
   - "RULE-SET,huawei,REJECT"
@@ -682,12 +680,9 @@ rules:
   - "DOMAIN-SUFFIX,lan,D"
   - "IP-CIDR,127.0.0.0/8,D"
   - "IP-CIDR,10.0.0.0/24,D"
-
   #######################
   # 直连规则
   #######################
-  - "DOMAIN,ntp.aliyun.com,DIRECT"
-  - "DOMAIN-SUFFIX,jsdmirror.com,D"
   - "RULE-SET,direct,D"
   - "RULE-SET,direct-ip,D"
   # 智能家居设备直连规则
