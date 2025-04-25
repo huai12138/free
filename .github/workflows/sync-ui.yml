@@ -2,7 +2,7 @@ name: Sync UI Panel from zashboard
 
 on:
   schedule:
-    - cron: '0 2 * * *'  # 每天UTC时间2点执行一次
+    - cron: '0 18 * * *'  # 每天UTC+8时间2点执行一次(相当于UTC的18:00)
   workflow_dispatch:     # 手动触发也可以
 
 # 添加这个权限块
