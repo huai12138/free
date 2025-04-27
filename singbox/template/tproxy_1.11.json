@@ -293,7 +293,7 @@
         "D",
         "{all}"
       ],
-      "default": "D",
+      "default": "HK",
       "filter": [
         {
           "action": "match",
@@ -328,7 +328,7 @@
         "D",
         "{all}"
       ],
-      "default": "M",
+      "default": "HK",
       "filter": [
         {
           "action": "match",
