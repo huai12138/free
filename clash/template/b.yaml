@@ -13,7 +13,7 @@ bind-address: "*"
 find-process-mode: strict # always, strict, off
 mode: rule # global, rule, direct
 log-level: warning # info, warning, error, debug
-ipv6: false # 是否启用 IPv6
+ipv6: true # 是否启用 IPv6
 udp: true
 geodata-mode: false
 unified-delay: true
@@ -86,7 +86,7 @@ dns:
   enable: true
   prefer-h3: false
   listen: "[::]:1053"
-  ipv6: false # 是否启用 IPv6
+  ipv6: true # 是否启用 IPv6
   ipv6-timeout: 100 # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
   enhanced-mode: fake-ip # fake-ip, redir-host
   fake-ip-range: 198.18.0.1/16
@@ -122,10 +122,10 @@ dns:
   use-system-hosts: false # 是否使用系统hosts
   default-nameserver:
     # 添加IPv6 DNS服务器
-    # - 2400:3200::1 # 阿里DNS IPv6
-    # - 2400:3200:baba::1 # 阿里DNS IPv6
-    # - 2606:4700:4700::1111 # Cloudflare IPv6 主要
-    # - 2606:4700:4700::1001 # Cloudflare IPv6 备用（可选）
+    - 2400:3200::1 # 阿里DNS IPv6
+    - 2400:3200:baba::1 # 阿里DNS IPv6
+    - 2606:4700:4700::1111 # Cloudflare IPv6 主要
+    - 2606:4700:4700::1001 # Cloudflare IPv6 备用（可选）
     # 添加IPv4 DNS服务器
     - 223.5.5.5 # 阿里DNS
     - 223.6.6.6 # 阿里DNS
@@ -195,7 +195,7 @@ proxy-groups:
     proxies: [DIRECT]
   - name: Google
     type: select
-    proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
+    proxies: [JP, M, SG, SG_LB, US, US_LB, JP_LB, HK, HK_LB]
   - name: Signal
     type: select
     proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
