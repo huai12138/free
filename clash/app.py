@@ -9,7 +9,8 @@ import logging
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-
+# 关闭开发服务器警告
+os.environ['WERKZEUG_RUN_MAIN'] = 'true'
 # 加载.env文件
 load_dotenv()
 

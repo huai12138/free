@@ -8,7 +8,8 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import re
-
+# 关闭开发服务器警告
+os.environ['WERKZEUG_RUN_MAIN'] = 'true'
 # 设置日志配置
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
