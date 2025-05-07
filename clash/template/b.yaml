@@ -710,7 +710,6 @@ rules:
   # 社交媒体
   - "RULE-SET,tiktok,TikTok" # TikTok
   - "RULE-SET,youtube,Google" # YouTube
-  - "RULE-SET,signal,Signal" # Signal
   - "RULE-SET,telegram,Telegram" # Telegram
   - "RULE-SET,telegram-ip,Telegram" # Telegram IP
   - "RULE-SET,twitter,M" # Twitter
