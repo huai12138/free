@@ -195,7 +195,7 @@ proxy-groups:
     proxies: [DIRECT]
   - name: Google
     type: select
-    proxies: [JP, M, SG, SG_LB, US, US_LB, JP_LB, HK, HK_LB]
+    proxies: [US, M, SG, JP, SG_LB, US_LB, JP_LB, HK, HK_LB]
   - name: Signal
     type: select
     proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
@@ -229,7 +229,7 @@ proxy-groups:
     type: select
     filter: "(?i)(香港|HK|hong)"
     include-all-proxies: true
-    proxies: [HK, D, M, SG, SG_LB, US, US_LB, JP, JP_LB, HK_LB]
+    proxies: [D, HK, M, SG, SG_LB, US, US_LB, JP, JP_LB, HK_LB]
   - name: HK
     filter: "(?i)(香港|HK|hong)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
