@@ -186,7 +186,7 @@ proxies: []
 proxy-groups:
   - name: M
     type: fallback
-    proxies: [SG, US, TW, JP, HK, D]
+    proxies: [US, SG, TW, JP, HK, D]
     url: "https://cp.cloudflare.com"
     interval: 100
 
