@@ -159,7 +159,6 @@ dns:
     "rule-set:pikpak": "https://cloudflare-dns.com/dns-query#M"
     "rule-set:pikpak-download": "https://dns.alidns.com/dns-query#PikPak-Download"
     "rule-set:adguard": "https://cloudflare-dns.com/dns-query#M"
-    "rule-set:signal": "https://cloudflare-dns.com/dns-query#Signal"
     "rule-set:tmdb": "https://cloudflare-dns.com/dns-query#M"
     "rule-set:docker": "https://cloudflare-dns.com/dns-query#M"
     "rule-set:reddit": "https://cloudflare-dns.com/dns-query#M"
@@ -186,50 +185,71 @@ dns:
 proxies: []
 proxy-groups:
   - name: M
-    type: select
-    filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|DE|GB|低倍率)).*$"
-    include-all-proxies: true
-    proxies: [SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB, D]
+    type: fallback
+    proxies: [SG, US, TW, JP, HK, D]
+    url: "https://cp.cloudflare.com"
+    interval: 100
+
   - name: D
     type: select
     proxies: [DIRECT]
+
   - name: Google
-    type: select
-    proxies: [US, M, SG, JP, SG_LB, US_LB, JP_LB, HK, HK_LB]
-  - name: Signal
-    type: select
-    proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
+    type: fallback
+    proxies: [US, M, SG, JP]
+    url: "https://cp.cloudflare.com"
+    interval: 100
+
   - name: OpenAi
-    type: select
-    proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
+    type: fallback
+    proxies: [US, M, SG, JP]
+    url: "https://cp.cloudflare.com"
+    interval: 100
+
   - name: Telegram
-    type: select
-    proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
+    type: fallback
+    proxies: [US, M, SG, JP, HK]
+    url: "https://cp.cloudflare.com"
+    interval: 100
+
   - name: TikTok
-    type: select
-    proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
+    type: fallback
+    proxies: [JP, M, SG, US, HK]
+    url: "https://cp.cloudflare.com"
+    interval: 100
+
   - name: Steam
-    type: select
-    proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
+    type: fallback
+    proxies: [HK, SG, D]
+    url: "https://cp.cloudflare.com"
+    interval: 100
+
   - name: Netflix
-    type: select
-    proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
+    type: fallback
+    proxies: [SG, M]
+    url: "https://cp.cloudflare.com"
+    interval: 100
+
   - name: PikPak-Download
     type: select
-    proxies: [D, M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
+    proxies: [D, SG]
+
   - name: SpeedTest
     type: select
-    proxies: [M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
+    proxies: [M, SG, US, JP, HK, TW]
+
   - name: GitHub
-    type: select
-    filter: "(?i)(香港|HK|hong)"
-    include-all-proxies: true
-    proxies: [HK, M, SG, SG_LB, US, US_LB, JP, JP_LB, HK_LB]
+    type: fallback
+    proxies: [HK, D]
+    url: "https://cp.cloudflare.com"
+    interval: 100
+
   - name: Microsoft
-    type: select
-    filter: "(?i)(香港|HK|hong)"
-    include-all-proxies: true
-    proxies: [D, HK, M, SG, SG_LB, US, US_LB, JP, JP_LB, HK_LB]
+    type: fallback
+    proxies: [HK, D]
+    url: "https://cp.cloudflare.com"
+    interval: 100
+
   - name: HK
     filter: "(?i)(香港|HK|hong)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
@@ -239,17 +259,7 @@ proxy-groups:
     interval: 60
     timeout: 3000
     max-failed-times: 3
-    lazy: true
-  - name: HK_LB
-    filter: "(?i)(香港|HK|hong)(?!.*(家宽|isp|小众|低倍率))"
-    include-all-proxies: true
-    type: load-balance
-    strategy: consistent-hashing
-    url: https://cp.cloudflare.com
-    interval: 60
-    timeout: 3000
-    max-failed-times: 3
-    lazy: true
+
   - name: JP
     filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
@@ -259,17 +269,7 @@ proxy-groups:
     interval: 60
     timeout: 3000
     max-failed-times: 3
-    lazy: true
-  - name: JP_LB
-    filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|小众|低倍率))"
-    include-all-proxies: true
-    type: load-balance
-    strategy: consistent-hashing
-    url: https://cp.cloudflare.com
-    interval: 60
-    timeout: 3000
-    max-failed-times: 3
-    lazy: true
+
   - name: US
     filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
@@ -279,17 +279,7 @@ proxy-groups:
     interval: 60
     timeout: 3000
     max-failed-times: 3
-    lazy: true
-  - name: US_LB
-    filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|小众|低倍率))"
-    include-all-proxies: true
-    type: load-balance
-    strategy: consistent-hashing
-    url: https://cp.cloudflare.com
-    interval: 60
-    timeout: 3000
-    max-failed-times: 3
-    lazy: true
+
   - name: SG
     filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
@@ -299,22 +289,23 @@ proxy-groups:
     interval: 60
     timeout: 3000
     max-failed-times: 3
-    lazy: true
-  - name: SG_LB
-    filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|小众|低倍率))"
+
+  - name: TW
+    filter: "(?i)(台湾|taiwan|tw)(?!.*(家宽|isp|小众|低倍率))"
     include-all-proxies: true
-    type: load-balance
-    strategy: consistent-hashing
+    type: url-test
+    tolerance: 100
     url: https://cp.cloudflare.com
     interval: 60
     timeout: 3000
     max-failed-times: 3
-    lazy: true
+
   - name: Default
     type: select
-    proxies: [D, M, SG, SG_LB, US, US_LB, JP, JP_LB, HK, HK_LB]
+    proxies: [D, M, TW, SG, US, JP, HK]
     filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB|低倍率)).*$"
     include-all-proxies: true
+
 rule-providers:
   adguard:
     type: http
@@ -564,14 +555,6 @@ rule-providers:
     format: mrs
     path: ./rules/speedtest.mrs
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/speedtest.mrs
-  signal:
-    type: http
-    interval: 86400
-    proxy: M
-    behavior: domain
-    format: mrs
-    path: ./rules/signal.mrs
-    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/signal.mrs
   spotify:
     type: http
     interval: 86400
