@@ -1,4 +1,6 @@
 payload:
+  - DOMAIN-SUFFIX,local
+  - DOMAIN-SUFFIX,lan
   - DOMAIN-SUFFIX,huai.ink
   - DOMAIN-SUFFIX,huaihuaidehuaihuai.top
   - DOMAIN-SUFFIX,ihuai.top

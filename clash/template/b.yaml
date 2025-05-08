@@ -559,13 +559,6 @@ rules:
   - "AND,((DST-PORT,443),(NETWORK,UDP)),REJECT"
   - "RULE-SET,huawei,REJECT"
   #######################
-  # 本地网络访问规则
-  #######################
-  - "DOMAIN-SUFFIX,local,D"
-  - "DOMAIN-SUFFIX,lan,D"
-  - "IP-CIDR,127.0.0.0/8,D"
-  - "IP-CIDR,10.0.0.0/24,D"
-  #######################
   # 直连规则
   #######################
   - "RULE-SET,direct,D"
