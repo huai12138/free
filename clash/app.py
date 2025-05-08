@@ -111,6 +111,102 @@ def fetch_yaml(url):
                 temp_path.unlink()
             raise
 
+def save_node_names(proxies):
+    """提取节点名称并保存到nodes.yaml文件"""
+    try:
+        # 提取所有代理节点的名称
+        node_names = []
+        for proxy in proxies:
+            if isinstance(proxy, dict) and 'name' in proxy:
+                node_names.append(proxy['name'])
+        
+        # 准备要保存的数据结构
+        nodes_data = {
+            'node_names': node_names,
+            'total': len(node_names),
+            'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        }
+        
+        # 配置YAML输出格式
+        nodes_yaml = YAML()
+        nodes_yaml.indent(mapping=2, sequence=4, offset=2)
+        nodes_yaml.preserve_quotes = True
+        nodes_yaml.width = 4096
+        
+        # 保存到nodes.yaml
+        nodes_path = OUTPUT_FOLDER / 'nodes.yaml'
+        with open(nodes_path, 'w', encoding='utf-8') as f:
+            nodes_yaml.dump(nodes_data, f)
+            
+        logger.info(f"成功保存节点名称到 {nodes_path}, 共 {len(node_names)} 个节点")
+        return nodes_path
+    except Exception as e:
+        logger.error(f"保存节点名称失败: {str(e)}")
+        return None
+
+def replace_proxy_groups_with_nodes(template_data):
+    """将代理组中的US替换为实际的US节点"""
+    try:
+        # 检查nodes.yaml是否存在
+        nodes_path = OUTPUT_FOLDER / 'nodes.yaml'
+        if not nodes_path.exists():
+            logger.warning("nodes.yaml不存在，无法替换US节点")
+            return template_data
+            
+        # 读取nodes.yaml获取所有节点名称
+        nodes_yaml = YAML()
+        with open(nodes_path, 'r', encoding='utf-8') as f:
+            nodes_data = nodes_yaml.load(f)
+            
+        # 获取节点名称列表
+        node_names = nodes_data.get('node_names', [])
+        if not node_names:
+            logger.warning("nodes.yaml中未找到节点名称")
+            return template_data
+            
+        # 筛选包含US的节点，但排除名称就是"US"的节点
+        us_nodes = [name for name in node_names 
+                   if (('US' in name.upper() or '美国' in name) and name != 'US')]
+        
+        # 去除重复节点名称
+        us_nodes = list(dict.fromkeys(us_nodes))
+        
+        if not us_nodes:
+            logger.warning("未找到任何US节点")
+            return template_data
+        
+        logger.info(f"找到 {len(us_nodes)} 个US节点")
+        
+        # 处理代理组
+        proxy_groups = template_data.get('proxy-groups', [])
+        for group in proxy_groups:
+            if isinstance(group, dict) and group.get('type') == 'fallback' and 'proxies' in group:
+                proxies = group['proxies']
+                if 'US' in proxies:
+                    # 找到US的位置
+                    index = proxies.index('US')
+                    
+                    # 过滤掉已经存在于代理组中的节点
+                    filtered_us_nodes = [node for node in us_nodes if node not in proxies]
+                    
+                    if not filtered_us_nodes:
+                        logger.info(f"代理组 '{group.get('name', '未命名')}' 中已包含所有US节点，不需要添加")
+                        continue
+                    
+                    # 删除原始的US
+                    proxies.pop(index)
+                    
+                    # 在相同位置插入所有未重复的US节点
+                    for i, node in enumerate(filtered_us_nodes):
+                        proxies.insert(index + i, node)
+                    
+                    logger.info(f"在代理组 '{group.get('name', '未命名')}' 中替换US为 {len(filtered_us_nodes)} 个实际节点")
+        
+        return template_data
+    except Exception as e:
+        logger.error(f"替换代理组节点失败: {str(e)}")
+        return template_data
+
 def process_yaml_content(yaml_path, template_path=None):
     """处理本地YAML文件"""
     try:
@@ -154,8 +250,14 @@ def process_yaml_content(yaml_path, template_path=None):
                 elif proxy.get('type') == 'vless':
                     proxy['skip-cert-verify'] = False
         
+        # 新增: 提取节点名称并保存
+        save_node_names(proxies)
+        
         # 更新模板中的代理列表
         template_data['proxies'] = proxies
+        
+        # 新增: 替换代理组中的US节点
+        template_data = replace_proxy_groups_with_nodes(template_data)
         
         # 配置YAML输出格式
         yaml.indent(mapping=2, sequence=4, offset=2)
