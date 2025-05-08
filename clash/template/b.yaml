@@ -184,16 +184,16 @@ dns:
     "rule-set:f-droid": "https://cloudflare-dns.com/dns-query#M"
 proxies: []
 proxy-groups:
-  - { name: M, type: fallback, proxies: [US, SG, TW, JP, HK, D], url: "https://cp.cloudflare.com", interval: 60 }
+  - { name: M, type: fallback, proxies: [US, SG, JP], url: "https://cp.cloudflare.com", interval: 60 }
   - { name: D, type: select, proxies: [DIRECT] }
-  - { name: Google, type: fallback, proxies: [US, M, SG, JP], url: "https://cp.cloudflare.com", interval: 60 }
-  - { name: OpenAi, type: fallback, proxies: [US, M, SG, JP], url: "https://cp.cloudflare.com", interval: 60 }
-  - { name: Telegram, type: fallback, proxies: [US, M, SG, JP, HK], url: "https://cp.cloudflare.com", interval: 60 }
-  - { name: TikTok, type: fallback, proxies: [JP, M, SG, US, HK], url: "https://cp.cloudflare.com", interval: 60 }
+  - { name: Google, type: fallback, proxies: [US, SG, JP], url: "https://cp.cloudflare.com", interval: 60 }
+  - { name: OpenAi, type: fallback, proxies: [US, SG, JP], url: "https://cp.cloudflare.com", interval: 60 }
+  - { name: Telegram, type: fallback, proxies: [US, SG, JP], url: "https://cp.cloudflare.com", interval: 60 }
+  - { name: TikTok, type: fallback, proxies: [JP, SG, US], url: "https://cp.cloudflare.com", interval: 60 }
   - { name: Steam, type: fallback, proxies: [HK, SG, D], url: "https://cp.cloudflare.com", interval: 60 }
-  - { name: Netflix, type: fallback, proxies: [SG, M], url: "https://cp.cloudflare.com", interval: 60 }
+  - { name: Netflix, type: fallback, proxies: [SG], url: "https://cp.cloudflare.com", interval: 60 }
   - { name: PikPak-Download, type: select, proxies: [D, SG] }
-  - { name: SpeedTest, type: select, proxies: [M, SG, US, JP, HK, TW] }
+  - { name: SpeedTest, type: select, proxies: [SG, US, JP, HK, TW] }
   - { name: GitHub, type: fallback, proxies: [HK, D], url: "https://cp.cloudflare.com", interval: 60 }
   - { name: Microsoft, type: fallback, proxies: [HK, D], url: "https://cp.cloudflare.com", interval: 60 }
   - { name: HK, filter: "(?i)(香港|HK|hong)(?!.*(家宽|isp|小众|低倍率))", include-all-proxies: true, type: url-test, tolerance: 100, url: https://cp.cloudflare.com, interval: 60, timeout: 3000, max-failed-times: 3 }

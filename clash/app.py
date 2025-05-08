@@ -145,12 +145,12 @@ def save_node_names(proxies):
         return None
 
 def replace_proxy_groups_with_nodes(template_data):
-    """将代理组中的US替换为实际的US节点"""
+    """将代理组中的US和HK替换为实际节点"""
     try:
         # 检查nodes.yaml是否存在
         nodes_path = OUTPUT_FOLDER / 'nodes.yaml'
         if not nodes_path.exists():
-            logger.warning("nodes.yaml不存在，无法替换US节点")
+            logger.warning("nodes.yaml不存在，无法替换节点")
             return template_data
             
         # 读取nodes.yaml获取所有节点名称
@@ -164,43 +164,45 @@ def replace_proxy_groups_with_nodes(template_data):
             logger.warning("nodes.yaml中未找到节点名称")
             return template_data
             
-        # 筛选包含US的节点，但排除名称就是"US"的节点
+        # 筛选US节点
         us_nodes = [name for name in node_names 
                    if (('US' in name.upper() or '美国' in name) and name != 'US')]
-        
-        # 去除重复节点名称
         us_nodes = list(dict.fromkeys(us_nodes))
         
-        if not us_nodes:
-            logger.warning("未找到任何US节点")
-            return template_data
+        # 筛选HK节点
+        hk_nodes = [name for name in node_names 
+                   if (('HK' in name.upper() or '香港' in name) and name != 'HK')]
+        hk_nodes = list(dict.fromkeys(hk_nodes))
         
-        logger.info(f"找到 {len(us_nodes)} 个US节点")
+        logger.info(f"找到 {len(us_nodes)} 个US节点, {len(hk_nodes)} 个HK节点")
         
         # 处理代理组
         proxy_groups = template_data.get('proxy-groups', [])
         for group in proxy_groups:
             if isinstance(group, dict) and group.get('type') == 'fallback' and 'proxies' in group:
                 proxies = group['proxies']
-                if 'US' in proxies:
-                    # 找到US的位置
+                
+                # 替换US节点
+                if 'US' in proxies and us_nodes:
                     index = proxies.index('US')
-                    
-                    # 过滤掉已经存在于代理组中的节点
                     filtered_us_nodes = [node for node in us_nodes if node not in proxies]
                     
-                    if not filtered_us_nodes:
-                        logger.info(f"代理组 '{group.get('name', '未命名')}' 中已包含所有US节点，不需要添加")
-                        continue
+                    if filtered_us_nodes:
+                        proxies.pop(index)
+                        for i, node in enumerate(filtered_us_nodes):
+                            proxies.insert(index + i, node)
+                        logger.info(f"在代理组 '{group.get('name', '未命名')}' 中替换US为 {len(filtered_us_nodes)} 个实际节点")
+                
+                # 替换HK节点
+                if 'HK' in proxies and hk_nodes:
+                    index = proxies.index('HK')
+                    filtered_hk_nodes = [node for node in hk_nodes if node not in proxies]
                     
-                    # 删除原始的US
-                    proxies.pop(index)
-                    
-                    # 在相同位置插入所有未重复的US节点
-                    for i, node in enumerate(filtered_us_nodes):
-                        proxies.insert(index + i, node)
-                    
-                    logger.info(f"在代理组 '{group.get('name', '未命名')}' 中替换US为 {len(filtered_us_nodes)} 个实际节点")
+                    if filtered_hk_nodes:
+                        proxies.pop(index)
+                        for i, node in enumerate(filtered_hk_nodes):
+                            proxies.insert(index + i, node)
+                        logger.info(f"在代理组 '{group.get('name', '未命名')}' 中替换HK为 {len(filtered_hk_nodes)} 个实际节点")
         
         return template_data
     except Exception as e:
