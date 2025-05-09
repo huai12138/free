@@ -552,17 +552,11 @@ rule-providers:
 rules:
   - "AND,((DST-PORT,443),(NETWORK,UDP)),REJECT"
   - "RULE-SET,huawei,REJECT"
-  #######################
   # 直连规则
-  #######################
   - "RULE-SET,direct,D"
   - "RULE-SET,direct-ip,D"
   # 智能家居设备直连规则
-  #######################
   - "RULE-SET,pass-ip,D"
-  #######################
-  # 应用规则集分流配置
-  #######################
   # 代理服务
   - "RULE-SET,proxy,M" # 代理列表
   - "RULE-SET,pikpak,M" # PikPak服务
@@ -608,10 +602,10 @@ rules:
   - "RULE-SET,google-ip,Google" # Google IP
   - "RULE-SET,microsoft,Microsoft" # 微软服务
   - "RULE-SET,gfw,M" # GFW封锁列表
+  # 广告拦截服务
+  - "RULE-SET,category-ads-all,REJECT" # 广告拦截
   # 中国大陆直连
   - "RULE-SET,cn,D" # 中国大陆域名
   - "RULE-SET,cn-ip,D" # 中国大陆IP
-  # 广告拦截服务
-  - "RULE-SET,category-ads-all,REJECT" # 广告拦截
   # 未匹配规则
   - "MATCH,Default" # 最终规则
