@@ -145,7 +145,7 @@ def save_node_names(proxies):
         return None
 
 def replace_proxy_groups_with_nodes(template_data):
-    """将代理组中的US和HK替换为实际节点"""
+    """将代理组中的US、HK、SG和JP替换为实际节点"""
     try:
         # 检查nodes.yaml是否存在
         nodes_path = OUTPUT_FOLDER / 'nodes.yaml'
@@ -174,7 +174,17 @@ def replace_proxy_groups_with_nodes(template_data):
                    if (('HK' in name.upper() or '香港' in name) and name != 'HK')]
         hk_nodes = list(dict.fromkeys(hk_nodes))
         
-        logger.info(f"找到 {len(us_nodes)} 个US节点, {len(hk_nodes)} 个HK节点")
+        # 筛选SG节点
+        sg_nodes = [name for name in node_names 
+                   if (('SG' in name.upper() or '新加坡' in name or 'Singapore' in name) and name != 'SG')]
+        sg_nodes = list(dict.fromkeys(sg_nodes))
+        
+        # 筛选JP节点
+        jp_nodes = [name for name in node_names 
+                   if (('JP' in name.upper() or '日本' in name or 'Japan' in name) and name != 'JP')]
+        jp_nodes = list(dict.fromkeys(jp_nodes))
+        
+        logger.info(f"找到 {len(us_nodes)} 个US节点, {len(hk_nodes)} 个HK节点, {len(sg_nodes)} 个SG节点, {len(jp_nodes)} 个JP节点")
         
         # 处理代理组
         proxy_groups = template_data.get('proxy-groups', [])
@@ -203,6 +213,28 @@ def replace_proxy_groups_with_nodes(template_data):
                         for i, node in enumerate(filtered_hk_nodes):
                             proxies.insert(index + i, node)
                         logger.info(f"在代理组 '{group.get('name', '未命名')}' 中替换HK为 {len(filtered_hk_nodes)} 个实际节点")
+                
+                # 替换SG节点
+                if 'SG' in proxies and sg_nodes:
+                    index = proxies.index('SG')
+                    filtered_sg_nodes = [node for node in sg_nodes if node not in proxies]
+                    
+                    if filtered_sg_nodes:
+                        proxies.pop(index)
+                        for i, node in enumerate(filtered_sg_nodes):
+                            proxies.insert(index + i, node)
+                        logger.info(f"在代理组 '{group.get('name', '未命名')}' 中替换SG为 {len(filtered_sg_nodes)} 个实际节点")
+                
+                # 替换JP节点
+                if 'JP' in proxies and jp_nodes:
+                    index = proxies.index('JP')
+                    filtered_jp_nodes = [node for node in jp_nodes if node not in proxies]
+                    
+                    if filtered_jp_nodes:
+                        proxies.pop(index)
+                        for i, node in enumerate(filtered_jp_nodes):
+                            proxies.insert(index + i, node)
+                        logger.info(f"在代理组 '{group.get('name', '未命名')}' 中替换JP为 {len(filtered_jp_nodes)} 个实际节点")
         
         return template_data
     except Exception as e:
