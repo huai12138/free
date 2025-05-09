@@ -337,7 +337,7 @@ rule-providers:
     proxy: M
     behavior: classical
     format: yaml
-    path: ./rules/googlefcm.yaml
+    path: ./rules/huawei.yaml
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/classical/huawei.yaml
   javdb:
     type: http
