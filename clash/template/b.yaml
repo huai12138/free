@@ -106,6 +106,7 @@ dns:
     - "mtalk-dev.google.com"
     - "mtalk-staging.google.com"
     - "mtalk4.google.com"
+    - "ntp.aliyun.com"
     - "+.huai.ink"
     - "+.huaihuaidehuaihuai.top"
     - "+.ihuai.top"
