@@ -133,6 +133,7 @@ dns:
   nameserver: [https://cloudflare-dns.com/dns-query#M]
   nameserver-policy:
     # 代理服务
+    "rule-set:archlinux": "https://cloudflare-dns.com/dns-query#M"
     "rule-set:proxy": "https://cloudflare-dns.com/dns-query#M"
     "rule-set:gfw": "https://cloudflare-dns.com/dns-query#M"
     "rule-set:openwrt": "https://cloudflare-dns.com/dns-query#M"
@@ -199,6 +200,14 @@ proxy-groups:
   - { name: TW, filter: "(?i)(台湾|taiwan|tw)(?!.*(家宽|isp|小众|低倍率))", include-all-proxies: true, type: url-test, tolerance: 100, url: https://cp.cloudflare.com, interval: 60, timeout: 3000, max-failed-times: 3, hidden: true }
 
 rule-providers:
+  archlinux:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: classical
+    format: yaml
+    path: ./rules/archlinux.yaml
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/classical/archlinux.yaml
   adguard:
     type: http
     interval: 86400
@@ -551,6 +560,7 @@ rule-providers:
     format: yaml
     path: ./rules/f-droid.yaml
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/classical/f-droid.yaml
+
 rules:
   - "AND,((DST-PORT,443),(NETWORK,UDP)),REJECT"
   - "RULE-SET,huawei,REJECT"
@@ -560,6 +570,7 @@ rules:
   # 智能家居设备直连规则
   - "RULE-SET,pass-ip,D"
   # 代理服务
+  - "RULE-SET,archlinux,M" # ArchLinux服务
   - "RULE-SET,proxy,M" # 代理列表
   - "RULE-SET,pikpak,M" # PikPak服务
   - "RULE-SET,mozilla,M" # Firefox服务
