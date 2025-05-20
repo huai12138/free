@@ -32,10 +32,10 @@ MERGED_URL=$(echo "$URLS" | tr '\n' '|')
 while IFS=': ' read -r name url || [[ -n "$url" ]]; do
     if [[ -n "$name" && -n "$url" ]]; then
         # 生成 Singbox URL
-        echo "$name: https://singbox.ihuai.top/$(encode_url "$url")" >> "$TEMP_DIR/singbox.txt"
+        echo "$name: https://singbox.202309.xyz/$(encode_url "$url")" >> "$TEMP_DIR/singbox.txt"
         
         # 生成 Clash URL
-        echo "$name: https://clash.ihuai.top/$(encode_url "$url")" >> "$TEMP_DIR/clash.txt"
+        echo "$name: https://clash.202309.xyz/$(encode_url "$url")" >> "$TEMP_DIR/clash.txt"
     fi
 done < "$TEMP_DIR/0.txt"
 
