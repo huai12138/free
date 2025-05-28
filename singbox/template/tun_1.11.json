@@ -209,7 +209,7 @@
         "JP",
         "US"
       ],
-      "default": "M"
+      "default": "US"
     },
     {
       "tag": "Steam",
@@ -221,7 +221,7 @@
         "JP",
         "US"
       ],
-      "default": "M"
+      "default": "HK"
     },
     {
       "tag": "Telegram",
@@ -233,7 +233,7 @@
         "JP",
         "US"
       ],
-      "default": "M"
+      "default": "US"
     },
     {
       "tag": "Twitter",
@@ -245,7 +245,7 @@
         "JP",
         "US"
       ],
-      "default": "M"
+      "default": "US"
     },
     {
       "tag": "FaceBook",
@@ -257,7 +257,7 @@
         "JP",
         "US"
       ],
-      "default": "M"
+      "default": "US"
     },
     {
       "tag": "TikTok",
@@ -281,7 +281,7 @@
         "JP",
         "US"
       ],
-      "default": "M"
+      "default": "SG"
     },
     {
       "tag": "PikPak",
@@ -293,7 +293,7 @@
         "JP",
         "US"
       ],
-      "default": "M"
+      "default": "SG"
     },
     {
       "tag": "PikPak-Download",
@@ -312,13 +312,8 @@
       "tag": "GitHub",
       "type": "selector",
       "outbounds": [
-        "M",
         "HK",
-        "SG",
-        "JP",
-        "US",
-        "D",
-        "{all}"
+        "D"
       ],
       "default": "HK",
       "filter": [
@@ -334,15 +329,10 @@
       "tag": "Microsoft",
       "type": "selector",
       "outbounds": [
-        "M",
         "HK",
-        "SG",
-        "JP",
-        "US",
-        "D",
-        "{all}"
+        "D"
       ],
-      "default": "D",
+      "default": "HK",
       "filter": [
         {
           "action": "match",
@@ -361,8 +351,7 @@
         "SG",
         "JP",
         "US",
-        "D",
-        "{all}"
+        "D"
       ],
       "default": "D",
       "filter": [
