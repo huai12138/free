@@ -25,6 +25,7 @@ payload:
   - DOMAIN-SUFFIX,rmdown.com
   - DOMAIN-SUFFIX,cloudflare.com
   - DOMAIN-SUFFIX,skrso.top
+  - DOMAIN-SUFFIX,skrbtso.top
   - DOMAIN-SUFFIX,ip.sb
   - DOMAIN-SUFFIX,aiyifan.tv
   - DOMAIN-SUFFIX,iyf.tv
