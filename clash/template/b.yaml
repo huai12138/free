@@ -181,7 +181,7 @@ dns:
     "rule-set:f-droid": "https://cloudflare-dns.com/dns-query#M"
 proxies: []
 proxy-groups:
-  - { name: M, type: fallback, proxies: [SG, JP], url: "https://cp.cloudflare.com", interval: 60, timeout: 3000, max-failed-times: 3 }
+  - { name: M, type: fallback, proxies: [HK, SG, JP], url: "https://cp.cloudflare.com", interval: 60, timeout: 3000, max-failed-times: 3 }
   - { name: Default, type: select, proxies: [M, D, TW, SG, US, JP, HK], filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB|低倍率)).*$", include-all-proxies: true }
   - { name: D, type: select, proxies: [DIRECT], hidden: true }
   - { name: Google, type: fallback, proxies: [US, SG, JP], url: "https://cp.cloudflare.com", interval: 60, timeout: 3000, max-failed-times: 3 }
