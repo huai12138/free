@@ -147,6 +147,7 @@ dns:
     "rule-set:meituan": "https://dns.alidns.com/dns-query#D"
     "rule-set:jd": "https://dns.alidns.com/dns-query#D"
     "rule-set:microsoft": "https://cloudflare-dns.com/dns-query#Microsoft"
+    "rule-set:tencent": "https://dns.alidns.com/dns-query#D"
     # 广告拦截服务
     "rule-set:category-ads-all": "rcode://refused"
     "rule-set:huawei": "rcode://refused"
@@ -181,7 +182,7 @@ dns:
 proxies: []
 proxy-groups:
   - { name: M, type: fallback, proxies: [SG, JP], url: "https://cp.cloudflare.com", interval: 60, timeout: 3000, max-failed-times: 3 }
-  - { name: Default, type: select, proxies: [D, M, TW, SG, US, JP, HK], filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB|低倍率)).*$", include-all-proxies: true }
+  - { name: Default, type: select, proxies: [M, D, TW, SG, US, JP, HK], filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB|低倍率)).*$", include-all-proxies: true }
   - { name: D, type: select, proxies: [DIRECT], hidden: true }
   - { name: Google, type: fallback, proxies: [US, SG, JP], url: "https://cp.cloudflare.com", interval: 60, timeout: 3000, max-failed-times: 3 }
   - { name: OpenAi, type: fallback, proxies: [US, SG, JP], url: "https://cp.cloudflare.com", interval: 60, timeout: 3000, max-failed-times: 3 }
@@ -560,6 +561,14 @@ rule-providers:
     format: yaml
     path: ./rules/f-droid.yaml
     url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/classical/f-droid.yaml
+  tencent:
+    type: http
+    interval: 86400
+    proxy: M
+    behavior: classical
+    format: yaml
+    path: ./rules/tencent.yaml
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/classical/tencent.yaml
 
 rules:
   - "AND,((DST-PORT,443),(NETWORK,UDP)),REJECT"
@@ -572,7 +581,7 @@ rules:
   # 代理服务
   - "RULE-SET,archlinux,M" # ArchLinux服务
   - "RULE-SET,proxy,M" # 代理列表
-  - "RULE-SET,pikpak,M" # PikPak服务
+  - "RULE-SET,pikpak,HK" # PikPak服务
   - "RULE-SET,mozilla,M" # Firefox服务
   - "RULE-SET,openwrt,M" # OpenWRT服务
   # 国内应用直连
@@ -582,6 +591,7 @@ rules:
   - "RULE-SET,alibaba,D" # 阿里巴巴
   - "RULE-SET,meituan,D" # 美团
   - "RULE-SET,jd,D" # 京东
+  - "RULE-SET,tencent,D" # 腾讯服务
   # 国外服务代理
   - "RULE-SET,openai,OpenAi" # OpenAI服务
   - "RULE-SET,pikpak-download,PikPak-Download" # PikPak下载
