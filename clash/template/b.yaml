@@ -181,24 +181,24 @@ dns:
     "rule-set:f-droid": "https://cloudflare-dns.com/dns-query#M"
 proxies: []
 proxy-groups:
-  - { name: M, type: fallback, proxies: [HK, SG, JP], url: "https://cp.cloudflare.com", interval: 60, timeout: 3000, max-failed-times: 3 }
+  - { name: M, type: fallback, proxies: [HK, SG, JP], url: "https://cp.cloudflare.com", interval: 60, timeout: 1500, max-failed-times: 3 }
   - { name: Default, type: select, proxies: [M, D, TW, SG, US, JP, HK], filter: "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|小众|0\\.[0-9]|DE|GB|低倍率)).*$", include-all-proxies: true }
   - { name: D, type: select, proxies: [DIRECT], hidden: true }
-  - { name: Google, type: fallback, proxies: [US, SG, JP], url: "https://cp.cloudflare.com", interval: 60, timeout: 3000, max-failed-times: 3 }
-  - { name: OpenAi, type: fallback, proxies: [US, SG, JP], url: "https://cp.cloudflare.com", interval: 60, timeout: 3000, max-failed-times: 3 }
-  - { name: Telegram, type: fallback, proxies: [US, SG, JP], url: "https://cp.cloudflare.com", interval: 60, timeout: 3000, max-failed-times: 3 }
-  - { name: TikTok, type: fallback, proxies: [JP, SG], url: "https://cp.cloudflare.com", interval: 60, timeout: 3000, max-failed-times: 3 }
-  - { name: Steam, type: fallback, proxies: [HK, D], url: "https://cp.cloudflare.com", interval: 60, timeout: 3000, max-failed-times: 3 }
-  - { name: Netflix, type: fallback, proxies: [SG], url: "https://cp.cloudflare.com", interval: 60, timeout: 3000, max-failed-times: 3 }
+  - { name: Google, type: fallback, proxies: [US, SG, JP], url: "https://cp.cloudflare.com", interval: 60, timeout: 1500, max-failed-times: 3 }
+  - { name: OpenAi, type: fallback, proxies: [US, SG, JP], url: "https://cp.cloudflare.com", interval: 60, timeout: 1500, max-failed-times: 3 }
+  - { name: Telegram, type: fallback, proxies: [US, SG, JP], url: "https://cp.cloudflare.com", interval: 60, timeout: 1500, max-failed-times: 3 }
+  - { name: TikTok, type: fallback, proxies: [JP, SG], url: "https://cp.cloudflare.com", interval: 60, timeout: 1500, max-failed-times: 3 }
+  - { name: Steam, type: fallback, proxies: [HK, D], url: "https://cp.cloudflare.com", interval: 60, timeout: 1500, max-failed-times: 3 }
+  - { name: Netflix, type: fallback, proxies: [SG], url: "https://cp.cloudflare.com", interval: 60, timeout: 1500, max-failed-times: 3 }
   - { name: PikPak-Download, type: select, proxies: [D, SG] }
   - { name: SpeedTest, type: select, proxies: [SG, US, JP, HK] }
-  - { name: GitHub, type: fallback, proxies: [HK, D], url: "https://cp.cloudflare.com", interval: 60, timeout: 3000, max-failed-times: 3 }
-  - { name: Microsoft, type: fallback, proxies: [HK, D], url: "https://cp.cloudflare.com", interval: 60, timeout: 3000, max-failed-times: 3 }
-  - { name: HK, filter: "(?i)(香港|HK|hong)(?!.*(家宽|isp|小众|低倍率))", include-all-proxies: true, type: url-test, tolerance: 100, url: https://cp.cloudflare.com, interval: 60, timeout: 3000, max-failed-times: 3, hidden: true }
-  - { name: JP, filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|小众|低倍率))", include-all-proxies: true, type: url-test, tolerance: 100, url: https://cp.cloudflare.com, interval: 60, timeout: 3000, max-failed-times: 3, hidden: true }
-  - { name: US, filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|小众|低倍率))", include-all-proxies: true, type: url-test, tolerance: 100, url: https://cp.cloudflare.com, interval: 60, timeout: 3000, max-failed-times: 3, hidden: true }
-  - { name: SG, filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|小众|低倍率))", include-all-proxies: true, type: url-test, tolerance: 100, url: https://cp.cloudflare.com, interval: 60, timeout: 3000, max-failed-times: 3, hidden: true }
-  - { name: TW, filter: "(?i)(台湾|taiwan|tw)(?!.*(家宽|isp|小众|低倍率))", include-all-proxies: true, type: url-test, tolerance: 100, url: https://cp.cloudflare.com, interval: 60, timeout: 3000, max-failed-times: 3, hidden: true }
+  - { name: GitHub, type: fallback, proxies: [HK, D], url: "https://cp.cloudflare.com", interval: 60, timeout: 1500, max-failed-times: 3 }
+  - { name: Microsoft, type: fallback, proxies: [HK, D], url: "https://cp.cloudflare.com", interval: 60, timeout: 1500, max-failed-times: 3 }
+  - { name: HK, filter: "(?i)(香港|HK|hong)(?!.*(家宽|isp|小众|低倍率))", include-all-proxies: true, type: url-test, tolerance: 100, url: https://cp.cloudflare.com, interval: 60, timeout: 1500, max-failed-times: 3, hidden: true }
+  - { name: JP, filter: "(?i)(日本|jp|japan)(?!.*(家宽|isp|小众|低倍率))", include-all-proxies: true, type: url-test, tolerance: 100, url: https://cp.cloudflare.com, interval: 60, timeout: 1500, max-failed-times: 3, hidden: true }
+  - { name: US, filter: "(?i)(美国|us|united|america)(?!.*(家宽|isp|小众|低倍率))", include-all-proxies: true, type: url-test, tolerance: 100, url: https://cp.cloudflare.com, interval: 60, timeout: 1500, max-failed-times: 3, hidden: true }
+  - { name: SG, filter: "(?i)(新加坡|sg|singapore)(?!.*(家宽|isp|小众|低倍率))", include-all-proxies: true, type: url-test, tolerance: 100, url: https://cp.cloudflare.com, interval: 60, timeout: 1500, max-failed-times: 3, hidden: true }
+  - { name: TW, filter: "(?i)(台湾|taiwan|tw)(?!.*(家宽|isp|小众|低倍率))", include-all-proxies: true, type: url-test, tolerance: 100, url: https://cp.cloudflare.com, interval: 60, timeout: 1500, max-failed-times: 3, hidden: true }
 
 rule-providers:
   archlinux:
