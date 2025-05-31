@@ -10,3 +10,4 @@ payload:
   - DOMAIN-SUFFIX,ddns-link-b5.uk
   - DOMAIN-SUFFIX,dexlos.com
   - DOMAIN,ntp.aliyun.com
+  - DOMAIN-SUFFIX,bukkit.org
