@@ -375,7 +375,7 @@
       ],
       "url": "https://cp.cloudflare.com",
       "interval": "60s",
-      "tolerance": 100,
+      "tolerance": 300,
       "filter": [
         {
           "action": "match",
@@ -393,7 +393,7 @@
       ],
       "url": "https://cp.cloudflare.com",
       "interval": "60s",
-      "tolerance": 100,
+      "tolerance": 300,
       "filter": [
         {
           "action": "match",
@@ -411,7 +411,7 @@
       ],
       "url": "https://cp.cloudflare.com",
       "interval": "60s",
-      "tolerance": 100,
+      "tolerance": 300,
       "filter": [
         {
           "action": "match",
@@ -429,7 +429,7 @@
       ],
       "url": "https://cp.cloudflare.com",
       "interval": "60s",
-      "tolerance": 100,
+      "tolerance": 300,
       "filter": [
         {
           "action": "match",
