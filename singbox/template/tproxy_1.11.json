@@ -371,15 +371,7 @@
         "US",
         "D"
       ],
-      "default": "D",
-      "filter": [
-        {
-          "action": "match",
-          "regex": [
-            "(?i)^(?!.*(剩余|到期|限制|套餐|时间|官网|产品|平台|Traffic|Expire|DE|GB)).*$"
-          ]
-        }
-      ]
+      "default": "D"
     },
     {
       "tag": "HK",
