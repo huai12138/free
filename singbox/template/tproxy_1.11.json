@@ -4,6 +4,12 @@
     "level": "info",
     "timestamp": true
   },
+  "ntp": {
+    "enabled": true,
+    "server": "ntp.aliyun.com",
+    "server_port": 123,
+    "interval": "30m"
+  },
   "dns": {
     "servers": [
       {
@@ -21,15 +27,13 @@
       },
       {
         "tag": "dns_google",
-        "address": "https://cloudflare-dns.com/dns-query",
-        "address_resolver": "dns_resolver",
+        "address": "8.8.8.8",
         "strategy": "ipv4_only",
         "detour": "Google"
       },
       {
         "tag": "dns_microsoft",
-        "address": "https://cloudflare-dns.com/dns-query",
-        "address_resolver": "dns_resolver",
+        "address": "1.1.1.1",
         "strategy": "ipv4_only",
         "detour": "Microsoft"
       },
@@ -57,7 +61,7 @@
     "rules": [
       {
         "domain_suffix": [
-          "jsdelivr.net",
+          "fastly.jsdelivr.net",
           "ntp.aliyun.com",
           "ddns-link-b5.uk",
           "dexlos.com",
@@ -84,18 +88,27 @@
       },
       {
         "rule_set": "geosite-category-ads-all",
+        "action": "route",
         "server": "dns_block"
       },
       {
         "rule_set": "geosite-huawei",
+        "action": "route",
         "server": "dns_block"
       },
       {
         "rule_set": "geosite-xiaomi",
+        "action": "route",
         "server": "dns_direct"
       },
       {
-        "rule_set": "geosite-geolocation-cn",
+        "rule_set": "geosite-tencent",
+        "action": "route",
+        "server": "dns_direct"
+      },
+      {
+        "rule_set": "geosite-cn",
+        "action": "route",
         "server": "dns_direct"
       },
       {
@@ -104,6 +117,41 @@
         ],
         "action": "route",
         "server": "dns_google"
+      },
+      {
+        "rule_set": "geosite-geolocation-cn",
+        "action": "route",
+        "server": "dns_direct"
+      },
+      {
+        "rule_set": "direct",
+        "action": "route",
+        "server": "dns_direct"
+      },
+      {
+        "rule_set": "geosite-unionpay",
+        "action": "route",
+        "server": "dns_direct"
+      },
+      {
+        "rule_set": "geosite-jd",
+        "action": "route",
+        "server": "dns_direct"
+      },
+      {
+        "rule_set": "geosite-meituan",
+        "action": "route",
+        "server": "dns_direct"
+      },
+      {
+        "rule_set": "geosite-alibaba",
+        "action": "route",
+        "server": "dns_direct"
+      },
+      {
+        "rule_set": "geosite-bilibili",
+        "action": "route",
+        "server": "dns_direct"
       },
       {
         "type": "logical",
@@ -117,6 +165,7 @@
             "rule_set": "geoip-cn"
           }
         ],
+        "action": "route",
         "server": "dns_proxy",
         "client_subnet": "114.114.114.114/24"
       },
@@ -145,13 +194,13 @@
     {
       "type": "tproxy",
       "tag": "tproxy-in",
-      "listen": "::",
+      "listen": "127.0.0.1",
       "listen_port": 7893
     },
     {
       "type": "socks",
       "tag": "socks-in",
-      "listen": "::",
+      "listen": "127.0.0.1",
       "listen_port": 12138
     }
   ],
@@ -170,7 +219,7 @@
         "US",
         "D"
       ],
-      "default": "SG"
+      "default": "HK"
     },
     {
       "tag": "Google",
@@ -278,7 +327,7 @@
         "JP",
         "US"
       ],
-      "default": "M"
+      "default": "HK"
     },
     {
       "tag": "Microsoft",
@@ -425,6 +474,17 @@
     "default_mark": 666,
     "rules": [
       {
+        "inbound": [
+          "tproxy-in",
+          "socks-in"
+        ],
+        "action": "hijack-dns"
+      },
+      {
+        "port": 53,
+        "action": "hijack-dns"
+      },
+      {
         "rule_set": "pass-ip",
         "outbound": "D"
       },
@@ -444,11 +504,22 @@
         "strategy": "ipv4_only"
       },
       {
+        "rule_set": "geosite-tencent",
+        "outbound": "D"
+      },
+      {
         "rule_set": [
           "direct",
           "direct-ip"
         ],
         "outbound": "D"
+      },
+      {
+        "domain_keyword": [
+          "googleapis"
+        ],
+        "action": "route",
+        "outbound": "Google"
       },
       {
         "rule_set": "proxy",
@@ -475,10 +546,6 @@
         "outbound": "D"
       },
       {
-        "ip_is_private": true,
-        "outbound": "D"
-      },
-      {
         "type": "logical",
         "mode": "and",
         "rules": [
@@ -496,6 +563,10 @@
         "action": "reject",
         "method": "default",
         "no_drop": false
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "D"
       },
       {
         "rule_set": "geosite-mozilla",
@@ -660,13 +731,6 @@
         "type": "remote",
         "format": "binary",
         "url": "https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@sing/geo/geosite/category-ads-all.srs",
-        "download_detour": "D"
-      },
-      {
-        "tag": "geosite-csdn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@sing/geo/geosite/csdn.srs",
         "download_detour": "D"
       },
       {
@@ -976,6 +1040,13 @@
         "format": "binary",
         "url": "https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@sing/geo/geosite/huawei.srs",
         "download_detour": "D"
+      },
+      {
+        "tag": "geosite-tencent",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdmirror.com/gh/metacubex/meta-rules-dat@sing/geo/geosite/tencent.srs",
+        "download_detour": "D"
       }
     ],
     "final": "Default",
@@ -985,7 +1056,7 @@
     "clash_api": {
       "external_controller": "0.0.0.0:9090",
       "external_ui": "ui",
-      "secret": "101300",
+      "secret": "Ab114514***",
       "external_ui_download_url": "https://cdn.jsdmirror.com/gh/huai12138/free@main/dist-cdn-fonts.zip",
       "external_ui_download_detour": "D",
       "default_mode": "rule"
