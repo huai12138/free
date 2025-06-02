@@ -358,15 +358,7 @@
         "HK",
         "D"
       ],
-      "default": "HK",
-      "filter": [
-        {
-          "action": "match",
-          "regex": [
-            "(?i)^(?=.*(🇭🇰|HK|hk|香港|hongkong))"
-          ]
-        }
-      ]
+      "default": "HK"
     },
     {
       "tag": "Default",
