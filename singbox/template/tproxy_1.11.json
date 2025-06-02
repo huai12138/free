@@ -4,12 +4,6 @@
     "level": "info",
     "timestamp": true
   },
-  "ntp": {
-    "enabled": true,
-    "server": "ntp.aliyun.com",
-    "server_port": 123,
-    "interval": "30m"
-  },
   "dns": {
     "servers": [
       {
@@ -194,13 +188,13 @@
     {
       "type": "tproxy",
       "tag": "tproxy-in",
-      "listen": "127.0.0.1",
+      "listen": "0.0.0.0",
       "listen_port": 7893
     },
     {
       "type": "socks",
       "tag": "socks-in",
-      "listen": "127.0.0.1",
+      "listen": "0.0.0.0",
       "listen_port": 12138
     }
   ],
@@ -449,17 +443,6 @@
   "route": {
     "default_mark": 666,
     "rules": [
-      {
-        "inbound": [
-          "tproxy-in",
-          "socks-in"
-        ],
-        "action": "hijack-dns"
-      },
-      {
-        "port": 53,
-        "action": "hijack-dns"
-      },
       {
         "rule_set": "pass-ip",
         "outbound": "D"
