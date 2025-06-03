@@ -37,7 +37,6 @@ fi
 # 保留 IP 地址集合
 ReservedIP4='{ 127.0.0.0/8, 10.0.0.0/8, 100.64.0.0/10, 169.254.0.0/16, 172.16.0.0/12, 192.0.0.0/24, 192.0.2.0/24, 198.51.100.0/24, 192.88.99.0/24, 192.168.0.0/16, 203.0.113.0/24, 224.0.0.0/4, 240.0.0.0/4, 255.255.255.255/32 }'
 
-
 # 检查必要工具是否存在
 check_requirements() {
     for cmd in ip nft sysctl; do
@@ -48,17 +47,24 @@ check_requirements() {
     done
 }
 
-# 检查指定路由表是否存在
-check_route_exists() {
-    ip route show table "$1" >/dev/null 2>&1
+# 检查路由表中是否已有本地路由
+check_local_route_exists() {
+    ip route show table "$PROXY_ROUTE_TABLE" | grep -q "local" 2>/dev/null
     return $?
 }
 
 # 创建路由表，如果不存在的话
 create_route_table_if_not_exists() {
-    if ! check_route_exists "$PROXY_ROUTE_TABLE"; then
-        echo "路由表不存在，正在创建..."
-        ip route add local default dev "$INTERFACE" table "$PROXY_ROUTE_TABLE" || { echo "创建路由表失败"; exit 1; }
+    if ! check_local_route_exists; then
+        echo "创建本地路由表..."
+        # 修正：使用正确的本地路由语法
+        ip route add local 0.0.0.0/0 dev lo table "$PROXY_ROUTE_TABLE" || {
+            echo "创建路由表失败"
+            exit 1
+        }
+        echo "本地路由表创建成功"
+    else
+        echo "本地路由表已存在，跳过创建"
     fi
 }
 
@@ -66,7 +72,8 @@ create_route_table_if_not_exists() {
 wait_for_fib_table() {
     i=1
     while [ $i -le 10 ]; do
-        if ip route show table "$PROXY_ROUTE_TABLE" >/dev/null 2>&1; then
+        if ip route show table "$PROXY_ROUTE_TABLE" | grep -q "local"; then
+            echo "FIB 表加载完成"
             return 0
         fi
         echo "等待 FIB 表加载中，等待 $i 秒..."
@@ -79,13 +86,66 @@ wait_for_fib_table() {
 
 # 清理现有 sing-box 防火墙规则
 clearSingboxRules() {
+    echo "清理 sing-box 相关的防火墙规则..."
+    
+    # 清理 nftables 规则
     if nft list table inet sing-box >/dev/null 2>&1; then
         nft delete table inet sing-box
+        echo "已清理 nftables 规则"
     fi
     
-    ip rule del fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE 2>/dev/null || true
-    ip route del local default dev "${INTERFACE}" table $PROXY_ROUTE_TABLE 2>/dev/null || true
-    echo "清理 sing-box 相关的防火墙规则"
+    # 清理 IP 规则（可能有多条，循环删除）
+    while ip rule del fwmark $PROXY_FWMARK lookup $PROXY_ROUTE_TABLE 2>/dev/null; do
+        echo "已删除 IP 规则"
+    done
+    
+    # 清理路由表内容
+    if ip route show table $PROXY_ROUTE_TABLE | grep -q "local"; then
+        ip route flush table $PROXY_ROUTE_TABLE 2>/dev/null || true
+        echo "已清理路由表"
+    fi
+    
+    echo "sing-box 相关的防火墙规则清理完成"
+}
+
+# 验证设置是否正确
+verify_setup() {
+    echo "验证 tproxy 设置..."
+    
+    # 检查监听端口
+    if ! netstat -tlnp 2>/dev/null | grep ":$SINGBOX_PORT" >/dev/null; then
+        echo "警告: sing-box 未在端口 $SINGBOX_PORT 监听"
+        echo "请确保 sing-box 正在运行且配置正确"
+    else
+        echo "✓ sing-box 端口监听正常"
+    fi
+    
+    # 检查路由规则
+    if ! ip rule show | grep "fwmark 0x$PROXY_FWMARK" >/dev/null; then
+        echo "警告: 路由规则未正确设置"
+        return 1
+    else
+        echo "✓ 路由规则设置正确"
+    fi
+    
+    # 检查本地路由
+    if ! ip route show table $PROXY_ROUTE_TABLE | grep -q "local"; then
+        echo "警告: 本地路由表未正确设置"
+        return 1
+    else
+        echo "✓ 本地路由表设置正确"
+    fi
+    
+    # 检查 nftables 规则
+    if ! nft list table inet sing-box >/dev/null 2>&1; then
+        echo "警告: nftables 规则未正确应用"
+        return 1
+    else
+        echo "✓ nftables 规则应用正确"
+    fi
+    
+    echo "tproxy 设置验证完成"
+    return 0
 }
 
 # 主程序开始
@@ -93,6 +153,7 @@ main() {
     # 检查必要工具
     check_requirements
     
+    # 清理现有规则
     clearSingboxRules
 
     # 如果是 clean 模式,到此结束
@@ -114,10 +175,17 @@ main() {
             exit 1
         fi
 
-        # 设置 IP 规则和路由
-        ip rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE || { echo "添加 IP 规则失败"; exit 1; }
-        ip route add local default dev "$INTERFACE" table $PROXY_ROUTE_TABLE || { echo "添加路由失败"; exit 1; }
-        sysctl -w net.ipv4.ip_forward=1 > /dev/null || { echo "启用 IP 转发失败"; exit 1; }
+        # 设置 IP 规则（不再重复创建路由）
+        ip rule add fwmark $PROXY_FWMARK table $PROXY_ROUTE_TABLE || { 
+            echo "添加 IP 规则失败"
+            exit 1
+        }
+        
+        # 启用 IP 转发
+        sysctl -w net.ipv4.ip_forward=1 > /dev/null || { 
+            echo "启用 IP 转发失败"
+            exit 1
+        }
 
         # 确保目录存在
         mkdir -p /etc/sing-box/nft
@@ -138,25 +206,25 @@ table inet sing-box {
     chain prerouting_singbox {
         type filter hook prerouting priority mangle; policy accept;
 
+        # 跳过本机发出的流量（避免循环）
+        meta mark $ROUTING_MARK accept
+
         # 确保 DHCP 数据包不被拦截 UDP 67/68
         udp dport { 67, 68 } accept comment "Allow DHCP traffic"
         
-        # DNS 请求重定向到本地 SingBox 端口
-        meta l4proto { tcp, udp } th dport 53 tproxy to :$SINGBOX_PORT accept
-
-        # 拒绝访问本地 TProxy 端口
-        fib daddr type local meta l4proto { tcp, udp } th dport $SINGBOX_PORT reject with icmpx type host-unreachable
-
-        # 本地地址绕过
+        # 跳过到本机的流量
         fib daddr type local accept
 
         # 保留地址绕过
         ip daddr @RESERVED_IPSET accept
 
-        #放行所有经过 DNAT 的流量
+        # 放行所有经过 DNAT 的流量
         ct status dnat accept comment "Allow forwarded traffic"
 
-        # 重定向剩余流量到 SingBox 端口并设置标记
+        # DNS 请求重定向到本地 SingBox 端口
+        meta l4proto { tcp, udp } th dport 53 tproxy to :$SINGBOX_PORT accept
+
+        # 重定向其他流量到 SingBox 端口并设置标记
         meta l4proto { tcp, udp } tproxy to :$SINGBOX_PORT meta mark set $PROXY_FWMARK
     }
 
@@ -166,14 +234,8 @@ table inet sing-box {
         # 放行本地回环接口流量
         meta oifname "lo" accept
 
-        # 本地 sing-box 发出的流量绕过
+        # sing-box 发出的流量绕过
         meta mark $ROUTING_MARK accept
-
-        # DNS 请求标记
-        meta l4proto { tcp, udp } th dport 53 meta mark set $PROXY_FWMARK
-
-        # 绕过 NBNS 流量
-        udp dport { netbios-ns, netbios-dgm, netbios-ssn } accept
 
         # 本地地址绕过
         fib daddr type local accept
@@ -181,7 +243,10 @@ table inet sing-box {
         # 保留地址绕过
         ip daddr @RESERVED_IPSET accept
 
-        # 标记并重定向剩余流量
+        # 绕过 NBNS 流量
+        udp dport { netbios-ns, netbios-dgm, netbios-ssn } accept
+
+        # 标记其他流量
         meta l4proto { tcp, udp } meta mark set $PROXY_FWMARK
     }
 }
@@ -193,10 +258,11 @@ EOF
             echo "错误: 应用 nftables 规则失败"
             exit 1
         fi
-        # 持久化防火墙规则
-        # nft list ruleset > /etc/nftables.conf
 
         echo "SingBox 模式的防火墙规则已成功应用。"
+        
+        # 验证设置
+        verify_setup || echo "设置可能存在问题，请检查日志"
     fi
 }
 
