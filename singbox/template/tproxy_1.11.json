@@ -194,7 +194,7 @@
     {
       "type": "socks",
       "tag": "socks-in",
-      "listen": "0.0.0.0",
+      "listen": "127.0.0.1",
       "listen_port": 12138
     }
   ],
@@ -365,7 +365,7 @@
         "US",
         "D"
       ],
-      "default": "D"
+      "default": "HK"
     },
     {
       "tag": "HK",
