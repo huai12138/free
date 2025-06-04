@@ -219,7 +219,6 @@
       "tag": "Google",
       "type": "selector",
       "outbounds": [
-        "M",
         "HK",
         "SG",
         "JP",
@@ -231,7 +230,6 @@
       "tag": "OpenAi",
       "type": "selector",
       "outbounds": [
-        "M",
         "HK",
         "SG",
         "JP",
@@ -243,7 +241,6 @@
       "tag": "Steam",
       "type": "selector",
       "outbounds": [
-        "M",
         "HK",
         "SG",
         "JP",
@@ -255,7 +252,6 @@
       "tag": "Telegram",
       "type": "selector",
       "outbounds": [
-        "M",
         "HK",
         "SG",
         "JP",
@@ -267,7 +263,6 @@
       "tag": "Twitter",
       "type": "selector",
       "outbounds": [
-        "M",
         "HK",
         "SG",
         "JP",
@@ -279,7 +274,6 @@
       "tag": "FaceBook",
       "type": "selector",
       "outbounds": [
-        "M",
         "HK",
         "SG",
         "JP",
@@ -291,7 +285,6 @@
       "tag": "TikTok",
       "type": "selector",
       "outbounds": [
-        "M",
         "HK",
         "SG",
         "JP",
@@ -303,7 +296,6 @@
       "tag": "Netflix",
       "type": "selector",
       "outbounds": [
-        "M",
         "HK",
         "SG",
         "JP",
@@ -315,7 +307,6 @@
       "tag": "PikPak",
       "type": "selector",
       "outbounds": [
-        "M",
         "HK",
         "SG",
         "JP",
@@ -336,7 +327,6 @@
       "tag": "PikPak-Download",
       "type": "selector",
       "outbounds": [
-        "M",
         "HK",
         "SG",
         "JP",
@@ -358,7 +348,6 @@
       "tag": "Default",
       "type": "selector",
       "outbounds": [
-        "M",
         "HK",
         "SG",
         "JP",
@@ -1063,7 +1052,7 @@
     "clash_api": {
       "external_controller": "0.0.0.0:9090",
       "external_ui": "ui",
-      "secret": "Ab114514***",
+      "secret": "101300",
       "external_ui_download_url": "https://cdn.jsdmirror.com/gh/huai12138/free@main/dist-cdn-fonts.zip",
       "external_ui_download_detour": "D",
       "default_mode": "rule"
