@@ -67,7 +67,8 @@
       },
       {
         "domain_suffix": [
-          "202309.xyz"
+          "202309.xyz",
+          "082500.xyz"
         ],
         "action": "route",
         "server": "dns_proxy"
