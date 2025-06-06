@@ -66,6 +66,13 @@
         "server": "dns_direct"
       },
       {
+        "domain_suffix": [
+          "202309.xyz"
+        ],
+        "action": "route",
+        "server": "dns_proxy"
+      },
+      {
         "domain_keyword": [
           "msftconnecttest.com",
           "msftncsi.com"
