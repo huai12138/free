@@ -445,12 +445,6 @@
         "outbound": "D"
       },
       {
-        "source_ip_cidr": [
-          "10.0.0.8/32"
-        ],
-        "outbound": "D"
-      },
-      {
         "inbound": [
           "tproxy-in",
           "socks-in"
