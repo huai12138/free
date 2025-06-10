@@ -203,6 +203,13 @@ table inet sing-box {
         elements = $ReservedIP4
     }
 
+    set DIRECT_IPSET {
+        type ipv4_addr
+        flags interval
+        auto-merge
+        elements = { 10.0.0.8 }
+    }
+
     chain prerouting_singbox {
         type filter hook prerouting priority mangle; policy accept;
 
@@ -217,6 +224,10 @@ table inet sing-box {
 
         # 保留地址绕过
         ip daddr @RESERVED_IPSET accept
+
+        # 直连设备绕过
+        ip saddr @DIRECT_IPSET accept comment "Allow direct connection for specific devices"
+        ip daddr @DIRECT_IPSET accept comment "Allow direct connection for specific devices"
 
         # 放行所有经过 DNAT 的流量
         ct status dnat accept comment "Allow forwarded traffic"
@@ -242,6 +253,10 @@ table inet sing-box {
 
         # 保留地址绕过
         ip daddr @RESERVED_IPSET accept
+
+        # 直连设备绕过
+        ip saddr @DIRECT_IPSET accept comment "Allow direct connection for specific devices"
+        ip daddr @DIRECT_IPSET accept comment "Allow direct connection for specific devices"
 
         # 绕过 NBNS 流量
         udp dport { netbios-ns, netbios-dgm, netbios-ssn } accept
